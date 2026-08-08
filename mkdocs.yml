@@ -1,0 +1,31 @@
+site_name: Cours NSI
+site_url: https://nxpat.github.io/nsi-cours/
+
+theme:
+  name: pyodide-mkdocs-theme
+  language: fr
+
+extra_css:
+  - stylesheets/extra.css
+  
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - md_in_html       # Tells MkDocs to read Markdown inside HTML elements
+  - attr_list        # Allows custom CSS attributes (used heavily by the theme)
+
+nav:
+  - Accueil: index.md
+  - Terminale:
+    - 2. Programmation Orientée Objet: terminale/02_poo.md
+
+plugins:
+  - search
+  - pyodide_macros:
+      project:
+        id: "cours_nsi_terminale"
+      playground: 
+        include: "none"  # Hides the sandbox
+      testing:
+        include: "none"  # Hides the test_ides page

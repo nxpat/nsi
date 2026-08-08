@@ -1,0 +1,115 @@
+/* ==========================================================================
+   1. CHANGE TOP NAVBAR COLOR
+   ========================================================================== */
+.md-header {
+  background-color: #1e293b !important; /* Dark Slate / Navy Blue */
+}
+
+/* Optional: Change navbar background if scrolled/accented */
+.md-header[data-md-state="shadow"] {
+  background-color: #0f172a !important;
+}
+
+/* ==========================================================================
+   2. DECREASE CENTRAL COLUMN FONT SIZE
+   ========================================================================== */
+/* The default font size is around 0.8rem (16px). Reducing to 0.75rem or 0.7rem lowers it cleanly. */
+.md-typeset {
+  font-size: 0.75rem; /* Adjust down (e.g. 0.7rem) or up (0.8rem) as needed */
+  line-height: 1.5;
+}
+
+/* Adjust paragraph spacing slightly to match the smaller font */
+.md-typeset p {
+  margin-bottom: 0.8em;
+}
+
+/* ==========================================================================
+   1. REDUCE ACE CODE EDITOR FONT SIZE & LINE HEIGHT
+   ========================================================================== */
+/* Adjusts the Python code text inside the editor */
+.py_mk_wrapper .ace_editor,
+.py_mk_wrapper .ace_editor * {
+  font-size: 12px !important; /* Default is ~14px */
+}
+
+/* ==========================================================================
+   2. REDUCE TERMINAL / OUTPUT CONSOLE FONT SIZE
+   ========================================================================== */
+.py_mk_wrapper .terminal,
+.py_mk_wrapper .terminal *,
+.py_mk_wrapper .cmd {
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+}
+
+/* ==========================================================================
+   3. SHRINK PYODIDE TOOLBAR BUTTONS & SVG ICONS
+   ========================================================================== */
+/* 1. Flexbox container for the button row */
+.py_mk_wrapper,
+.py_mk_wrapper [class*="btn"],
+div[class*="py_mk"] {
+  align-items: center !important;
+}
+
+/* 2. Shrink and style the button wrappers */
+.py_mk_wrapper button,
+.py_mk_wrapper input[type="button"],
+.py_mk_wrapper .py_mk_btn,
+div[class*="py_mk"] button,
+div[class*="py_mk"] .py_mk_btn,
+div[class*="py_mk"] [role="button"] {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  padding: 4px !important;
+  margin: 2px !important;
+  border: none !important;
+  background: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: background-color 0.15s ease, transform 0.1s ease !important;
+}
+
+/* Hover state for clean interaction feedback */
+.py_mk_wrapper button:hover,
+.py_mk_wrapper .py_mk_btn:hover,
+div[class*="py_mk"] [role="button"]:hover {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  transform: translateY(-1px) !important;
+}
+
+/* 3. Force-shrink ALL image & SVG icons inside the buttons */
+.py_mk_wrapper img,
+.py_mk_wrapper svg,
+.py_mk_wrapper button img,
+.py_mk_wrapper button svg,
+.py_mk_wrapper .py_mk_btn img,
+.py_mk_wrapper .py_mk_btn svg,
+div[class*="py_mk"] img,
+div[class*="py_mk"] svg {
+  width: 26px !important;
+  height: 26px !important;
+  max-width: 26px !important;
+  max-height: 26px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
+  object-fit: contain !important;
+  margin: 0 auto !important;
+}
+
+/* ==========================================================================
+   4. OPTIONAL: SCALE DOWN THE ENTIRE WIDGET (GLOBAL COMPACT MODE)
+   ========================================================================== */
+/* If you want the entire block (editor + toolbar + terminal) scaled down */
+.py_mk_wrapper {
+  zoom: 0.9; /* Scales down the whole component by 10% */
+}
