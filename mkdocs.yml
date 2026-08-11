@@ -4,6 +4,14 @@ site_url: https://nxpat.github.io/nsi/
 theme:
   name: pyodide-mkdocs-theme
   language: fr
+  icon:
+    logo: material/code-block-tags
+  favicon: assets/mdi--code-block-tags
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+
+
 
 extra_css:
   - stylesheets/extra.css
@@ -14,11 +22,20 @@ markdown_extensions:
   - pymdownx.superfences
   - md_in_html       # Tells MkDocs to read Markdown inside HTML elements
   - attr_list        # Allows custom CSS attributes (used heavily by the theme)
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
   - Accueil: index.md
   - Terminale:
+    - 1. Structurer les données: terminale/01_tad.md
     - 2. Programmation Orientée Objet: terminale/02_poo.md
+    - 3. Programmer en grand: terminale/03_peg.md
+    - 4. SGBD Relationnels et SQL: terminale/04_sql.md
 
 plugins:
   - search
@@ -26,6 +43,6 @@ plugins:
       project:
         id: "cours_nsi_terminale"
       playground: 
-        include: "none"  # Hides the sandbox
+        include: "none"   # Hide with "none" or display with "site"
       testing:
-        include: "none"  # Hides the test_ides page
+        include: "serve"  # Display on dev server

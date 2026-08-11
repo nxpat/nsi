@@ -113,3 +113,38 @@ div[class*="py_mk"] svg {
 .py_mk_wrapper {
   zoom: 0.9; /* Scales down the whole component by 10% */
 }
+
+/* Style table header row */
+.md-typeset table:not([class]) th {
+    background-color: #3f51b5;
+    color: #ffffff;
+}
+
+/* 1. Make top-level sidebar items bold and slightly larger */
+.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link,
+.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__container > .md-nav__link {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--md-typeset-color);
+}
+
+/* 2. Indent sub-items and add a subtle left border line */
+.md-nav__list .md-nav__list {
+  padding-left: 0.75rem;
+  margin-left: 0.5rem;
+  border-left: 2px solid var(--md-default-fg-color--lightest);
+}
+
+/* 3. Style nested sub-item text */
+.md-nav__list .md-nav__list .md-nav__link {
+  font-size: 0.6rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* 4. Highlight the active sub-item clearly */
+.md-nav__list .md-nav__list .md-nav__item--active > .md-nav__link {
+  font-weight: 700;
+  opacity: 1;
+  color: var(--md-primary-fg-color);
+}
