@@ -31,14 +31,26 @@ extra_javascript:
 
 nav:
   - Accueil: index.md
+  - Première:
+    - 1. Commencer à programmer: 
+        - Introduction au langage Python: premiere/01_intro_python.ipynb
+    - 2. Systèmes et périphériques:
+        - Commandes Unix: premiere/02_unix_commands.md
+        - Historique d'Unix: premiere/02_unix_history.md
   - Terminale:
     - 1. Structurer les données: terminale/01_tad.md
     - 2. Programmation Orientée Objet: terminale/02_poo.md
     - 3. Programmer en grand: terminale/03_peg.md
     - 4. SGBD Relationnels et SQL: terminale/04_sql.md
+    - 5. Récursivité: 
+        - terminale/05_rec.md
+        - terminale/05__exp_rapide.md
+        - terminale/05__arbre_dappel.md
+        - terminale/05__tour_hanoi.md
 
 plugins:
   - search
+  - mkdocs-jupyter
   - pyodide_macros:
       project:
         id: "cours_nsi_terminale"

@@ -1,0 +1,6 @@
+assert est_palindrome("radar") is True, "Erreur : 'radar' est un palindrome."
+assert est_palindrome("nsi") is False, "Erreur : 'nsi' n'est pas un palindrome."
+assert est_palindrome("a") is True, "Erreur : Un mot d'une seule lettre est un palindrome."
+assert est_palindrome("") is True, "Erreur : Une chaîne vide est un palindrome."
+assert est_palindrome("kayak") is True, "Erreur : 'kayak' est un palindrome."
+assert est_palindrome("python") is False, "Erreur : 'python' n'est pas un palindrome."

@@ -22,7 +22,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Install Dependencies
-        run: pip install pyodide-mkdocs-theme
+        run: |
+          pip install pyodide-mkdocs-theme
+          pip install mkdocs-jupyter
 
       - name: Deploy to GitHub Pages
         run: mkdocs gh-deploy --force
