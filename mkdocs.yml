@@ -18,8 +18,8 @@ extra_css:
 
 markdown_extensions:
   - admonition
-  - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.details      # Enables the ??? collapsible accordion syntax
+  - pymdownx.superfences  # Enables nesting code blocks & macros inside accordions
   - md_in_html       # Tells MkDocs to read Markdown inside HTML elements
   - attr_list        # Allows custom CSS attributes (used heavily by the theme)
   - pymdownx.arithmatex:
