@@ -38,15 +38,34 @@ nav:
         - Commandes Unix: premiere/02_unix_commands.md
         - Historique d'Unix: premiere/02_unix_history.md
   - Terminale:
+    - Sommaire: terminale/sommaire.md
     - 1. Structurer les données: terminale/01_tad.md
     - 2. Programmation Orientée Objet: terminale/02_poo.md
     - 3. Programmer en grand: terminale/03_peg.md
     - 4. SGBD Relationnels et SQL: terminale/04_sql.md
-    - 5. Récursivité: 
-        - terminale/05_rec.md
-        - terminale/05__exp_rapide.md
-        - terminale/05__arbre_dappel.md
-        - terminale/05__tour_hanoi.md
+    - 5. Routage et réseaux: terminale/05_networks.md
+    - 6. Système sur puce - SoC: terminale/06_soc.md
+    - 7. Récursivité: 
+        - terminale/07_rec.md
+        - terminale/07__exp_rapide.md
+        - terminale/07__arbre_dappel.md
+        - terminale/07__tour_hanoi.md
+    - 8. Arbres:
+        - terminale/08_arbres.md
+        - terminale/08__abr.md
+        - terminale/08__abr_insert.md
+        - terminale/08__abr_del.md
+        - terminale/08__parcours_infixe.md
+    - 9. Graphes:
+        - terminale/09_graphes.md
+        - terminale/09__densite.md
+        - terminale/09__parcours_bfs.md
+        - terminale/09__parcours_dfs.md
+        - terminale/09__cycles.md
+        - terminale/09__dijkstra.md
+        - terminale/09__best_first_search.md
+        - terminale/09__algo_a.md
+        - terminale/09__heuristique.md
 
 plugins:
   - search

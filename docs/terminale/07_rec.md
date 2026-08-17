@@ -1,4 +1,4 @@
-# Chapitre 5 : La Récursivité
+# Chapitre 7 : La Récursivité
 
 ## 1. Définition et Principe
 Une fonction est dite **récursive** lorsqu'elle s'appelle elle-même au cours de son exécution. 
@@ -68,7 +68,7 @@ def somme_liste(L):
 # Test
 print(somme_liste()) # Devrait afficher 15
 ```
-{{ IDE('05_exos/exo1') }}
+{{ IDE('07_exos/exo1') }}
 
 ### Exercice 2 : Compte à rebours
 Écrire une fonction récursive `compte_a_rebours(n)` qui affiche les nombres de `n` jusqu'à 0.
@@ -82,7 +82,7 @@ def compte_a_rebours(n):
 compte_a_rebours(5)
 ```
 
-{{ IDE('05_exos/exo2') }}
+{{ IDE('07_exos/exo2') }}
 
 ### Exercice 3 : Le Palindrome
 Un palindrome est un mot qui se lit de la même façon dans les deux sens (ex: "radar"). Compléter la fonction ci-dessous.
@@ -102,4 +102,4 @@ print(est_palindrome("radar"))    # True
 print(est_palindrome("nsi"))      # False
 ```
 
-{{ IDE('05_exos/exo3') }}
+{{ IDE('07_exos/exo3') }}

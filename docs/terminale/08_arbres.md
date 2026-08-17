@@ -1,4 +1,4 @@
-# Chapitre 7 : Les Arbres
+# Chapitre 8 : Les Arbres
 
 Ce chapitre introduit les structures de données hiérarchiques, s'éloignant des structures linéaires (listes, piles, files) pour modéliser des relations de parenté ou des organisations complexes.
 
@@ -115,6 +115,8 @@ arbre_4 = Noeud(10, Noeud(5, Noeud(2)), Noeud(15))
 print(calculer_taille(arbre_4))  # Devrait afficher 4
 ```
 
+{{ IDE('08_exos/exo1') }}
+
 ### Exercice 2 : Recherche dans un ABR
 Écrire la méthode `chercher` pour un ABR.
 
@@ -151,6 +153,7 @@ print(chercher(abr, 10))  # Doit afficher True
 print(chercher(None, 17))  # Doit afficher False
 print(chercher(abr, 15))  # Doit afficher True
 ```
+{{ IDE('08_exos/exo2') }}
 
 ### Exercice 3 : Identifier un ABR
 Parmi les deux suites de clés obtenues par parcours infixe, laquelle correspond à un ABR ?
@@ -171,3 +174,5 @@ def est_triee(liste):
 print(est_triee(parcours_A))  # Doit afficher False
 print(est_triee(parcours_B))  # Doit afficher True
 ```
+
+{{ IDE('08_exos/exo3') }}

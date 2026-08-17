@@ -79,7 +79,7 @@ Soit le graphe non orienté suivant : Sommets {1, 2, 3, 4} et Arêtes {(1,2), (2
 2. Quel est le degré du sommet 2 ?
 3. Le graphe est-il complet ?
 
-??? success "Solution"
+??? success "Réponses"
     1. L'ordre est **4** (il y a 4 sommets).
     2. Le degré du sommet 2 est **3** (relié à 1, 3 et 4).
     3. Non, car le sommet 1 n'est pas relié aux sommets 3 et 4.
@@ -87,7 +87,7 @@ Soit le graphe non orienté suivant : Sommets {1, 2, 3, 4} et Arêtes {(1,2), (2
 ### Exercice 2 : Matrice d'adjacence
 Donnez la matrice d'adjacence du graphe de l'exercice 1.
 
-??? success "Solution"
+??? success "Réponses"
     En prenant les sommets dans l'ordre 1, 2, 3, 4 :
     ```
     []
@@ -100,5 +100,5 @@ Si vous devez trouver le chemin le plus court (en nombre de villes) entre deux v
 *   A) Parcours en profondeur
 *   B) Parcours en largeur
 
-??? success "Solution"
+??? success "Réponses"
     **B) Parcours en largeur.** Il permet de visiter les sommets par "générations" de distance croissante, garantissant ainsi l'optimalité du nombre d'étapes.

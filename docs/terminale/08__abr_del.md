@@ -1,4 +1,5 @@
 # Comment supprimer un nœud dans un Arbre Binaire de Recherche (ABR)
+
 La suppression d'un nœud dans un **Arbre Binaire de Recherche (ABR)** est une opération plus complexe que l'insertion, car elle nécessite de maintenir la propriété de tri de l'arbre : pour chaque nœud, les valeurs à gauche sont inférieures et celles à droite sont supérieures.
 
 L'algorithme se décompose généralement en **trois cas de figure** selon la structure du nœud à supprimer :
