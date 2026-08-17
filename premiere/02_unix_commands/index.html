@@ -1,0 +1,2712 @@
+<!--
+pyodide-mkdocs-theme
+Copyleft GNU GPLv3 🄯 2024 Frédéric Zinelli
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.
+If not, see <https://www.gnu.org/licenses/>.
+-->
+
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nxpat.github.io/nsi/premiere/02_unix_commands/">
+      
+      
+        <link rel="prev" href="../01_intro_python/">
+      
+      
+        <link rel="next" href="../02_unix_history/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/mdi--code-block-tags">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Commandes Unix - Cours NSI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+<script type="importmap">{"imports": {"functools": "../../js-libs/functools.js", "functoolsStorage": "../../js-libs/functoolsStorage.js", "functoolsTxt": "../../js-libs/functoolsTxt.js", "functoolsUi": "../../js-libs/functoolsUi.js", "functoolsUiBuilder": "../../js-libs/functoolsUiBuilder.js", "jsLogger": "../../js-libs/jsLogger.js", "process_and_gui": "../../js-libs/process_and_gui.js", "0-generic-python-snippets-pyodide": "../../js-per-pages/0-generic-python-snippets-pyodide.js", "1-error_logs-pyodide": "../../js-per-pages/1-error_logs-pyodide.js", "1-packagesInstaller-install-pyodide": "../../js-per-pages/1-packagesInstaller-install-pyodide.js", "1-runtimeManager-runtime-pyodide": "../../js-per-pages/1-runtimeManager-runtime-pyodide.js", "2-0-runnersManager-runners": "../../js-per-pages/2-0-runnersManager-runners.js", "2-pyodideSectionsRunner-runner-pyodide": "../../js-per-pages/2-pyodideSectionsRunner-runner-pyodide.js", "3-btnRunner-py_btn": "../../js-per-pages/3-btnRunner-py_btn.js", "3-terminalRunner-term": "../../js-per-pages/3-terminalRunner-term.js", "4-0-idesManager-ide": "../../js-per-pages/4-0-idesManager-ide.js", "4-ideLogistic-ide": "../../js-per-pages/4-ideLogistic-ide.js", "4-ideRunner-ide": "../../js-per-pages/4-ideRunner-ide.js", "5-ideTester-ides_test": "../../js-per-pages/5-ideTester-ides_test.js", "6-2-init-playground": "../../js-per-pages/6-2-init-playground.js", "6-idePlayground-playground": "../../js-per-pages/6-idePlayground-playground.js", "qcms-qcm": "../../js-per-pages/qcms-qcm.js", "start-pyodide": "../../js-per-pages/start-pyodide.js", "overlord": "../../js-scripts/overlord.js", "subscriptions": "../../js-scripts/subscriptions.js"}}</script>
+
+
+
+      
+    
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/jquery.terminal@2.43.1/css/jquery.terminal.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<script src="../../js-libs/0-config.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script type="text/javascript">
+if(!window.CONFIG) window.CONFIG={}
+CONFIG.argsFigureDivId="figure1"
+CONFIG.baseUrl="../.."
+CONFIG.buttonIconsDirectory="../../assets/images"
+CONFIG.editorFontFamily="monospace"
+CONFIG.editorFontSize=15
+CONFIG.exportZipPrefix=""
+CONFIG.exportZipWithNames=false
+CONFIG.inServe=false
+CONFIG.keyStrokesAutoSave=30
+CONFIG.language="fr"
+CONFIG.pmtUrl="https://gitlab.com/frederic-zinelli/pyodide-mkdocs-theme"
+CONFIG.projectId="cours_nsi_terminale"
+CONFIG.projectMoveFromOldId=null
+CONFIG.projectNoJsWarning=false
+CONFIG.pythonLibs=[]
+CONFIG.siteUrl="https://nxpat.github.io/nsi/"
+CONFIG.version="5.5.6"
+CONFIG.lang={"allOthersTrash": {"msg": "1 entr\u00e9e non associ\u00e9e au projet en cours a \u00e9t\u00e9 trouv\u00e9e. Voulez-vous la supprimer ?\n(Vous risquez de perdre des donn\u00e9es d'un site voisin !)", "plural": "{N} entr\u00e9es non associ\u00e9es au projet en cours ont \u00e9t\u00e9 trouv\u00e9es. Voulez-vous toutes les supprimer ?\n(Vous risquez de perdre des donn\u00e9es d'un site voisin !)"}, "attemptsLeft": {"msg": "\u00c9valuations restantes"}, "check": {"msg": "Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)", "em": 9, "kbd": ""}, "comments": {"msg": "(D\u00e9s-)Active le code apr\u00e8s la ligne <code># Tests</code> (insensible \u00e0 la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)", "em": 17, "kbd": "Ctrl+I"}, "complementTrash": {"msg": "Nota : 1 entr\u00e9e non associ\u00e9e \u00e0 ce projet, qui ne sera pas supprim\u00e9e", "plural": "Nota : {N} entr\u00e9es non associ\u00e9es \u00e0 ce projet, qui ne seront pas supprim\u00e9es"}, "corr": {"msg": "\ud83d\udc0d Proposition de correction"}, "corrBtn": {"msg": "Tester la correction (serve)", "em": 0, "kbd": ""}, "delayedReveal": {"msg": "Solution affich\u00e9e dans {N} essai(s).", "format": "info"}, "download": {"msg": "T\u00e9l\u00e9charger", "em": 0, "kbd": ""}, "editorCode": {"msg": "\u00c9diteur", "format": "info"}, "failHead": {"msg": "Dommage !", "format": "warning"}, "failTail": {"msg": "est maintenant disponible", "plural": "sont maintenant disponibles"}, "feedback": {"msg": "Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)", "em": 19, "kbd": ""}, "figureAdmoTitle": {"msg": "Votre figure"}, "figureText": {"msg": "Votre trac\u00e9 sera ici"}, "fullScreen": {"msg": "Entrer ou sortir du mode \"plein \u00e9cran\"<br>(<kbd>Esc</kbd>)", "em": 10, "kbd": "Esc"}, "installDone": {"msg": "Installations termin\u00e9es !", "format": "info"}, "installStart": {"msg": "Installation de paquets python. Ceci peut prendre un certain temps...", "format": "info"}, "loadIde": {"msg": "Configure l'IDE avec ces donn\u00e9es", "em": 10, "kbd": ""}, "noCodesTrash": {"msg": "Pas de codes trouv\u00e9s pour le projet en cours sur ce navigateur."}, "p5Start": {"msg": "D\u00e9marre l'animation", "em": 0, "kbd": ""}, "p5Step": {"msg": "Avance d'une image", "em": 0, "kbd": ""}, "p5Stop": {"msg": "Arr\u00eate l'animation", "em": 0, "kbd": ""}, "pickerFailure": {"msg": "Veuillez cliquer sur la page entre deux utilisations des raccourcis clavier ou utiliser un bouton, afin de pouvoir t\u00e9l\u00e9verser un fichier."}, "play": {"msg": "Ex\u00e9cuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)", "em": 9, "kbd": "Ctrl+S"}, "publicTests": {"msg": "Tests publics", "format": "info"}, "pyBtn": {"msg": "Ex\u00e9cuter le code", "em": 9, "kbd": ""}, "qcmCheckTip": {"msg": "V\u00e9rifier les r\u00e9ponses", "em": 11, "kbd": ""}, "qcmMaskTip": {"msg": "Les r\u00e9ponses resteront cach\u00e9es...", "em": 11, "kbd": ""}, "qcmRedoTip": {"msg": "Recommencer", "em": 9, "kbd": ""}, "qcmTitle": {"msg": "Question", "plural": "Questions"}, "refresh": {"msg": "Une version plus r\u00e9cente du code existe.\nVeuillez copier vos \u00e9ventuelles modifications puis r\u00e9initialiser l'IDE.", "format": "warning"}, "rem": {"msg": "Remarques"}, "removeTrash": {"msg": "Il y a actuellement 1 r\u00e9f\u00e9rence enregistr\u00e9e sur ce navigateur.\nVoulez-vous l'effacer ?", "plural": "Il y a actuellement {N} r\u00e9f\u00e9rences enregistr\u00e9es sur ce navigateur.\nVoulez-vous toutes les effacer ?"}, "restart": {"msg": "R\u00e9initialiser l'\u00e9diteur", "em": 0, "kbd": ""}, "restartConfirm": {"msg": "ATTENTION: r\u00e9initialiser l'\u00e9diteur fera perdre les anciens codes, status de validation et historiques.", "em": 0, "kbd": ""}, "revealCorr": {"msg": "le corrig\u00e9"}, "revealJoin": {"msg": "et"}, "revealRem": {"msg": "les commentaires"}, "runScript": {"msg": "Script lanc\u00e9...", "format": "info"}, "save": {"msg": "Sauvegarder dans le navigateur", "em": 0, "kbd": ""}, "secretTests": {"msg": "Tests secrets", "format": "info"}, "show": {"msg": "Afficher corr & REMs", "em": 0, "kbd": ""}, "splitModePlaceholder": {"msg": "\u00c9diteur dans l'autre colonne"}, "splitScreen": {"msg": "Entrer ou sortir du mode \"deux colonnes\"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)", "em": 23, "kbd": ""}, "storageIdCollision": {"msg": "Contacter l'auteur du site web en lui fournissant ce message complet. Une collision potentielle d'ids entre plusieurs projets \u00e0 \u00e9t\u00e9 rencontr\u00e9e. Il faut ajouter ou modifier l'argument ID pour l'IDE suivant:"}, "successHead": {"msg": "Bravo !", "format": "success"}, "successHeadExtra": {"msg": "Vous avez r\u00e9ussi tous les tests !"}, "successMsg": {"msg": "OK", "format": "success"}, "successMsgNoTests": {"msg": "Termin\u00e9 sans erreur.", "format": "info"}, "successTail": {"msg": "Pensez \u00e0 lire"}, "test1Ide": {"msg": "Lance ce test", "em": 7, "kbd": ""}, "testIdes": {"msg": "Lance tous les tests...", "em": 7, "kbd": ""}, "testStop": {"msg": "Arr\u00eate les tests", "em": 6, "kbd": ""}, "tests": {"msg": "\n\n# Tests\n\n", "as_pattern": "^#\\s*Tests"}, "testsDone": {"msg": "Tests termin\u00e9s", "format": "info"}, "tipTrash": {"msg": "Supprimer du navigateur les codes enregistr\u00e9s pour Cours NSI", "em": 15, "kbd": ""}, "titleCorr": {"msg": "Solution"}, "titleRem": {"msg": "Remarques"}, "unforgettable": {"msg": "N'oubliez pas de faire une validation !", "format": "warning"}, "upload": {"msg": "T\u00e9l\u00e9verser", "em": 0, "kbd": ""}, "validation": {"msg": "Validation - ", "format": "info"}, "wrapTerm": {"msg": "Si activ\u00e9, le texte copi\u00e9 dans le terminal est joint sur une seule ligne avant d'\u00eatre copi\u00e9 dans le presse-papier", "em": 19, "kbd": ""}, "zip": {"msg": "Archiver les codes des IDEs exportables de la page", "em": 14, "kbd": ""}, "zipAskForNames": {"msg": "Veuillez pr\u00e9ciser votre/vos noms (cha\u00eene vide interdite) :"}}
+</script>
+<script src="../../js-libs/0-legacy-subscriber.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/functools.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsStorage.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsTxt.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsUi.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsUiBuilder.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/jsLogger.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/mathjax-libs.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/process_and_gui.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<link href="../../pyodide-css/0-generic.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/btns-header.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/history.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/hourglass.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/ide.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/qcm.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/terminal.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/testing.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<input type="checkbox" id="ace_palette" autocomplete="off" class="md-toggle" data-ace-dark-mode="tomorrow_night_bright" data-ace-light-mode="crimson_editor">
+
+
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-au-terminal-et-aux-commandes-unixlinux" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Cours NSI" class="md-header__button md-logo" aria-label="Cours NSI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 3.41 7 4.82 3.82 8 7 11.18 5.59 12.6 1 8zm5.82 0L16 8l-4.59 4.6L10 11.18 13.18 8 10 4.82zM22 6v12c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2v-4h2v4h16V6h-2.97V4H20c1.11 0 2 .89 2 2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cours NSI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Commandes Unix
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue"  aria-label="Passer au mode nuit"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode nuit" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue"  aria-label="Passer au mode jour"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode jour" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01_intro_python/" class="md-tabs__link">
+          
+  
+  
+  Première
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../terminale/sommaire.md" class="md-tabs__link">
+          
+  
+  
+  Terminale
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cours NSI" class="md-nav__button md-logo" aria-label="Cours NSI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 3.41 7 4.82 3.82 8 7 11.18 5.59 12.6 1 8zm5.82 0L16 8l-4.59 4.6L10 11.18 13.18 8 10 4.82zM22 6v12c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2v-4h2v4h16V6h-2.97V4H20c1.11 0 2 .89 2 2"/></svg>
+
+    </a>
+    Cours NSI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Première
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Première
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Commencer à programmer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Commencer à programmer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_intro_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction au langage Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Systèmes et périphériques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Systèmes et périphériques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commandes Unix
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commandes Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-au-terminal-et-aux-commandes-unixlinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction au Terminal et aux Commandes Unix/Linux
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vue-detailee-des-commandes-unixlinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vue Détailée des Commandes Unix/Linux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vue Détailée des Commandes Unix/Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. cd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. pwd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. history
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-chmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. chmod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-chown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. chown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. grep
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-find" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. find
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-cp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. cp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-mkdir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. mkdir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. mv
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. cat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. touch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-wc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. wc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-uniq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. uniq
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. more
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-less" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. less
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-tail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. tail
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. diff
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-top" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. top
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. ps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-kill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. kill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-man" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. man
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_unix_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Historique d'Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terminale
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Terminale
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/sommaire.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sommaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/01_tad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Structurer les données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/02_poo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Programmation Orientée Objet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/03_peg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Programmer en grand
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/04_sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. SGBD Relationnels et SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/05_networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Routage et réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/06_soc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Système sur puce - SoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Récursivité
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    7. Récursivité
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/07_rec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 7 : La Récursivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/07__exp_rapide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L'exponentiation rapide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/07__arbre_dappel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arbre d'appels et complexité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/07__tour_hanoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les Tours de Hanoï
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arbres
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    8. Arbres
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/08_arbres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Arbres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/08__abr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arbres binaires de recherche (ABR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/08__abr_insert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comment insérer une clé dans un ABR ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/08__abr_del/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comment supprimer un nœud dans un Arbre Binaire de Recherche (ABR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/08__parcours_infixe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pparcours infixe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Graphes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9. Graphes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09_graphes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Graphes - Notions Essentielles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09__densite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Densité d'un graphe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09__parcours_bfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implémentation d'un parcours en largeur (BFS) en Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09__parcours_dfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implémentation d'un parcours en profondeur (DFS) en Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09__cycles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Détection de cycles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09__dijkstra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme de Dijkstra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09__best_first_search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme Best-First Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09__algo_a/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme A*
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminale/09__heuristique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heuristique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-au-terminal-et-aux-commandes-unixlinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction au Terminal et aux Commandes Unix/Linux
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vue-detailee-des-commandes-unixlinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vue Détailée des Commandes Unix/Linux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vue Détailée des Commandes Unix/Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. cd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. pwd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. history
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-chmod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. chmod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-chown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. chown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. grep
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-find" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. find
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-cp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. cp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-mkdir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. mkdir
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. mv
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. cat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. touch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-wc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. wc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-uniq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. uniq
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. more
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-less" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. less
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19-tail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. tail
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. diff
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-top" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. top
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. ps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-kill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. kill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-man" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. man
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+                  
+
+
+  <h1>Commandes Unix</h1>
+
+<h2 id="introduction-au-terminal-et-aux-commandes-unixlinux">Introduction au Terminal et aux Commandes Unix/Linux</h2>
+<p>Le terminal est un outil puissant qui permet aux utilisateurs d'interagir avec leurs systèmes informatiques en utilisant des commandes basées sur du texte. Contrairement aux interfaces graphiques (GUI), qui utilisent des fenêtres et des icônes, le terminal repose uniquement sur des commandes saisies. Cela peut sembler intimidant au départ, mais cela offre un grand contrôle et flexibilité pour effectuer des tâches efficacement.</p>
+<p>Unix/Linux est une famille de systèmes d'exploitation largement utilisés dans les serveurs, les mainframes et les systèmes embarqués. Apprendre les commandes les plus courantes peut aider à gérer des fichiers, naviguer dans les répertoires et résoudre des problèmes efficacement.</p>
+<p>Voici un aperçu des commandes Unix/Linux essentielles :</p>
+<table>
+<thead>
+<tr>
+<th><strong>Commande</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>cd</strong></td>
+<td>Changer le répertoire courant. Par exemple, <code>cd Documents</code> vous déplace dans le dossier Documents.</td>
+</tr>
+<tr>
+<td><strong>pwd</strong></td>
+<td>Affiche le répertoire de travail actuel, montrant où vous êtes dans le système de fichiers.</td>
+</tr>
+<tr>
+<td><strong>ls</strong></td>
+<td>Lister le contenu d'un répertoire. Utiliser <code>ls -l</code> fournit des informations détaillées.</td>
+</tr>
+<tr>
+<td><strong>history</strong></td>
+<td>Afficher les commandes précédemment saisies, facilitant leur réutilisation.</td>
+</tr>
+<tr>
+<td><strong>chmod</strong></td>
+<td>Modifier les permissions d'un fichier ou d'un répertoire. Par exemple, <code>chmod 755 fichier.txt</code> définit des permissions spécifiques.</td>
+</tr>
+<tr>
+<td><strong>chown</strong></td>
+<td>Changer le propriétaire d'un fichier ou d'un répertoire. Utile pour gérer l'accès des utilisateurs.</td>
+</tr>
+<tr>
+<td><strong>grep</strong></td>
+<td>Rechercher un texte spécifique dans des fichiers. Par exemple, <code>grep 'mot-clé' fichier</code> trouve 'mot-clé' dans le fichier.</td>
+</tr>
+<tr>
+<td><strong>find</strong></td>
+<td>Rechercher des fichiers et des répertoires à un chemin spécifié. Par exemple, <code>find . -name '*.txt'</code> trouve tous les fichiers texte.</td>
+</tr>
+<tr>
+<td><strong>cp</strong></td>
+<td>Copier des fichiers ou des répertoires. Par exemple, <code>cp source.txt destination.txt</code> crée une copie.</td>
+</tr>
+<tr>
+<td><strong>mkdir</strong></td>
+<td>Créer un nouveau répertoire. Par exemple, <code>mkdir nouveau_dossier</code> crée un dossier nommé nouveau_dossier.</td>
+</tr>
+<tr>
+<td><strong>mv</strong></td>
+<td>Déplacer des fichiers ou des répertoires, également utilisé pour renommer. Par exemple, <code>mv ancien_nom.txt nouveau_nom.txt</code> renomme un fichier.</td>
+</tr>
+<tr>
+<td><strong>cat</strong></td>
+<td>Afficher le contenu d'un fichier. Par exemple, <code>cat fichier.txt</code> montre le contenu du fichier à l'écran.</td>
+</tr>
+<tr>
+<td><strong>touch</strong></td>
+<td>Créer un nouveau fichier vide ou mettre à jour l'horodatage d'un fichier existant.</td>
+</tr>
+<tr>
+<td><strong>wc</strong></td>
+<td>Compter les lignes, les mots et les caractères dans un fichier. Par exemple, <code>wc fichier.txt</code> affiche ces comptages.</td>
+</tr>
+<tr>
+<td><strong>sort</strong></td>
+<td>Trier les lignes de texte d'un fichier. Par exemple, <code>sort fichier.txt</code> trie le contenu par ordre alphabétique.</td>
+</tr>
+<tr>
+<td><strong>uniq</strong></td>
+<td>Filtrer les lignes répétées dans un fichier. Souvent utilisé avec <code>sort</code>.</td>
+</tr>
+<tr>
+<td><strong>more</strong></td>
+<td>Voir le contenu d'un fichier page par page, utile pour les fichiers volumineux.</td>
+</tr>
+<tr>
+<td><strong>less</strong></td>
+<td>Semblable à more, mais permet la navigation en arrière dans le fichier.</td>
+</tr>
+<tr>
+<td><strong>tail</strong></td>
+<td>Voir les dernières lignes d'un fichier. Par exemple, <code>tail -n 10 fichier.txt</code> montre les dix dernières lignes.</td>
+</tr>
+<tr>
+<td><strong>diff</strong></td>
+<td>Comparer deux fichiers ligne par ligne et montrer les différences. Par exemple, <code>diff fichier1.txt fichier2.txt</code>.</td>
+</tr>
+<tr>
+<td><strong>top</strong></td>
+<td>Afficher les processus en cours en temps réel, utile pour surveiller les performances du système.</td>
+</tr>
+<tr>
+<td><strong>ps</strong></td>
+<td>Afficher des informations sur les processus actifs.</td>
+</tr>
+<tr>
+<td><strong>kill</strong></td>
+<td>Terminer un processus par son ID. Par exemple, <code>kill 1234</code> arrête le processus avec l'ID 1234.</td>
+</tr>
+<tr>
+<td><strong>man</strong></td>
+<td>Accéder aux pages de manuel pour les commandes, fournissant une documentation détaillée. Par exemple, <code>man ls</code> montre le manuel de la commande <code>ls</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>La pratique de ces commandes dans un terminal favorise la compréhension des systèmes informatiques et améliore les compétences en résolution de problèmes dans des scénarios réels.</p>
+<h2 id="vue-detailee-des-commandes-unixlinux">Vue Détailée des Commandes Unix/Linux</h2>
+<p>Voici des descriptions étendues de chaque commande Unix/Linux, y compris les options courantes et des exemples typiques.</p>
+<h3 id="1-cd">1. <strong>cd</strong></h3>
+<p><strong>Description :</strong> Changer le répertoire de travail courant.</p>
+<p><strong>Options Communes :</strong>
+- <code>cd ..</code> – Monter d'un répertoire.
+- <code>cd ~</code> – Se déplacer vers le répertoire personnel.
+- <code>cd -</code> – Revenir au répertoire précédent.</p>
+<p><strong>Exemples :</strong>
+- <code>cd Documents</code> – Change pour le répertoire Documents.
+- <code>cd /usr/local/bin</code> – Navigue directement vers le chemin spécifié.</p>
+<hr />
+<h3 id="2-pwd">2. <strong>pwd</strong></h3>
+<p><strong>Description :</strong> Afficher le répertoire de travail actuel.</p>
+<p><strong>Options Communes :</strong>
+- Aucune option n'est généralement utilisée.</p>
+<p><strong>Exemples :</strong>
+- En tapant simplement <code>pwd</code>, cela affiche le chemin complet du répertoire courant, e.g., <code>/home/user/Documents</code>.</p>
+<hr />
+<h3 id="3-ls">3. <strong>ls</strong></h3>
+<p><strong>Description :</strong> Lister le contenu d'un répertoire.</p>
+<p><strong>Options Communes :</strong>
+- <code>-l</code> – Format de listing long (informations détaillées).
+- <code>-a</code> – Lister tous les fichiers, y compris les fichiers cachés (commençant par un point).
+- <code>-h</code> – Tailles lisibles par l'homme (lorsqu'il est utilisé avec <code>-l</code>).</p>
+<p><strong>Exemples :</strong>
+- <code>ls</code> – Liste les fichiers dans le répertoire courant.
+- <code>ls -la</code> – Montre tous les fichiers en format long, y compris les fichiers cachés.</p>
+<hr />
+<h3 id="4-history">4. <strong>history</strong></h3>
+<p><strong>Description :</strong> Afficher l'historique des commandes.</p>
+<p><strong>Options Communes :</strong>
+- <code>!n</code> – Réexécuter la commande du numéro n dans l'historique.
+- <code>-c</code> – Effacer l'historique.</p>
+<p><strong>Exemples :</strong>
+- <code>history</code> – Affiche la liste des commandes précédemment saisies.
+- <code>!5</code> – Exécute la cinquième commande de la liste d'historique.</p>
+<hr />
+<h3 id="5-chmod">5. <strong>chmod</strong></h3>
+<p><strong>Description :</strong> Modifier les permissions d'un fichier ou d'un répertoire.</p>
+<p><strong>Options Communes :</strong>
+- Paramètres numériques (<code>755</code>, <code>644</code>) pour définir des permissions spécifiques.
+  - <code>u+x</code> – Ajoute des permissions d'exécution pour le propriétaire.
+  - <code>g-w</code> – Enlève les permissions d'écriture pour le groupe.
+- <code>-R</code> – Appliquer les changements de manière récursive aux répertoires.</p>
+<p><strong>Exemples :</strong>
+- <code>chmod 755 script.sh</code> – Définit les permissions pour le propriétaire à lire, écrire et exécuter, et pour les autres à lire et exécuter.
+- <code>chmod u+x fichier.sh</code> – Ajoute les permissions d'exécution pour le propriétaire.
+- <code>chmod -R 700 dossier</code> – Donne toutes les permissions au propriétaire pour tous les fichiers d'un dossier.</p>
+<hr />
+<h3 id="6-chown">6. <strong>chown</strong></h3>
+<p><strong>Description :</strong> Changer le propriétaire d'un fichier ou d'un répertoire.</p>
+<p><strong>Options Communes :</strong>
+- <code>--recursive</code> ou <code>-R</code> – Changer le propriétaire de manière récursive.</p>
+<p><strong>Exemples :</strong>
+- <code>chown utilisateur1:fichier1.txt</code> – Change le propriétaire du fichier à utilisateur1 et le groupe à fichier1.txt.
+- <code>chown -R nom_utilisateur:groupe /chemin/vers/dossier</code> – Change le propriétaire de manière récursive pour tous les fichiers.</p>
+<hr />
+<h3 id="7-grep">7. <strong>grep</strong></h3>
+<p><strong>Description :</strong> Rechercher un motif spécifique dans des fichiers.</p>
+<p><strong>Options Communes :</strong>
+- <code>-i</code> – Ignorer la distinction entre majuscules et minuscules.
+- <code>-r</code> – Rechercher de manière récursive à travers les répertoires.
+- <code>-v</code> – Inverser la correspondance (montrer les lignes qui ne correspondent pas).</p>
+<p><strong>Exemples :</strong>
+- <code>grep 'erreur' log.txt</code> – Recherche le mot "erreur" dans log.txt.
+- <code>grep -r 'TODO' /chemin/vers/projet/</code> – Recherche récursivement "TODO" dans tous les fichiers d'un répertoire.</p>
+<hr />
+<h3 id="8-find">8. <strong>find</strong></h3>
+<p><strong>Description :</strong> Rechercher des fichiers et des répertoires dans une hiérarchie de répertoires.</p>
+<p><strong>Options Communes :</strong>
+- <code>-name</code> – Rechercher par nom de fichier.
+- <code>-type</code> – Spécifier le type (e.g., <code>f</code> pour fichier, <code>d</code> pour répertoire).
+- <code>-exec</code> – Exécuter une commande sur les fichiers trouvés.</p>
+<p><strong>Exemples :</strong>
+- <code>find . -name '*.txt'</code> – Trouve tous les fichiers texte dans le répertoire courant et les sous-répertoires.
+- <code>find /chemin -type d -exec ls -l {} \;</code> – Liste les détails de tous les répertoires dans un chemin spécifié.</p>
+<hr />
+<h3 id="9-cp">9. <strong>cp</strong></h3>
+<p><strong>Description :</strong> Copier des fichiers et des répertoires.</p>
+<p><strong>Options Communes :</strong>
+- <code>-r</code> – Copier les répertoires de manière récursive.
+- <code>-i</code> – Demander une confirmation avant d'écraser les fichiers existants.
+- <code>-u</code> – Copier uniquement lorsque la source est plus récente que la destination ou lorsque le fichier de destination est manquant.</p>
+<p><strong>Exemples :</strong>
+- <code>cp fichier.txt /chemin/vers/destination/</code> – Copie fichier.txt vers le chemin spécifié.
+- <code>cp -r dossier/ /chemin/vers/destination/</code> – Copie récursivement un dossier entier.</p>
+<hr />
+<h3 id="10-mkdir">10. <strong>mkdir</strong></h3>
+<p><strong>Description :</strong> Créer un nouveau répertoire.</p>
+<p><strong>Options Communes :</strong>
+- <code>-p</code> – Créer les répertoires parents si nécessaire.</p>
+<p><strong>Exemples :</strong>
+- <code>mkdir nouveau_dossier</code> – Crée un nouveau répertoire appelé nouveau_dossier.
+- <code>mkdir -p parent/enfant</code> – Crée les répertoires parent et enfant si ils n'existent pas.</p>
+<hr />
+<h3 id="11-mv">11. <strong>mv</strong></h3>
+<p><strong>Description :</strong> Déplacer ou renommer des fichiers et des répertoires.</p>
+<p><strong>Options Communes :</strong>
+- <code>-i</code> – Demander une confirmation avant d'écraser les fichiers existants.</p>
+<p><strong>Exemples :</strong>
+- <code>mv ancien_nom.txt nouveau_nom.txt</code> – Renomme le fichier ancien_nom.txt en nouveau_nom.txt.
+- <code>mv fichier.txt /chemin/vers/destination/</code> – Déplace fichier.txt vers le chemin spécifié.</p>
+<hr />
+<h3 id="12-cat">12. <strong>cat</strong></h3>
+<p><strong>Description :</strong> Afficher le contenu d'un fichier.</p>
+<p><strong>Options Communes :</strong>
+- <code>-n</code> – Numéroter les lignes dans la sortie.
+- <code>-b</code> – Numéroter les lignes non vides.</p>
+<p><strong>Exemples :</strong>
+- <code>cat fichier.txt</code> – Affiche le contenu de fichier.txt à l'écran.
+- <code>cat -n fichier.txt</code> – Affiche le contenu avec les lignes numérotées.</p>
+<hr />
+<h3 id="13-touch">13. <strong>touch</strong></h3>
+<p><strong>Description :</strong> Créer un nouveau fichier vide ou mettre à jour l'horodatage d'un fichier existant.</p>
+<p><strong>Options Communes :</strong>
+- Aucun.</p>
+<p><strong>Exemples :</strong>
+- <code>touch nouveau_fichier.txt</code> – Crée un nouveau fichier vide nommé nouveau_fichier.txt.
+- <code>touch fichier_exist.txt</code> – Met à jour l'horodatage de fichier_exist.txt.</p>
+<hr />
+<h3 id="14-wc">14. <strong>wc</strong></h3>
+<p><strong>Description :</strong> Compter les lignes, les mots et les caractères dans un fichier.</p>
+<p><strong>Options Communes :</strong>
+- <code>-l</code> – Compter seulement les lignes.
+- <code>-w</code> – Compter seulement les mots.
+- <code>-c</code> – Compter seulement les caractères.</p>
+<p><strong>Exemples :</strong>
+- <code>wc fichier.txt</code> – Affiche le nombre de lignes, de mots et de caractères dans fichier.txt.
+- <code>wc -l fichier.txt</code> – Affiche seulement le nombre de lignes dans fichier.txt.</p>
+<hr />
+<h3 id="15-sort">15. <strong>sort</strong></h3>
+<p><strong>Description :</strong> Trier les lignes de texte d'un fichier.</p>
+<p><strong>Options Communes :</strong>
+- <code>-r</code> – Trier en ordre inverse.
+- <code>-n</code> – Trier numériquement.</p>
+<p><strong>Exemples :</strong>
+- <code>sort fichier.txt</code> – Trie le contenu de fichier.txt par ordre alphabétique.
+- <code>sort -n nombres.txt</code> – Trie les lignes numériquement dans nombres.txt.</p>
+<hr />
+<h3 id="16-uniq">16. <strong>uniq</strong></h3>
+<p><strong>Description :</strong> Filtrer les lignes répétées dans un fichier.</p>
+<p><strong>Options Communes :</strong>
+- <code>-c</code> – Compter le nombre d'occurrences de chaque ligne.
+- <code>-d</code> – Afficher uniquement les lignes dupliquées.</p>
+<p><strong>Exemples :</strong>
+- <code>uniq fichier.txt</code> – Affiche les lignes uniques dans fichier.txt.
+- <code>sort fichier.txt | uniq -c</code> – Trie et compte les occurrences de chaque ligne dans fichier.txt.</p>
+<hr />
+<h3 id="17-more">17. <strong>more</strong></h3>
+<p><strong>Description :</strong> Afficher le contenu d'un fichier une page à la fois.</p>
+<p><strong>Options Communes :</strong>
+- Aucun.</p>
+<p><strong>Exemples :</strong>
+- <code>more fichier.txt</code> – Montre le contenu de fichier.txt, page par page.</p>
+<hr />
+<h3 id="18-less">18. <strong>less</strong></h3>
+<p><strong>Description :</strong> Similaire à <code>more</code>, mais permet la navigation vers l’arrière dans le fichier.</p>
+<p><strong>Options Communes :</strong>
+- <code>-N</code> – Affiche les numéros de ligne.
+- <code>-S</code> – Raccourcit les lignes trop longues.</p>
+<p><strong>Exemples :</strong>
+- <code>less fichier.txt</code> – Ouvre fichier.txt, permettant de naviguer à travers le fichier avec les touches fléchées.
+- <code>less -N fichier.txt</code> – Ouvre le fichier avec les numéros de ligne affichés.</p>
+<hr />
+<h3 id="19-tail">19. <strong>tail</strong></h3>
+<p><strong>Description :</strong> Afficher les dernières lignes d'un fichier.</p>
+<p><strong>Options Communes :</strong>
+- <code>-n N</code> – Affiche les N dernières lignes (pr default, cela affiche 10 lignes).
+- <code>-f</code> – Suit les ajouts en temps réel à un fichier.</p>
+<p><strong>Exemples :</strong>
+- <code>tail fichier.txt</code> – Affiche les 10 dernières lignes de fichier.txt.
+- <code>tail -n 20 fichier.txt</code> – Affiche les 20 dernières lignes de fichier.txt.
+- <code>tail -f fichier.log</code> – Suivre les nouvelles entrées dans fichier.log en temps réel.</p>
+<hr />
+<h3 id="20-diff">20. <strong>diff</strong></h3>
+<p><strong>Description :</strong> Comparer deux fichiers ligne par ligne et montrer leurs différences.</p>
+<p><strong>Options Communes :</strong>
+- <code>-u</code> – Affiche les différences en format "unifié".
+- <code>-i</code> – Ignore la casse pendant la comparaison.</p>
+<p><strong>Exemples :</strong>
+- <code>diff fichier1.txt fichier2.txt</code> – Compare fichier1.txt et fichier2.txt et affiche les différences.
+- <code>diff -u fichier1.txt fichier2.txt</code> – Affiche les différences au format unifié.</p>
+<hr />
+<h3 id="21-top">21. <strong>top</strong></h3>
+<p><strong>Description :</strong> Affiche les processus en cours en temps réel.</p>
+<p><strong>Options Communes :</strong>
+- <code>-u utilisateur</code> – Filtrer par un utilisateur spécifique.
+- <code>-n nombre</code> – Exécute un certain nombre de mises à jour avant de quitter.</p>
+<p><strong>Exemples :</strong>
+- <code>top</code> – Ouvre l'interface des processus en temps réel.
+- <code>top -u mon_utilisateur</code> – Affiche uniquement les processus associés à mon_utilisateur.</p>
+<hr />
+<h3 id="22-ps">22. <strong>ps</strong></h3>
+<p><strong>Description :</strong> Affiche des informations sur les processus actifs.</p>
+<p><strong>Options Communes :</strong>
+- <code>aux</code> – Affiche tous les processus sur le système.
+- <code>-ef</code> – Affiche les processus en format étendu.</p>
+<p><strong>Exemples :</strong>
+- <code>ps aux</code> – Montre tous les processus en cours avec des détails complets.
+- <code>ps -ef | grep nom_du_processus</code> – Filtre l'affichage pour montrer uniquement les processus contenant nom_du_processus.</p>
+<hr />
+<h3 id="23-kill">23. <strong>kill</strong></h3>
+<p><strong>Description :</strong> Terminer un processus par son ID.</p>
+<p><strong>Options Communes :</strong>
+- <code>-9</code> – Envoie un signal SIGKILL pour forcer l'arrêt du processus.
+- <code>-l</code> – Liste les signaux disponibles.</p>
+<p><strong>Exemples :</strong>
+- <code>kill 1234</code> – Tente de terminer le processus avec l'ID 1234.
+- <code>kill -9 1234</code> – Force l'arrêt du processus avec l'ID 1234 immédiatement.</p>
+<hr />
+<h3 id="24-man">24. <strong>man</strong></h3>
+<p><strong>Description :</strong> Accéder aux pages de manuel pour les commandes.</p>
+<p><strong>Options Communes :</strong>
+- Aucun.</p>
+<p><strong>Exemples :</strong>
+- <code>man ls</code> – Affiche le manuel de la commande <code>ls</code>.
+- <code>man grep</code> – Affiche le manuel de la commande <code>grep</code>, fournissant des détails et des options.</p>
+<hr /><script type="text/javascript">
+CONFIG.needMermaid = false;
+CONFIG.overlordClasses = [];
+globalThis.PAGE_IDES_CONFIG = '.\x1e{}\x1e0a0b.'
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div class="md-copyright_pyodide">
+    
+    
+  </div>
+  
+    <div class="md-copyright_pyodide">
+      <div>
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      <div id="pyodide-footer">
+        <a href="https://gitlab.com/frederic-zinelli/pyodide-mkdocs-theme" target="_blank" rel="noopener">
+          Pyodide MkDocs Theme
+        </a> v.5.5.6
+      </div>
+    </div>
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+
+
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+<script src="../../js-scripts/overlord.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-scripts/subscriptions.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+
+
+  </body>
+</html>

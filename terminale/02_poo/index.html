@@ -1,0 +1,2372 @@
+<!--
+pyodide-mkdocs-theme
+Copyleft GNU GPLv3 🄯 2024 Frédéric Zinelli
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.
+If not, see <https://www.gnu.org/licenses/>.
+-->
+
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nxpat.github.io/nsi/terminale/02_poo/">
+      
+      
+        <link rel="prev" href="../01_tad/">
+      
+      
+        <link rel="next" href="../03_peg/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/mdi--code-block-tags">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2. Programmation Orientée Objet - Cours NSI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+<script type="importmap">{"imports": {"functools": "../../js-libs/functools.js", "functoolsStorage": "../../js-libs/functoolsStorage.js", "functoolsTxt": "../../js-libs/functoolsTxt.js", "functoolsUi": "../../js-libs/functoolsUi.js", "functoolsUiBuilder": "../../js-libs/functoolsUiBuilder.js", "jsLogger": "../../js-libs/jsLogger.js", "process_and_gui": "../../js-libs/process_and_gui.js", "0-generic-python-snippets-pyodide": "../../js-per-pages/0-generic-python-snippets-pyodide.js", "1-error_logs-pyodide": "../../js-per-pages/1-error_logs-pyodide.js", "1-packagesInstaller-install-pyodide": "../../js-per-pages/1-packagesInstaller-install-pyodide.js", "1-runtimeManager-runtime-pyodide": "../../js-per-pages/1-runtimeManager-runtime-pyodide.js", "2-0-runnersManager-runners": "../../js-per-pages/2-0-runnersManager-runners.js", "2-pyodideSectionsRunner-runner-pyodide": "../../js-per-pages/2-pyodideSectionsRunner-runner-pyodide.js", "3-btnRunner-py_btn": "../../js-per-pages/3-btnRunner-py_btn.js", "3-terminalRunner-term": "../../js-per-pages/3-terminalRunner-term.js", "4-0-idesManager-ide": "../../js-per-pages/4-0-idesManager-ide.js", "4-ideLogistic-ide": "../../js-per-pages/4-ideLogistic-ide.js", "4-ideRunner-ide": "../../js-per-pages/4-ideRunner-ide.js", "5-ideTester-ides_test": "../../js-per-pages/5-ideTester-ides_test.js", "6-2-init-playground": "../../js-per-pages/6-2-init-playground.js", "6-idePlayground-playground": "../../js-per-pages/6-idePlayground-playground.js", "qcms-qcm": "../../js-per-pages/qcms-qcm.js", "start-pyodide": "../../js-per-pages/start-pyodide.js", "overlord": "../../js-scripts/overlord.js", "subscriptions": "../../js-scripts/subscriptions.js"}}</script>
+
+
+
+      
+    
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/jquery.terminal@2.43.1/css/jquery.terminal.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery.terminal@2.43.1/js/jquery.terminal.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ace.js" integrity="sha256-By0T5T0R4s7M//4aD6fxXPacVDXYl99T2YxxvhxKLn8=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ext-language_tools.js" integrity="sha256-eZ46N0b3QkDX+7GjjlJfoBuXGKIH86UKJVARHhGzpWA=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/0-config.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script type="text/javascript">
+if(!window.CONFIG) window.CONFIG={}
+CONFIG.argsFigureDivId="figure1"
+CONFIG.baseUrl="../.."
+CONFIG.buttonIconsDirectory="../../assets/images"
+CONFIG.editorFontFamily="monospace"
+CONFIG.editorFontSize=15
+CONFIG.exportZipPrefix=""
+CONFIG.exportZipWithNames=false
+CONFIG.inServe=false
+CONFIG.keyStrokesAutoSave=30
+CONFIG.language="fr"
+CONFIG.pmtUrl="https://gitlab.com/frederic-zinelli/pyodide-mkdocs-theme"
+CONFIG.projectId="cours_nsi_terminale"
+CONFIG.projectMoveFromOldId=null
+CONFIG.projectNoJsWarning=false
+CONFIG.pythonLibs=[]
+CONFIG.siteUrl="https://nxpat.github.io/nsi/"
+CONFIG.version="5.5.6"
+CONFIG.lang={"allOthersTrash": {"msg": "1 entr\u00e9e non associ\u00e9e au projet en cours a \u00e9t\u00e9 trouv\u00e9e. Voulez-vous la supprimer ?\n(Vous risquez de perdre des donn\u00e9es d'un site voisin !)", "plural": "{N} entr\u00e9es non associ\u00e9es au projet en cours ont \u00e9t\u00e9 trouv\u00e9es. Voulez-vous toutes les supprimer ?\n(Vous risquez de perdre des donn\u00e9es d'un site voisin !)"}, "attemptsLeft": {"msg": "\u00c9valuations restantes"}, "check": {"msg": "Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)", "em": 9, "kbd": ""}, "comments": {"msg": "(D\u00e9s-)Active le code apr\u00e8s la ligne <code># Tests</code> (insensible \u00e0 la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)", "em": 17, "kbd": "Ctrl+I"}, "complementTrash": {"msg": "Nota : 1 entr\u00e9e non associ\u00e9e \u00e0 ce projet, qui ne sera pas supprim\u00e9e", "plural": "Nota : {N} entr\u00e9es non associ\u00e9es \u00e0 ce projet, qui ne seront pas supprim\u00e9es"}, "corr": {"msg": "\ud83d\udc0d Proposition de correction"}, "corrBtn": {"msg": "Tester la correction (serve)", "em": 0, "kbd": ""}, "delayedReveal": {"msg": "Solution affich\u00e9e dans {N} essai(s).", "format": "info"}, "download": {"msg": "T\u00e9l\u00e9charger", "em": 0, "kbd": ""}, "editorCode": {"msg": "\u00c9diteur", "format": "info"}, "failHead": {"msg": "Dommage !", "format": "warning"}, "failTail": {"msg": "est maintenant disponible", "plural": "sont maintenant disponibles"}, "feedback": {"msg": "Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)", "em": 19, "kbd": ""}, "figureAdmoTitle": {"msg": "Votre figure"}, "figureText": {"msg": "Votre trac\u00e9 sera ici"}, "fullScreen": {"msg": "Entrer ou sortir du mode \"plein \u00e9cran\"<br>(<kbd>Esc</kbd>)", "em": 10, "kbd": "Esc"}, "installDone": {"msg": "Installations termin\u00e9es !", "format": "info"}, "installStart": {"msg": "Installation de paquets python. Ceci peut prendre un certain temps...", "format": "info"}, "loadIde": {"msg": "Configure l'IDE avec ces donn\u00e9es", "em": 10, "kbd": ""}, "noCodesTrash": {"msg": "Pas de codes trouv\u00e9s pour le projet en cours sur ce navigateur."}, "p5Start": {"msg": "D\u00e9marre l'animation", "em": 0, "kbd": ""}, "p5Step": {"msg": "Avance d'une image", "em": 0, "kbd": ""}, "p5Stop": {"msg": "Arr\u00eate l'animation", "em": 0, "kbd": ""}, "pickerFailure": {"msg": "Veuillez cliquer sur la page entre deux utilisations des raccourcis clavier ou utiliser un bouton, afin de pouvoir t\u00e9l\u00e9verser un fichier."}, "play": {"msg": "Ex\u00e9cuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)", "em": 9, "kbd": "Ctrl+S"}, "publicTests": {"msg": "Tests publics", "format": "info"}, "pyBtn": {"msg": "Ex\u00e9cuter le code", "em": 9, "kbd": ""}, "qcmCheckTip": {"msg": "V\u00e9rifier les r\u00e9ponses", "em": 11, "kbd": ""}, "qcmMaskTip": {"msg": "Les r\u00e9ponses resteront cach\u00e9es...", "em": 11, "kbd": ""}, "qcmRedoTip": {"msg": "Recommencer", "em": 9, "kbd": ""}, "qcmTitle": {"msg": "Question", "plural": "Questions"}, "refresh": {"msg": "Une version plus r\u00e9cente du code existe.\nVeuillez copier vos \u00e9ventuelles modifications puis r\u00e9initialiser l'IDE.", "format": "warning"}, "rem": {"msg": "Remarques"}, "removeTrash": {"msg": "Il y a actuellement 1 r\u00e9f\u00e9rence enregistr\u00e9e sur ce navigateur.\nVoulez-vous l'effacer ?", "plural": "Il y a actuellement {N} r\u00e9f\u00e9rences enregistr\u00e9es sur ce navigateur.\nVoulez-vous toutes les effacer ?"}, "restart": {"msg": "R\u00e9initialiser l'\u00e9diteur", "em": 0, "kbd": ""}, "restartConfirm": {"msg": "ATTENTION: r\u00e9initialiser l'\u00e9diteur fera perdre les anciens codes, status de validation et historiques.", "em": 0, "kbd": ""}, "revealCorr": {"msg": "le corrig\u00e9"}, "revealJoin": {"msg": "et"}, "revealRem": {"msg": "les commentaires"}, "runScript": {"msg": "Script lanc\u00e9...", "format": "info"}, "save": {"msg": "Sauvegarder dans le navigateur", "em": 0, "kbd": ""}, "secretTests": {"msg": "Tests secrets", "format": "info"}, "show": {"msg": "Afficher corr & REMs", "em": 0, "kbd": ""}, "splitModePlaceholder": {"msg": "\u00c9diteur dans l'autre colonne"}, "splitScreen": {"msg": "Entrer ou sortir du mode \"deux colonnes\"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)", "em": 23, "kbd": ""}, "storageIdCollision": {"msg": "Contacter l'auteur du site web en lui fournissant ce message complet. Une collision potentielle d'ids entre plusieurs projets \u00e0 \u00e9t\u00e9 rencontr\u00e9e. Il faut ajouter ou modifier l'argument ID pour l'IDE suivant:"}, "successHead": {"msg": "Bravo !", "format": "success"}, "successHeadExtra": {"msg": "Vous avez r\u00e9ussi tous les tests !"}, "successMsg": {"msg": "OK", "format": "success"}, "successMsgNoTests": {"msg": "Termin\u00e9 sans erreur.", "format": "info"}, "successTail": {"msg": "Pensez \u00e0 lire"}, "test1Ide": {"msg": "Lance ce test", "em": 7, "kbd": ""}, "testIdes": {"msg": "Lance tous les tests...", "em": 7, "kbd": ""}, "testStop": {"msg": "Arr\u00eate les tests", "em": 6, "kbd": ""}, "tests": {"msg": "\n\n# Tests\n\n", "as_pattern": "^#\\s*Tests"}, "testsDone": {"msg": "Tests termin\u00e9s", "format": "info"}, "tipTrash": {"msg": "Supprimer du navigateur les codes enregistr\u00e9s pour Cours NSI", "em": 15, "kbd": ""}, "titleCorr": {"msg": "Solution"}, "titleRem": {"msg": "Remarques"}, "unforgettable": {"msg": "N'oubliez pas de faire une validation !", "format": "warning"}, "upload": {"msg": "T\u00e9l\u00e9verser", "em": 0, "kbd": ""}, "validation": {"msg": "Validation - ", "format": "info"}, "wrapTerm": {"msg": "Si activ\u00e9, le texte copi\u00e9 dans le terminal est joint sur une seule ligne avant d'\u00eatre copi\u00e9 dans le presse-papier", "em": 19, "kbd": ""}, "zip": {"msg": "Archiver les codes des IDEs exportables de la page", "em": 14, "kbd": ""}, "zipAskForNames": {"msg": "Veuillez pr\u00e9ciser votre/vos noms (cha\u00eene vide interdite) :"}}
+</script>
+<script src="../../js-libs/0-legacy-subscriber.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/functools.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsStorage.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsTxt.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsUi.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsUiBuilder.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/jsLogger.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/mathjax-libs.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/process_and_gui.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<link href="../../pyodide-css/0-generic.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/btns-header.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/history.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/hourglass.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/ide.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/qcm.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/terminal.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/testing.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<input type="checkbox" id="ace_palette" autocomplete="off" class="md-toggle" data-ace-dark-mode="tomorrow_night_bright" data-ace-light-mode="crimson_editor">
+
+
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapitre-2-programmation-orientee-objet-poo" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Cours NSI" class="md-header__button md-logo" aria-label="Cours NSI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 3.41 7 4.82 3.82 8 7 11.18 5.59 12.6 1 8zm5.82 0L16 8l-4.59 4.6L10 11.18 13.18 8 10 4.82zM22 6v12c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2v-4h2v4h16V6h-2.97V4H20c1.11 0 2 .89 2 2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cours NSI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Programmation Orientée Objet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue"  aria-label="Passer au mode nuit"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode nuit" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue"  aria-label="Passer au mode jour"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode jour" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../premiere/01_intro_python/" class="md-tabs__link">
+          
+  
+  
+  Première
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../sommaire.md" class="md-tabs__link">
+          
+  
+  
+  Terminale
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cours NSI" class="md-nav__button md-logo" aria-label="Cours NSI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 3.41 7 4.82 3.82 8 7 11.18 5.59 12.6 1 8zm5.82 0L16 8l-4.59 4.6L10 11.18 13.18 8 10 4.82zM22 6v12c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2v-4h2v4h16V6h-2.97V4H20c1.11 0 2 .89 2 2"/></svg>
+
+    </a>
+    Cours NSI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Première
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Première
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Commencer à programmer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Commencer à programmer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/01_intro_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction au langage Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Systèmes et périphériques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Systèmes et périphériques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/02_unix_commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commandes Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/02_unix_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Historique d'Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terminale
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Terminale
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sommaire.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sommaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_tad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Structurer les données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Programmation Orientée Objet
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Programmation Orientée Objet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-concepts-fondamentaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Concepts fondamentaux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Concepts fondamentaux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-notion-dobjet-et-de-classe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La notion d'Objet et de Classe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-vocabulaire-technique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le vocabulaire technique
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-syntaxe-en-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Syntaxe en Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Syntaxe en Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-instanciation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilisation (Instanciation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-points-importants-a-retenir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Points importants à retenir
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Points importants à retenir">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#composition-dobjets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composition d'objets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-et-implantation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface et Implantation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methodes-speciales-hors-programme-mais-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Méthodes spéciales (Hors programme mais utiles)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-exercice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Exercice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-pourquoi-utiliser-la-poo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Pourquoi utiliser la POO ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mots-cles-essentiels-de-la-poo-francaisanglais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Mots-clés essentiels de la POO (Français/Anglais)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Mots-clés essentiels de la POO (Français/Anglais)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lheritage-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. L'Héritage (Inheritance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-le-polymorphisme-polymorphism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Le Polymorphisme (Polymorphism)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-la-poo-dans-les-autres-langages-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. La POO dans les autres langages courants
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_peg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Programmer en grand
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. SGBD Relationnels et SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Routage et réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_soc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Système sur puce - SoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Récursivité
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    7. Récursivité
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_rec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 7 : La Récursivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__exp_rapide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L'exponentiation rapide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__arbre_dappel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arbre d'appels et complexité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__tour_hanoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les Tours de Hanoï
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arbres
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    8. Arbres
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_arbres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Arbres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arbres binaires de recherche (ABR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr_insert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comment insérer une clé dans un ABR ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr_del/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comment supprimer un nœud dans un Arbre Binaire de Recherche (ABR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__parcours_infixe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pparcours infixe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Graphes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9. Graphes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_graphes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Graphes - Notions Essentielles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__densite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Densité d'un graphe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__parcours_bfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implémentation d'un parcours en largeur (BFS) en Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__parcours_dfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implémentation d'un parcours en profondeur (DFS) en Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__cycles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Détection de cycles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__dijkstra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme de Dijkstra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__best_first_search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme Best-First Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__algo_a/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme A*
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__heuristique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heuristique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-concepts-fondamentaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Concepts fondamentaux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Concepts fondamentaux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-notion-dobjet-et-de-classe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La notion d'Objet et de Classe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-vocabulaire-technique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le vocabulaire technique
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-syntaxe-en-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Syntaxe en Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Syntaxe en Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-instanciation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilisation (Instanciation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-points-importants-a-retenir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Points importants à retenir
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Points importants à retenir">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#composition-dobjets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composition d'objets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-et-implantation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface et Implantation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methodes-speciales-hors-programme-mais-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Méthodes spéciales (Hors programme mais utiles)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-exercice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Exercice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-pourquoi-utiliser-la-poo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Pourquoi utiliser la POO ?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mots-cles-essentiels-de-la-poo-francaisanglais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Mots-clés essentiels de la POO (Français/Anglais)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Mots-clés essentiels de la POO (Français/Anglais)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lheritage-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. L'Héritage (Inheritance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-le-polymorphisme-polymorphism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Le Polymorphisme (Polymorphism)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-la-poo-dans-les-autres-langages-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. La POO dans les autres langages courants
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+                  
+
+
+<h1 id="chapitre-2-programmation-orientee-objet-poo">Chapitre 2 : Programmation Orientée Objet (POO)</h1>
+<p>Ce chapitre introduit un nouveau <strong>paradigme de programmation</strong> qui permet de structurer les programmes en regroupant des données et les fonctions qui les manipulent au sein d'entités appelées <strong>objets</strong>.</p>
+<h2 id="1-concepts-fondamentaux">1. Concepts fondamentaux</h2>
+<h3 id="la-notion-dobjet-et-de-classe">La notion d'Objet et de Classe</h3>
+<ul>
+<li><strong>Classe</strong> : C’est un « moule » ou un modèle ou un plan de fabrication qui définit la structure des objets. Elle précise quels seront les <strong>attributs</strong> (données) et les <strong>méthodes</strong> (fonctions) communs à tous les objets de ce type.</li>
+<li><strong>Objet (ou Instance)</strong> : C’est une entité concrète créée à partir d’une classe. On peut créer plusieurs instances (objets) distinctes à partir d'une même classe.</li>
+</ul>
+<h3 id="le-vocabulaire-technique">Le vocabulaire technique</h3>
+<ul>
+<li><strong>Attributs</strong> : Ce sont les variables attachées à un objet qui définissent son état (ex: la longueur d'un rectangle).</li>
+<li><strong>Méthodes</strong> : Ce sont les fonctions définies à l'intérieur d'une classe qui agissent sur l'objet (ex: calculer l'aire).</li>
+<li><strong>Constructeur (<code>__init__</code>)</strong> : C'est une méthode spéciale appelée automatiquement lors de la création d'un objet pour initialiser ses attributs.</li>
+<li><strong>Le mot-clé <code>self</code></strong> : Dans la définition de la classe, <code>self</code> représente l'instance de l'objet en cours de manipulation.</li>
+</ul>
+<hr />
+<h2 id="2-syntaxe-en-python">2. Syntaxe en Python</h2>
+<p>Voici l'exemple classique d'une classe représentant un <strong>Rectangle</strong> :</p>
+<p><div class="highlight"><pre><span></span><code>class Rectangle:
+    &quot;&quot;&quot;Classe définissant un rectangle par sa longueur et sa largeur.&quot;&quot;&quot;
+
+    def <span class="gs">__init__</span>(self, longueur, largeur):
+        # Initialisation des attributs
+        self.longueur = longueur
+        self.largeur = largeur
+
+    def calcule_aire(self):
+        # Méthode utilisant les attributs de l&#39;objet via self
+        return self.longueur * self.largeur
+</code></pre></div>
+.</p>
+<h3 id="utilisation-instanciation">Utilisation (Instanciation)</h3>
+<p>Pour créer et utiliser un objet :
+<div class="highlight"><pre><span></span><code><span class="c1"># Création d&#39;une instance de la classe Rectangle</span>
+<span class="n">rect1</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Accès aux attributs</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rect1</span><span class="o">.</span><span class="n">longueur</span><span class="p">)</span> <span class="c1"># Affiche 10</span>
+
+<span class="c1"># Appel d&#39;une méthode</span>
+<span class="n">aire</span> <span class="o">=</span> <span class="n">rect1</span><span class="o">.</span><span class="n">calcule_aire</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aire</span><span class="p">)</span> <span class="c1"># Affiche 50</span>
+</code></pre></div>
+.</p>
+<hr />
+<h2 id="3-points-importants-a-retenir">3. Points importants à retenir</h2>
+<h3 id="composition-dobjets">Composition d'objets</h3>
+<p>Un attribut d'un objet peut lui-même être un autre objet. C'est une notion essentielle pour préparer l'étude de structures de données plus complexes comme les <strong>listes chaînées</strong> ou les <strong>arbres</strong>.</p>
+<p><strong>Exemple :</strong>
+Une classe <code>Personne</code> peut posséder un attribut <code>chien</code> qui est une instance d'une classe <code>Chien</code>.</p>
+<h3 id="interface-et-implantation">Interface et Implantation</h3>
+<ul>
+<li><strong>L'interface</strong> est l'ensemble des méthodes qu'un utilisateur de la classe peut appeler sans avoir besoin de connaître le code interne.</li>
+<li><strong>L'implantation</strong> est la manière dont le développeur a écrit le code à l'intérieur de la classe.
+Cette séparation permet de modifier l'implantation (pour la rendre plus rapide par exemple) sans que l'utilisateur n'ait à changer son propre programme.</li>
+</ul>
+<h3 id="methodes-speciales-hors-programme-mais-utiles">Méthodes spéciales (Hors programme mais utiles)</h3>
+<ul>
+<li><code>__str__</code> : Permet de définir ce qui s'affiche quand on utilise <code>print(objet)</code>.</li>
+<li><code>__eq__</code> : Permet de définir comment comparer deux objets avec l'opérateur <code>==</code>.</li>
+</ul>
+<hr />
+<h2 id="4-exercice">4. Exercice</h2>
+<div id="global_editor_772785ccc993f05c4b900ad1f7d5182c855096b0" class="py_mk_ide"><div class="py_mk_wrapper md-typeset"><div class="comment_py_mk_wrapper"><div is_v="false" mode="" id="editor_772785ccc993f05c4b900ad1f7d5182c855096b0"></div><span id="comment_editor_772785ccc993f05c4b900ad1f7d5182c855096b0" class="comment tooltip">###<span style="--tool_shift: 95%;width:17em;" class="tooltiptext bottom">(Dés-)Active le code après la ligne <code># Tests</code> (insensible à la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)</span></span><div class="ide-split-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19M13,19H21V21H13V19Z" /> </svg><span style="--tool_shift: 95%;width:23em;" class="tooltiptext bottom">Entrer ou sortir du mode "deux colonnes"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)</span></div><div class="ide-full-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M18 8H6V16H18V8Z" /> </svg><span style="--tool_shift: 95%;width:10em;" class="tooltiptext bottom">Entrer ou sortir du mode "plein écran"<br>(<kbd>Esc</kbd>)</span></div></div><div style="--n-buttons:2" class="term_wrapper"><div is_v="False" style="line-height:24px;--n-lines:10;" id="term_editor_772785ccc993f05c4b900ad1f7d5182c855096b0" class="term_editor py_mk_terminal"></div><div class="term_btns_wrapper"><div class="twemoji stdout-ctrl tooltip"><svg viewBox="0 0 24 24" fill="none"     stroke="var(--md-default-fg-color)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"     xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>   <path d="M 4,21.4 V 2.6 C 4,2.3 4.3,2 4.6,2 h 11.65 c 0.16,0 0.31,0.06 0.42,0.18 l 3.15,3.15 C 19.94,5.44 20,5.59 20,5.75 V 21.4 C 20,21.73 19.73,22 19.4,22 H 4.6 C 4.3,22 4,21.73 4,21.4 Z" ></path>   <path d="M 16,5.4 V 2.35 C 16,2.16 16.16,2 16.35,2 c 0.09,0 0.18,0.03 0.25,0.10 l 3.29,3.29 C 19.96,5.46 20,5.55 20,5.65 20,5.84 19.84,6 19.65,6 H 16.6 C 16.27,6 16,5.73 16,5.4 Z" ></path>   <path d="m 8,9.25 h 8" ></path>   <path d="M 7.9,13.25 H 15.9"></path>   <path d="M 7.9,11.25 H 14.4" ></path>   <path d="M 7.9,19.25 H 14.4" ></path>   <path d="m 7.9,15.25 h 8" ></path>   <path d="M 7.9,17.25 H 11.9" ></path>   <path d="m 8,5.25 h 4" ></path>   <path d="m 8,7.25 h 4" ></path> </g> <g><path class="stdout-x-ray-svg" d="M 3,11.4 v 6 L 21,13.8 V 7.7 Z" style="fill:var(--md-default-bg-color);stroke-width:0;" ></path></g> </svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)</span></div><div class="stdout-wraps-btn tooltip svg-switch-btn twemoji deactivated"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M7 21H5V3h2v18m7-18h-2v6h2V3m0 12h-2v6h2v-6m5-3-3-3v2H9v2h7v2l3-3Z"> </path></svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Si activé, le texte copié dans le terminal est joint sur une seule ligne avant d'être copié dans le presse-papier</span></div></div></div></div><div class="ide_buttons_div_wrapper"><div class="ide_buttons_div"><button btn_kind="play" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Exécuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)" data-tip-width="9"><img src="../../assets/images/icons8-play-64.png" class="skip_light_box" /></button><button btn_kind="check" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)" data-tip-width="9"><img src="../../assets/images/icons8-check-64.png" class="skip_light_box" /></button><button btn_kind="download" style="margin-left:1em; margin-right:0.2em;" class="tooltip " data-tip-txt="Télécharger"><img src="../../assets/images/icons8-download-64.png" class="skip_light_box" /></button><button btn_kind="upload" style="margin-left:0.2em; margin-right:1em;" class="tooltip " data-tip-txt="Téléverser"><img src="../../assets/images/icons8-upload-64.png" class="skip_light_box" /></button><button btn_kind="restart" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Réinitialiser l'éditeur"><img src="../../assets/images/icons8-restart-64.png" class="skip_light_box" /></button><button btn_kind="save" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Sauvegarder dans le navigateur"><img src="../../assets/images/icons8-save-64.png" class="skip_light_box" /></button></div><div class="compteur_wrapper"><div class="compteur"><span class="compteur_txt">Évaluations restantes : </span><span id="compteur_editor_772785ccc993f05c4b900ad1f7d5182c855096b0">5</span>/<span id="compteur_editor_772785ccc993f05c4b900ad1f7d5182c855096b0-low">5</span></div></div></div></div>
+
+<div class="py_mk_hidden" id="solution_editor_772785ccc993f05c4b900ad1f7d5182c855096b0">
+.1280135),_plaShc64Pt w(uy0/k:s=em.n;dvog217rif3b050F0A0o0h0N0g0y0p0k0g0h0y0y0z010o0N0f010406050y0s0B0B0h0M0t040i0H0g0s0+0H0D050v0=0@0_0{0:0f04051b141e0v1b0:0F0N0G0Z0#0%0)0j0N0I0j0g1s0j0o0.050U0Q0g0A1n0$0(011r1t1v1t0o1B1D1z0o0M1c0o0j0Z0~0y0f0h0D0)0J011F1p010O0W0A0D0h0B0A1z1Y1!1)1H1,1D1/1;0.0a0p0n0M0H0f0H0y0N110D0p0S1W0M0M0A0k29141@0D1c0v1U2m1R1T1S1A0F1_0)1v0D1.261z1k1m0!1G2w0N2y0D0H2C1z0f2f1c2k2m2Q0;1Z2a2E1*2J0M0^0g0.0K2j2U0/2T1^2W1H2Y2!0.0J2(1!2*2k2v012/0h2#040P2?2l0:2_2-0)2|2~0m312^2U2`370.0b3a333c352{0H2Z2}0.0l3h2+2V1o2.3m2:040L3a1f2O142C2p0F1T2u3k0k2K1=1c3E1d3C2S152)053K0S2P3j3u0)0w0.2-3A343Z010q0.0p3(3Y2F2{0k0.0n0A0M0y121/0I0A3/2,3*0-040x3h0p473.3)3;3#040S0O403t3;3,043.3S2@3s2`0O0B0.0e0e2H284t4g2`430r4y3k0Q430y0A0g4f4m2l4o3k430d3a493:2X0.2J0B4C420.4P4K4k4M3*0D0.0f0G4X3;430c454#06484@4R413;4E0.4G4I4-1*0H0.0C502.4U0H4W4#4_4h510.0z4Q4%3;4)044V464^475h1*4|044~4J2S4a5d04544#5p56044+5g5w1H52045f5a5B364*4,4=4?485M014c4e550)4j4l5v4S2.0O0.0A0y0o0e0G1l1!0o5X014A5=5r5t5=4/4;2Q5R5n5T4c2f0o0s0M135L5G0)5_4H5u3T69015I5z5#4`4T5D5P2Q5b2`5I020I0o0E5F5$0)0B0N0.0u3r0v3V0A2m2N6G3D1l3F2p2s2n0h1C6J0v3E0:6T0T0V0X04.
+</div>
+<hr />
+<h2 id="5-pourquoi-utiliser-la-poo">5. Pourquoi utiliser la POO ?</h2>
+<p>L'utilisation de la <strong>Programmation Orientée Objet (POO)</strong> répond à plusieurs besoins dans le développement logiciel moderne :</p>
+<ol>
+<li>
+<p><strong>Modélisation intuitive du monde réel</strong> : La POO permet de concevoir des programmes en utilisant des concepts proches de la réalité. On définit des <strong>classes</strong> (<strong>Classes</strong>) qui servent de plans pour créer des <strong>objets</strong> (<strong>Objects</strong>) ayant leurs propres caractéristiques (<strong>attributs</strong> - <strong>Attributes</strong>) et comportements (<strong>méthodes</strong> - <strong>Methods</strong>). Par exemple, modéliser un rectangle avec sa longueur et sa largeur est plus naturel qu'utiliser des variables isolées.</p>
+</li>
+<li>
+<p><strong>Séparation de l'interface et de l'implantation</strong> : C'est l'un des points les plus importants. Un utilisateur de la classe n'a besoin de connaître que l'<strong>interface</strong> (<strong>Interface</strong>) — c'est-à-dire les méthodes disponibles — sans se soucier de la manière dont le code est écrit à l'intérieur (<strong>implantation</strong> - <strong>Implementation</strong>). Cela permet au développeur de modifier ou d'optimiser l'implantation sans que le programme de l'utilisateur ne cesse de fonctionner.</p>
+</li>
+<li>
+<p><strong>Encapsulation et sécurité du code</strong> : L'<strong>encapsulation</strong> (<strong>Encapsulation</strong>) permet de regrouper les données et les fonctions qui les manipulent, protégeant ainsi l'état interne de l'objet . Elle aide à limiter les erreurs en empêchant des modifications accidentelles de données sensibles.</p>
+</li>
+<li>
+<p><strong>Modularité et Réutilisabilité</strong> : Le code est découpé en briques logiques indépendantes (<strong>modularité</strong> - <strong>Modularity</strong>) . Une classe bien conçue peut être réutilisée dans de nombreux autres projets ou via des <strong>bibliothèques</strong> (<strong>Libraries</strong>) et des <strong>API</strong> (<strong>Application Programming Interfaces</strong>) .</p>
+</li>
+<li>
+<p><strong>Gestion des structures de données complexes</strong> : La POO est particulièrement adaptée lorsqu'on doit manipuler des types de données fortement structurés. Elle facilite la création de structures comme les <strong>listes chaînées</strong> (<strong>Linked Lists</strong>), les <strong>piles</strong> (<strong>Stacks</strong>) ou les <strong>files</strong> (<strong>Queues</strong>) en encapsulant chaque maillon dans un objet « Cellule ».</p>
+</li>
+<li>
+<p><strong>Facilité de mise au point</strong> : Découper un programme en petites méthodes facilite l'écriture de <strong>tests unitaires</strong> (<strong>Unit Tests</strong>) et le <strong>débogage</strong> (<strong>Debugging</strong>). Par exemple, définir une méthode spéciale <code>__str__</code> permet d'afficher facilement l'état d'un objet pour vérifier son contenu.</p>
+</li>
+</ol>
+<hr />
+<h2 id="6-mots-cles-essentiels-de-la-poo-francaisanglais">6. Mots-clés essentiels de la POO (Français/Anglais)</h2>
+<p>Voici les termes techniques fréquemment rencontrés en <strong>Programmation Orientée Objet (POO)</strong> (<strong>Object-Oriented Programming - OOP</strong>) :</p>
+<ul>
+<li><strong>Classe</strong> (<strong>Class</strong>) : Le moule ou le plan de fabrication.</li>
+<li><strong>Objet</strong> ou <strong>Instance</strong> (<strong>Object</strong> / <strong>Instance</strong>) : L'entité concrète créée à partir d'une classe.</li>
+<li><strong>Attribut</strong> (<strong>Attribute</strong> / <strong>Property</strong>) : Une variable attachée à l'objet définissant son état.</li>
+<li><strong>Méthode</strong> (<strong>Method</strong>) : Une fonction interne à la classe agissant sur l'objet.</li>
+<li><strong>Constructeur</strong> (<strong>Constructor</strong> / <strong>Initializer</strong>) : La méthode spéciale (<code>__init__</code> en Python) appelée à la création de l'objet.</li>
+<li><strong>Encapsulation</strong> (<strong>Encapsulation</strong>) : Le principe de regrouper données et méthodes en restreignant l'accès direct aux attributs.</li>
+<li><strong>Interface</strong> (<strong>Interface</strong>) : L'ensemble des moyens de communication avec un objet.</li>
+<li><strong>Implantation</strong> ou <strong>Implémentation</strong> (<strong>Implementation</strong>) : Le code concret qui réalise les opérations de la classe.</li>
+<li><strong>Héritage</strong> (<strong>Inheritance</strong>) : (Hors programme NSI) Capacité d'une classe à hériter des caractéristiques d'une autre.</li>
+<li><strong>Polymorphisme</strong> (<strong>Polymorphism</strong>) : (Hors programme NSI) Capacité d'utiliser une même interface pour des types d'objets différents.</li>
+</ul>
+<p>Illustration de l'héritage et du polymorphisme à partir de notre exemple de la classe <code>Rectangle</code>, pour comprendre comment la POO est utilisée dans l'industrie.</p>
+<h3 id="1-lheritage-inheritance">1. L'Héritage (Inheritance)</h3>
+<p>L'héritage permet de créer une nouvelle classe à partir d'une classe existante. La nouvelle classe (classe fille) récupère les attributs et les méthodes de la classe parente.</p>
+<p><strong>Exemple :</strong> Un <strong>Carré</strong> est un cas particulier de <strong>Rectangle</strong> où la longueur est égale à la largeur.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">longueur</span><span class="p">,</span> <span class="n">largeur</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longueur</span> <span class="o">=</span> <span class="n">longueur</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">largeur</span> <span class="o">=</span> <span class="n">largeur</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calcule_aire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">longueur</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">largeur</span>
+
+<span class="c1"># La classe Carre hérite de Rectangle</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Carre</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cote</span><span class="p">):</span>
+        <span class="c1"># On appelle le constructeur de la classe parente (Rectangle)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cote</span><span class="p">,</span> <span class="n">cote</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="2-le-polymorphisme-polymorphism">2. Le Polymorphisme (Polymorphism)</h3>
+<p>Le polymorphisme est la capacité d'appeler une méthode portant le même nom sur des objets de types différents, chaque objet l'exécutant à sa manière.</p>
+<p><strong>Exemple :</strong> Imaginons une classe <code>Cercle</code>. Si nous mettons différents objets de forme dans une liste, nous pouvons calculer leurs aires sans nous soucier de leur type précis.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Cercle</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rayon</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rayon</span> <span class="o">=</span> <span class="n">rayon</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calcule_aire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rayon</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Utilisation du polymorphisme</span>
+<span class="n">formes</span> <span class="o">=</span> <span class="p">[</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">Carre</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">Cercle</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">formes</span><span class="p">:</span>
+    <span class="c1"># Python appelle la &quot;bonne&quot; méthode calcule_aire selon l&#39;objet</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Aire : </span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">calcule_aire</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="7-la-poo-dans-les-autres-langages-courants">7. La POO dans les autres langages courants</h2>
+<p>La plupart des langages modernes utilisent la POO, mais avec des philosophies différentes concernant la "sécurité" et l'encapsulation.</p>
+<ul>
+<li>
+<p><strong>Java</strong> : C'est le langage "tout objet" par excellence. Contrairement à Python où l'encapsulation est une convention, Java impose des mots-clés (<code>private</code>, <code>public</code>) pour restreindre strictement l'accès aux données.</p>
+</li>
+<li>
+<p><strong>C++</strong> : Langage très utilisé pour la performance (jeux vidéo, systèmes). Il a introduit la POO par-dessus le langage C. Il permet un contrôle très fin sur la mémoire, mais est beaucoup plus complexe à manipuler que Python.</p>
+</li>
+<li>
+<p><strong>JavaScript</strong> : Utilisé pour le web. Il utilisait historiquement un système de "prototypes", mais possède aujourd'hui une syntaxe <code>class</code> très proche de Python pour faciliter la structuration du code.</p>
+</li>
+<li>
+<p><strong>Swift</strong> (Apple) : Le langage pour les applications iPhone. Il utilise une POO moderne et sécurisée, très axée sur les "Protocoles" (une forme d'interface avancée).</p>
+</li>
+<li>
+<p><strong>Rust</strong> : Un langage moderne qui n'utilise pas de "classes" au sens traditionnel. Il utilise des <code>structs</code> pour les données et des <code>traits</code> pour les comportements. C'est une approche alternative à l'héritage classique, très appréciée pour sa sécurité mémoire.</p>
+</li>
+<li>
+<p><strong>Fortran</strong> : Historiquement l'un des premiers langages pour le calcul scientifique. Bien que très ancien et initialement procédural, il a intégré des concepts d'objets dans ses versions récentes (depuis Fortran 2003) pour gérer des simulations complexes.</p>
+</li>
+</ul>
+<p><strong>À retenir :</strong> Si Python est privilégié en NSI pour sa simplicité et sa concision, les concepts d'objets, de méthodes et d'attributs sont universels et se retrouvent dans presque tous les environnements de développement professionnels.</p><script type="text/javascript">
+CONFIG.needMermaid = false;
+CONFIG.overlordClasses = ["Terminal", "Ide", "GlobalRunnersManager"];
+globalThis.PAGE_IDES_CONFIG = '.\x1e5{)E,xq_p-Al]LaShc6[4Pt w(uy0G:ksm.e=nVdvo21g7rifT83b9F}\x1e0b010J0N0V0w0P0U0h0T0T0Q0T0Y0a0r0`0#0#0Z0W0C0_0u0!0#0C0C0o0N0R0W0T0N0a0R0Y0Q0r0^0a0C0#0s0!0C010E0x0(0i0B0h0L0o0H0J1p0x010C0Q0h0i0P0P0j0i0J0U0G0P0L1w0S0J0I1t010e1B0J0L0O0h0r1O0w1Y0w1A011V1X1Z0h1(0U0H1#1%1)1+1-010A0G1L1@0L1(211+0r0l0o0G0G0x0v1L1N1P0o1R0E090L0x2k0x0N0J0W0x0h0h0V0L0,2r0z1~0l0W1W0L0P0H1W0i0O0c2h2j2l2L030x090A150r0C0x1$0H0i0l2P150J0#1;2i2L2L0i270G2i2(2l2n2p0J0G0w0h0O0V0O0o212x0J2z2I2/2)0x2N2Z0C2S2U2D2X372#2%2K342+282.0L2i2N0v0P0A0U0x1(2@1L0x0O0P0w0U0J3a2n0x0z0r3B1$3D0G000J0f3d0#0r0A1(0x0o0O0J0r0x0l3B0!3p0-2j09010v260B3)0c2i0q1L0P0x0K2a2c1O1Q0J0z3)0k0U0w0q3q3)1W1j3/0L0i0U2t0w0z0W3)0n3B0q3O0U0P293K0o0i1K0l3Z1r3;4l0I2C0H0%3.1{1$0U0/1$211_1q01252,3_1M3{2f0J2J2L2;2q2s2u2^0h2 2z2B2D2F2H4S340x2y0W4x2D3@0x4y332)4-1T0O4;2G3k4T2o0x2?2^2`2|2~4-323g2)3A0w3q2j4_2G0x040x1o1W010i0A0!0l0V0r1:520G1`5l1~0r5b5t2@5v4J2N0X520x0R0x1q0M4k0V0W5r0o0w0V1O2m3B0l002t0,0V0o5q0G5R5T3l210U0B4*2k0i5J3^2b4O2e1R3~010D0P4s0A0H455I0C483M3G0i0w0x0X0B1K0d4E0.5/0x0U0o0V1~0x0k281L5S1O6e4l0U5{4h3a0L2@0U0A0r1(3q2m0P0,3T0`0J683v3M0o6D0J1y215V0A0f0x2+6j612Q0C0J0Y3z2?5K4=4:0J692G0I3.3k2,6q0x0q275R3z0z5;1W3)4?010c70010n006|4b0!3R0x004y004=786X272O6#3e3O2U0U3O7o0N2}294t4G6A6C6E0U6;012i6@416_6{0w6}6 2O5m0O3.7577790V7b69002G7g0L7i3i7l2!2$7o5z7r7m0#2m7u3Y3H1O7y6Q3q7C7E6p7G5;4/0H3@3^3)5}5 611-4g787J7a7c7e2D7g5H0H5$0x5Z5S5$6l3O7_1w7{6/0R4`80637Q883z7T8b7X512@0x8g0l8i4X5#5%8n3)3k5F5H0Q6+5M7,4b5P0r5)5U3D268E3O420P3D522_2{2}0w7`1~7|8s8*548-0z0c8u0X6B0J7Q0o8#7,8%8)2@8+554d8`0N6H693A1Z0P0B3v8|0A3B0g0A2}0N6X4{5i0C8o2i0i8Q5?3`5_3}3)0p9l306.1(62648/6^9v0I8?8,2~8`0K3^0$5$1~8 917%933B9N978_6G6I9d3x9g3r9T0l6m9l9n9p4;9s8M5+0i0Z4;5@2d3|5{9T21370W0u1y620j0a487F6/0Z9M958@9P8u9.9V7M0n906!9Y0q8(9!ag9O989(9c1Y9+3vak9k9m0L9o5g055j7C1{1G951;1?4G221*4JaL4m2^aQ4I1B1{660l0A2n0N1A0t0m5la#a%0*0h1y935D0xa+a-0f25a/0N0h0F0ya@a_1B1t8%0L0h5q0!b25m1ub95va,b46c0V0h0y0q0,1z1q0L0A4s5l3A5s5q0H0,1A0j0R5lblbnb86laSa^bg010o3R0P0h6B0L1A0Cbt0Ab70S4l0A0ibR5l0.2n0/2t0hbW3pbZ1qbB1B1~0gbObU5wb:0Jb=2X0o0B1A0W9U8~b44l5P3Zb^bK7J6R680Gb82obH0a5lbL0-b80P0S0hac1A3z9j5l4D0/3A0Hcc8g0G0F1Ab/016`cc0r3;0r0F0h0!0wbQ1qcqc2cD271@4EcKcMb c15lcEbO0J3V5$cVcN0xc09/cQc!1$bU1;cp8}5l6l2_6qcXc-5l8g0f2s2nbF0L2?1A0ZbS1Bbxb70Vd25qd4a@0Z5l2n5z0J270Jcnc92W0wcc1O0h1}1 3Idnc00Va$3A1+0*0,0.1{2n6P5S2|1(0h2@9a3R0h0W0.dN3W5ba@cPbt6R0P3Vcn8q5*cc2@6P0F3z6Pboc+cYb:ar0y0h1O0l1uac5*0h1L6uccdS0/5ydWc|al010G0U5scE0q1+0s0Y0o0R0s0u0s0;0!0J0@2oen0J0Z0u0#3W0;0Z0r0Z1b2n0~0C0Y0s0Z0Z0R0u0R1j0!0!eK0Za(0o0Y0uep0s0}140Q1{dOa 0Jb~aT5l0w0ybN1$9/e7cQ3M1G41e;5x0wdPaWdQ0P0W0W1A0Q15csdQ0W0J0*0!d,c?9j0%0%.'
+</script><script src="../../js-per-pages/0-generic-python-snippets-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-error_logs-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-packagesInstaller-install-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-runtimeManager-runtime-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/2-0-runnersManager-runners.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/2-pyodideSectionsRunner-runner-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/3-terminalRunner-term.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-0-idesManager-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-ideLogistic-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-ideRunner-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/start-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div class="md-copyright_pyodide">
+    
+    
+  </div>
+  
+    <div class="md-copyright_pyodide">
+      <div>
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      <div id="pyodide-footer">
+        <a href="https://gitlab.com/frederic-zinelli/pyodide-mkdocs-theme" target="_blank" rel="noopener">
+          Pyodide MkDocs Theme
+        </a> v.5.5.6
+      </div>
+    </div>
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+
+
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+<script src="../../js-scripts/overlord.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-scripts/subscriptions.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,2362 @@
+<!--
+pyodide-mkdocs-theme
+Copyleft GNU GPLv3 🄯 2024 Frédéric Zinelli
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.
+If not, see <https://www.gnu.org/licenses/>.
+-->
+
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nxpat.github.io/nsi/terminale/08_arbres/">
+      
+      
+        <link rel="prev" href="../07__tour_hanoi/">
+      
+      
+        <link rel="next" href="../08__abr/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/mdi--code-block-tags">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Chapitre 8 : Les Arbres - Cours NSI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+<script type="importmap">{"imports": {"functools": "../../js-libs/functools.js", "functoolsStorage": "../../js-libs/functoolsStorage.js", "functoolsTxt": "../../js-libs/functoolsTxt.js", "functoolsUi": "../../js-libs/functoolsUi.js", "functoolsUiBuilder": "../../js-libs/functoolsUiBuilder.js", "jsLogger": "../../js-libs/jsLogger.js", "process_and_gui": "../../js-libs/process_and_gui.js", "0-generic-python-snippets-pyodide": "../../js-per-pages/0-generic-python-snippets-pyodide.js", "1-error_logs-pyodide": "../../js-per-pages/1-error_logs-pyodide.js", "1-packagesInstaller-install-pyodide": "../../js-per-pages/1-packagesInstaller-install-pyodide.js", "1-runtimeManager-runtime-pyodide": "../../js-per-pages/1-runtimeManager-runtime-pyodide.js", "2-0-runnersManager-runners": "../../js-per-pages/2-0-runnersManager-runners.js", "2-pyodideSectionsRunner-runner-pyodide": "../../js-per-pages/2-pyodideSectionsRunner-runner-pyodide.js", "3-btnRunner-py_btn": "../../js-per-pages/3-btnRunner-py_btn.js", "3-terminalRunner-term": "../../js-per-pages/3-terminalRunner-term.js", "4-0-idesManager-ide": "../../js-per-pages/4-0-idesManager-ide.js", "4-ideLogistic-ide": "../../js-per-pages/4-ideLogistic-ide.js", "4-ideRunner-ide": "../../js-per-pages/4-ideRunner-ide.js", "5-ideTester-ides_test": "../../js-per-pages/5-ideTester-ides_test.js", "6-2-init-playground": "../../js-per-pages/6-2-init-playground.js", "6-idePlayground-playground": "../../js-per-pages/6-idePlayground-playground.js", "qcms-qcm": "../../js-per-pages/qcms-qcm.js", "start-pyodide": "../../js-per-pages/start-pyodide.js", "overlord": "../../js-scripts/overlord.js", "subscriptions": "../../js-scripts/subscriptions.js"}}</script>
+
+
+
+      
+    
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/jquery.terminal@2.43.1/css/jquery.terminal.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery.terminal@2.43.1/js/jquery.terminal.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ace.js" integrity="sha256-By0T5T0R4s7M//4aD6fxXPacVDXYl99T2YxxvhxKLn8=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ext-language_tools.js" integrity="sha256-eZ46N0b3QkDX+7GjjlJfoBuXGKIH86UKJVARHhGzpWA=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/0-config.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script type="text/javascript">
+if(!window.CONFIG) window.CONFIG={}
+CONFIG.argsFigureDivId="figure1"
+CONFIG.baseUrl="../.."
+CONFIG.buttonIconsDirectory="../../assets/images"
+CONFIG.editorFontFamily="monospace"
+CONFIG.editorFontSize=15
+CONFIG.exportZipPrefix=""
+CONFIG.exportZipWithNames=false
+CONFIG.inServe=false
+CONFIG.keyStrokesAutoSave=30
+CONFIG.language="fr"
+CONFIG.pmtUrl="https://gitlab.com/frederic-zinelli/pyodide-mkdocs-theme"
+CONFIG.projectId="cours_nsi_terminale"
+CONFIG.projectMoveFromOldId=null
+CONFIG.projectNoJsWarning=false
+CONFIG.pythonLibs=[]
+CONFIG.siteUrl="https://nxpat.github.io/nsi/"
+CONFIG.version="5.5.6"
+CONFIG.lang={"allOthersTrash": {"msg": "1 entr\u00e9e non associ\u00e9e au projet en cours a \u00e9t\u00e9 trouv\u00e9e. Voulez-vous la supprimer ?\n(Vous risquez de perdre des donn\u00e9es d'un site voisin !)", "plural": "{N} entr\u00e9es non associ\u00e9es au projet en cours ont \u00e9t\u00e9 trouv\u00e9es. Voulez-vous toutes les supprimer ?\n(Vous risquez de perdre des donn\u00e9es d'un site voisin !)"}, "attemptsLeft": {"msg": "\u00c9valuations restantes"}, "check": {"msg": "Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)", "em": 9, "kbd": ""}, "comments": {"msg": "(D\u00e9s-)Active le code apr\u00e8s la ligne <code># Tests</code> (insensible \u00e0 la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)", "em": 17, "kbd": "Ctrl+I"}, "complementTrash": {"msg": "Nota : 1 entr\u00e9e non associ\u00e9e \u00e0 ce projet, qui ne sera pas supprim\u00e9e", "plural": "Nota : {N} entr\u00e9es non associ\u00e9es \u00e0 ce projet, qui ne seront pas supprim\u00e9es"}, "corr": {"msg": "\ud83d\udc0d Proposition de correction"}, "corrBtn": {"msg": "Tester la correction (serve)", "em": 0, "kbd": ""}, "delayedReveal": {"msg": "Solution affich\u00e9e dans {N} essai(s).", "format": "info"}, "download": {"msg": "T\u00e9l\u00e9charger", "em": 0, "kbd": ""}, "editorCode": {"msg": "\u00c9diteur", "format": "info"}, "failHead": {"msg": "Dommage !", "format": "warning"}, "failTail": {"msg": "est maintenant disponible", "plural": "sont maintenant disponibles"}, "feedback": {"msg": "Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)", "em": 19, "kbd": ""}, "figureAdmoTitle": {"msg": "Votre figure"}, "figureText": {"msg": "Votre trac\u00e9 sera ici"}, "fullScreen": {"msg": "Entrer ou sortir du mode \"plein \u00e9cran\"<br>(<kbd>Esc</kbd>)", "em": 10, "kbd": "Esc"}, "installDone": {"msg": "Installations termin\u00e9es !", "format": "info"}, "installStart": {"msg": "Installation de paquets python. Ceci peut prendre un certain temps...", "format": "info"}, "loadIde": {"msg": "Configure l'IDE avec ces donn\u00e9es", "em": 10, "kbd": ""}, "noCodesTrash": {"msg": "Pas de codes trouv\u00e9s pour le projet en cours sur ce navigateur."}, "p5Start": {"msg": "D\u00e9marre l'animation", "em": 0, "kbd": ""}, "p5Step": {"msg": "Avance d'une image", "em": 0, "kbd": ""}, "p5Stop": {"msg": "Arr\u00eate l'animation", "em": 0, "kbd": ""}, "pickerFailure": {"msg": "Veuillez cliquer sur la page entre deux utilisations des raccourcis clavier ou utiliser un bouton, afin de pouvoir t\u00e9l\u00e9verser un fichier."}, "play": {"msg": "Ex\u00e9cuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)", "em": 9, "kbd": "Ctrl+S"}, "publicTests": {"msg": "Tests publics", "format": "info"}, "pyBtn": {"msg": "Ex\u00e9cuter le code", "em": 9, "kbd": ""}, "qcmCheckTip": {"msg": "V\u00e9rifier les r\u00e9ponses", "em": 11, "kbd": ""}, "qcmMaskTip": {"msg": "Les r\u00e9ponses resteront cach\u00e9es...", "em": 11, "kbd": ""}, "qcmRedoTip": {"msg": "Recommencer", "em": 9, "kbd": ""}, "qcmTitle": {"msg": "Question", "plural": "Questions"}, "refresh": {"msg": "Une version plus r\u00e9cente du code existe.\nVeuillez copier vos \u00e9ventuelles modifications puis r\u00e9initialiser l'IDE.", "format": "warning"}, "rem": {"msg": "Remarques"}, "removeTrash": {"msg": "Il y a actuellement 1 r\u00e9f\u00e9rence enregistr\u00e9e sur ce navigateur.\nVoulez-vous l'effacer ?", "plural": "Il y a actuellement {N} r\u00e9f\u00e9rences enregistr\u00e9es sur ce navigateur.\nVoulez-vous toutes les effacer ?"}, "restart": {"msg": "R\u00e9initialiser l'\u00e9diteur", "em": 0, "kbd": ""}, "restartConfirm": {"msg": "ATTENTION: r\u00e9initialiser l'\u00e9diteur fera perdre les anciens codes, status de validation et historiques.", "em": 0, "kbd": ""}, "revealCorr": {"msg": "le corrig\u00e9"}, "revealJoin": {"msg": "et"}, "revealRem": {"msg": "les commentaires"}, "runScript": {"msg": "Script lanc\u00e9...", "format": "info"}, "save": {"msg": "Sauvegarder dans le navigateur", "em": 0, "kbd": ""}, "secretTests": {"msg": "Tests secrets", "format": "info"}, "show": {"msg": "Afficher corr & REMs", "em": 0, "kbd": ""}, "splitModePlaceholder": {"msg": "\u00c9diteur dans l'autre colonne"}, "splitScreen": {"msg": "Entrer ou sortir du mode \"deux colonnes\"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)", "em": 23, "kbd": ""}, "storageIdCollision": {"msg": "Contacter l'auteur du site web en lui fournissant ce message complet. Une collision potentielle d'ids entre plusieurs projets \u00e0 \u00e9t\u00e9 rencontr\u00e9e. Il faut ajouter ou modifier l'argument ID pour l'IDE suivant:"}, "successHead": {"msg": "Bravo !", "format": "success"}, "successHeadExtra": {"msg": "Vous avez r\u00e9ussi tous les tests !"}, "successMsg": {"msg": "OK", "format": "success"}, "successMsgNoTests": {"msg": "Termin\u00e9 sans erreur.", "format": "info"}, "successTail": {"msg": "Pensez \u00e0 lire"}, "test1Ide": {"msg": "Lance ce test", "em": 7, "kbd": ""}, "testIdes": {"msg": "Lance tous les tests...", "em": 7, "kbd": ""}, "testStop": {"msg": "Arr\u00eate les tests", "em": 6, "kbd": ""}, "tests": {"msg": "\n\n# Tests\n\n", "as_pattern": "^#\\s*Tests"}, "testsDone": {"msg": "Tests termin\u00e9s", "format": "info"}, "tipTrash": {"msg": "Supprimer du navigateur les codes enregistr\u00e9s pour Cours NSI", "em": 15, "kbd": ""}, "titleCorr": {"msg": "Solution"}, "titleRem": {"msg": "Remarques"}, "unforgettable": {"msg": "N'oubliez pas de faire une validation !", "format": "warning"}, "upload": {"msg": "T\u00e9l\u00e9verser", "em": 0, "kbd": ""}, "validation": {"msg": "Validation - ", "format": "info"}, "wrapTerm": {"msg": "Si activ\u00e9, le texte copi\u00e9 dans le terminal est joint sur une seule ligne avant d'\u00eatre copi\u00e9 dans le presse-papier", "em": 19, "kbd": ""}, "zip": {"msg": "Archiver les codes des IDEs exportables de la page", "em": 14, "kbd": ""}, "zipAskForNames": {"msg": "Veuillez pr\u00e9ciser votre/vos noms (cha\u00eene vide interdite) :"}}
+</script>
+<script src="../../js-libs/0-legacy-subscriber.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/functools.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsStorage.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsTxt.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsUi.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsUiBuilder.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/jsLogger.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/mathjax-libs.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/process_and_gui.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<link href="../../pyodide-css/0-generic.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/btns-header.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/history.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/hourglass.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/ide.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/qcm.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/terminal.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/testing.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<input type="checkbox" id="ace_palette" autocomplete="off" class="md-toggle" data-ace-dark-mode="tomorrow_night_bright" data-ace-light-mode="crimson_editor">
+
+
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapitre-8-les-arbres" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Cours NSI" class="md-header__button md-logo" aria-label="Cours NSI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 3.41 7 4.82 3.82 8 7 11.18 5.59 12.6 1 8zm5.82 0L16 8l-4.59 4.6L10 11.18 13.18 8 10 4.82zM22 6v12c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2v-4h2v4h16V6h-2.97V4H20c1.11 0 2 .89 2 2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cours NSI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapitre 8 : Les Arbres
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue"  aria-label="Passer au mode nuit"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode nuit" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue"  aria-label="Passer au mode jour"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode jour" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../premiere/01_intro_python/" class="md-tabs__link">
+          
+  
+  
+  Première
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../sommaire.md" class="md-tabs__link">
+          
+  
+  
+  Terminale
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cours NSI" class="md-nav__button md-logo" aria-label="Cours NSI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 3.41 7 4.82 3.82 8 7 11.18 5.59 12.6 1 8zm5.82 0L16 8l-4.59 4.6L10 11.18 13.18 8 10 4.82zM22 6v12c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2v-4h2v4h16V6h-2.97V4H20c1.11 0 2 .89 2 2"/></svg>
+
+    </a>
+    Cours NSI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Première
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Première
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Commencer à programmer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Commencer à programmer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/01_intro_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction au langage Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Systèmes et périphériques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Systèmes et périphériques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/02_unix_commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commandes Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/02_unix_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Historique d'Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terminale
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Terminale
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sommaire.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sommaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_tad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Structurer les données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_poo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Programmation Orientée Objet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_peg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Programmer en grand
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. SGBD Relationnels et SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Routage et réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_soc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Système sur puce - SoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Récursivité
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    7. Récursivité
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_rec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 7 : La Récursivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__exp_rapide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L'exponentiation rapide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__arbre_dappel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arbre d'appels et complexité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__tour_hanoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les Tours de Hanoï
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arbres
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    8. Arbres
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Arbres
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Arbres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-vocabulaire-et-definitions-generales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Vocabulaire et Définitions Générales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Vocabulaire et Définitions Générales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemples-dutilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples d'utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-larbre-binaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. L'Arbre Binaire
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. L&#39;Arbre Binaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mesures-de-larbre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mesures de l'arbre
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-implementation-en-python-poo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implémentation en Python (POO)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-les-parcours-darbre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Les Parcours d'Arbre
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Les Parcours d&#39;Arbre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parcours-en-profondeur-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parcours en profondeur (DFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parcours-en-largeur-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parcours en largeur (BFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-arbres-binaires-de-recherche-abr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Arbres Binaires de Recherche (ABR)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Arbres Binaires de Recherche (ABR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#efficacite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Efficacité
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercices-dapplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercices d'application
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercices d&#39;application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercice-1-calcul-de-la-taille" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 1 : Calcul de la taille
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-2-recherche-dans-un-abr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 2 : Recherche dans un ABR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-3-identifier-un-abr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 3 : Identifier un ABR
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arbres binaires de recherche (ABR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr_insert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comment insérer une clé dans un ABR ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr_del/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comment supprimer un nœud dans un Arbre Binaire de Recherche (ABR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__parcours_infixe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pparcours infixe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Graphes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9. Graphes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_graphes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Graphes - Notions Essentielles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__densite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Densité d'un graphe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__parcours_bfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implémentation d'un parcours en largeur (BFS) en Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__parcours_dfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implémentation d'un parcours en profondeur (DFS) en Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__cycles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Détection de cycles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__dijkstra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme de Dijkstra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__best_first_search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme Best-First Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__algo_a/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme A*
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__heuristique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heuristique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-vocabulaire-et-definitions-generales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Vocabulaire et Définitions Générales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Vocabulaire et Définitions Générales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemples-dutilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples d'utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-larbre-binaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. L'Arbre Binaire
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. L&#39;Arbre Binaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mesures-de-larbre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mesures de l'arbre
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-implementation-en-python-poo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implémentation en Python (POO)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-les-parcours-darbre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Les Parcours d'Arbre
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Les Parcours d&#39;Arbre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parcours-en-profondeur-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parcours en profondeur (DFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parcours-en-largeur-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parcours en largeur (BFS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-arbres-binaires-de-recherche-abr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Arbres Binaires de Recherche (ABR)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Arbres Binaires de Recherche (ABR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#efficacite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Efficacité
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercices-dapplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercices d'application
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercices d&#39;application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercice-1-calcul-de-la-taille" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 1 : Calcul de la taille
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-2-recherche-dans-un-abr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 2 : Recherche dans un ABR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-3-identifier-un-abr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 3 : Identifier un ABR
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+                  
+
+
+<h1 id="chapitre-8-les-arbres">Chapitre 8 : Les Arbres</h1>
+<p>Ce chapitre introduit les structures de données hiérarchiques, s'éloignant des structures linéaires (listes, piles, files) pour modéliser des relations de parenté ou des organisations complexes.</p>
+<h2 id="1-vocabulaire-et-definitions-generales">1. Vocabulaire et Définitions Générales</h2>
+<p>Un <strong>arbre</strong> est un graphe connexe et acyclique. En informatique, on étudie principalement les <strong>arbres enracinés</strong> :</p>
+<ul>
+<li><strong>Racine :</strong> L'unique nœud sans parent, point d'entrée de l'arbre.</li>
+<li><strong>Nœud :</strong> Élément de l'arbre contenant une donnée (clé) et des liens vers ses fils.</li>
+<li><strong>Feuille :</strong> Nœud n'ayant aucun fils (nœud externe).</li>
+<li><strong>Nœud interne :</strong> Nœud possédant au moins un fils.</li>
+<li><strong>Arborescence :</strong> Chaque nœud (sauf la racine) a exactement un parent.</li>
+</ul>
+<h3 id="exemples-dutilisation">Exemples d'utilisation</h3>
+<ul>
+<li>Systèmes de fichiers (répertoires et fichiers).</li>
+<li>Le DOM (Document Object Model) d'une page HTML.</li>
+<li>Arbres syntaxiques pour les expressions arithmétiques.</li>
+</ul>
+<h2 id="2-larbre-binaire">2. L'Arbre Binaire</h2>
+<p>Un <strong>arbre binaire</strong> est une structure récursive : soit il est vide, soit il est constitué d'une racine et de deux sous-arbres (gauche et droit), eux-mêmes arbres binaires.</p>
+<h3 id="mesures-de-larbre">Mesures de l'arbre</h3>
+<ul>
+<li><strong>Taille (n) :</strong> Nombre total de nœuds.</li>
+<li><strong>Profondeur d'un nœud :</strong> Nombre d'arêtes entre la racine et ce nœud (la racine est à la profondeur 0).</li>
+<li><strong>Hauteur (h) :</strong> Profondeur maximale de ses nœuds. <ul>
+<li><em>Convention :</em> Un arbre vide a une hauteur de -1, un arbre réduit à sa racine a une hauteur de 0.</li>
+</ul>
+</li>
+<li><strong>Encadrement :</strong> Pour un arbre de taille <span class="arithmatex">\(n\)</span> et de hauteur <span class="arithmatex">\(h\)</span>, on a <span class="arithmatex">\(\lfloor \log_2(n) \rfloor \le h \le n-1\)</span>.</li>
+</ul>
+<h2 id="3-implementation-en-python-poo">3. Implémentation en Python (POO)</h2>
+<p>On utilise généralement deux classes : une pour les nœuds et une pour l'arbre lui-même.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Noeud</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valeur</span><span class="p">,</span> <span class="n">gauche</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">droit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valeur</span> <span class="o">=</span> <span class="n">valeur</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gauche</span> <span class="o">=</span> <span class="n">gauche</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">droit</span> <span class="o">=</span> <span class="n">droit</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ArbreBinaire</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">racine</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">racine</span> <span class="o">=</span> <span class="n">racine</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">est_vide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">racine</span> <span class="ow">is</span> <span class="kc">None</span>
+
+<span class="c1"># Exemple de construction manuelle</span>
+<span class="c1">#      A</span>
+<span class="c1">#     / \</span>
+<span class="c1">#    B   C</span>
+<span class="n">n_b</span> <span class="o">=</span> <span class="n">Noeud</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+<span class="n">n_c</span> <span class="o">=</span> <span class="n">Noeud</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+<span class="n">n_a</span> <span class="o">=</span> <span class="n">Noeud</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">n_b</span><span class="p">,</span> <span class="n">n_c</span><span class="p">)</span>
+<span class="n">mon_arbre</span> <span class="o">=</span> <span class="n">ArbreBinaire</span><span class="p">(</span><span class="n">n_a</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="4-les-parcours-darbre">4. Les Parcours d'Arbre</h2>
+<p>Parcourir un arbre, c'est visiter tous ses nœuds exactement une fois.</p>
+<h3 id="parcours-en-profondeur-dfs">Parcours en profondeur (DFS)</h3>
+<ol>
+<li><strong>Prefixe :</strong> Racine, puis sous-arbre gauche, puis sous-arbre droit.</li>
+<li><strong>Infixe :</strong> Sous-arbre gauche, puis racine, puis sous-arbre droit.</li>
+<li><strong>Suffixe (Postfixe) :</strong> Sous-arbre gauche, puis sous-arbre droit, puis racine.</li>
+</ol>
+<h3 id="parcours-en-largeur-bfs">Parcours en largeur (BFS)</h3>
+<p>On visite les nœuds <strong>niveau par niveau</strong>, de gauche à droite, en utilisant une <strong>file</strong>.</p>
+<h2 id="5-arbres-binaires-de-recherche-abr">5. Arbres Binaires de Recherche (ABR)</h2>
+<p>Un <strong>ABR</strong> est un arbre binaire où pour chaque nœud :
+*   Toutes les clés du sous-arbre <strong>gauche</strong> sont inférieures ou égales à la clé du nœud.
+*   Toutes les clés du sous-arbre <strong>droit</strong> sont supérieures ou égales à la clé du nœud.</p>
+<p><strong>Propriété majeure :</strong> Un parcours <strong>infixe</strong> d'un ABR donne les clés dans l'ordre croissant.</p>
+<h3 id="efficacite">Efficacité</h3>
+<p>La recherche, l'insertion et la suppression dans un ABR équilibré ont une complexité <strong>logarithmique <span class="arithmatex">\(O(\log n)\)</span></strong>, ce qui est bien plus performant qu'une liste pour de grandes collections.</p>
+<hr />
+<h2 id="exercices-dapplication">Exercices d'application</h2>
+<h3 id="exercice-1-calcul-de-la-taille">Exercice 1 : Calcul de la taille</h3>
+<p>Compléter la fonction récursive pour calculer la taille d'un arbre.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Noeud</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valeur</span><span class="p">,</span> <span class="n">gauche</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">droit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valeur</span> <span class="o">=</span> <span class="n">valeur</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gauche</span> <span class="o">=</span> <span class="n">gauche</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">droit</span> <span class="o">=</span> <span class="n">droit</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculer_taille</span><span class="p">(</span><span class="n">noeud</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">noeud</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># À compléter : 1 + taille sous-arbre gauche + taille sous-arbre droit</span>
+        <span class="k">return</span> <span class="o">...</span>
+
+<span class="c1"># Tests</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculer_taille</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>  <span class="c1"># Devrait afficher 0</span>
+
+<span class="n">racine_solo</span> <span class="o">=</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculer_taille</span><span class="p">(</span><span class="n">racine_solo</span><span class="p">))</span>  <span class="c1"># Devrait afficher 1</span>
+
+<span class="n">arbre_3</span> <span class="o">=</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculer_taille</span><span class="p">(</span><span class="n">arbre_3</span><span class="p">))</span>  <span class="c1"># Devrait afficher 3</span>
+
+<span class="n">arbre_4</span> <span class="o">=</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculer_taille</span><span class="p">(</span><span class="n">arbre_4</span><span class="p">))</span>  <span class="c1"># Devrait afficher 4</span>
+</code></pre></div>
+<div id="global_editor_947c5f12b85e55f872cf19a91ac68bd1ef5d99fd" class="py_mk_ide"><div class="py_mk_wrapper md-typeset"><div class="comment_py_mk_wrapper"><div is_v="false" mode="" id="editor_947c5f12b85e55f872cf19a91ac68bd1ef5d99fd"></div><span id="comment_editor_947c5f12b85e55f872cf19a91ac68bd1ef5d99fd" class="comment tooltip">###<span style="--tool_shift: 95%;width:17em;" class="tooltiptext bottom">(Dés-)Active le code après la ligne <code># Tests</code> (insensible à la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)</span></span><div class="ide-split-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19M13,19H21V21H13V19Z" /> </svg><span style="--tool_shift: 95%;width:23em;" class="tooltiptext bottom">Entrer ou sortir du mode "deux colonnes"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)</span></div><div class="ide-full-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M18 8H6V16H18V8Z" /> </svg><span style="--tool_shift: 95%;width:10em;" class="tooltiptext bottom">Entrer ou sortir du mode "plein écran"<br>(<kbd>Esc</kbd>)</span></div></div><div style="--n-buttons:2" class="term_wrapper"><div is_v="False" style="line-height:24px;--n-lines:10;" id="term_editor_947c5f12b85e55f872cf19a91ac68bd1ef5d99fd" class="term_editor py_mk_terminal"></div><div class="term_btns_wrapper"><div class="twemoji stdout-ctrl tooltip"><svg viewBox="0 0 24 24" fill="none"     stroke="var(--md-default-fg-color)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"     xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>   <path d="M 4,21.4 V 2.6 C 4,2.3 4.3,2 4.6,2 h 11.65 c 0.16,0 0.31,0.06 0.42,0.18 l 3.15,3.15 C 19.94,5.44 20,5.59 20,5.75 V 21.4 C 20,21.73 19.73,22 19.4,22 H 4.6 C 4.3,22 4,21.73 4,21.4 Z" ></path>   <path d="M 16,5.4 V 2.35 C 16,2.16 16.16,2 16.35,2 c 0.09,0 0.18,0.03 0.25,0.10 l 3.29,3.29 C 19.96,5.46 20,5.55 20,5.65 20,5.84 19.84,6 19.65,6 H 16.6 C 16.27,6 16,5.73 16,5.4 Z" ></path>   <path d="m 8,9.25 h 8" ></path>   <path d="M 7.9,13.25 H 15.9"></path>   <path d="M 7.9,11.25 H 14.4" ></path>   <path d="M 7.9,19.25 H 14.4" ></path>   <path d="m 7.9,15.25 h 8" ></path>   <path d="M 7.9,17.25 H 11.9" ></path>   <path d="m 8,5.25 h 4" ></path>   <path d="m 8,7.25 h 4" ></path> </g> <g><path class="stdout-x-ray-svg" d="M 3,11.4 v 6 L 21,13.8 V 7.7 Z" style="fill:var(--md-default-bg-color);stroke-width:0;" ></path></g> </svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)</span></div><div class="stdout-wraps-btn tooltip svg-switch-btn twemoji deactivated"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M7 21H5V3h2v18m7-18h-2v6h2V3m0 12h-2v6h2v-6m5-3-3-3v2H9v2h7v2l3-3Z"> </path></svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Si activé, le texte copié dans le terminal est joint sur une seule ligne avant d'être copié dans le presse-papier</span></div></div></div></div><div class="ide_buttons_div_wrapper"><div class="ide_buttons_div"><button btn_kind="play" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Exécuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)" data-tip-width="9"><img src="../../assets/images/icons8-play-64.png" class="skip_light_box" /></button><button btn_kind="check" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)" data-tip-width="9"><img src="../../assets/images/icons8-check-64.png" class="skip_light_box" /></button><button btn_kind="download" style="margin-left:1em; margin-right:0.2em;" class="tooltip " data-tip-txt="Télécharger"><img src="../../assets/images/icons8-download-64.png" class="skip_light_box" /></button><button btn_kind="upload" style="margin-left:0.2em; margin-right:1em;" class="tooltip " data-tip-txt="Téléverser"><img src="../../assets/images/icons8-upload-64.png" class="skip_light_box" /></button><button btn_kind="restart" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Réinitialiser l'éditeur"><img src="../../assets/images/icons8-restart-64.png" class="skip_light_box" /></button><button btn_kind="save" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Sauvegarder dans le navigateur"><img src="../../assets/images/icons8-save-64.png" class="skip_light_box" /></button></div><div class="compteur_wrapper"><div class="compteur"><span class="compteur_txt">Évaluations restantes : </span><span id="compteur_editor_947c5f12b85e55f872cf19a91ac68bd1ef5d99fd">5</span>/<span id="compteur_editor_947c5f12b85e55f872cf19a91ac68bd1ef5d99fd-low">5</span></div></div></div></div>
+
+<div class="py_mk_hidden" id="solution_editor_947c5f12b85e55f872cf19a91ac68bd1ef5d99fd">
+.1280135),_pl+aShc64Pt w(uy0/k:s=em.nNdvog217rif83b9050G0B0p0i0O0g0z0q0l0g0i0z0z0A010p0O0f010406050z0t0C0C0i0N0u040j0I0g0t0.0I0E050w0^0`0|0~0?0f04051e171h0w1e0?0G0O0H0$0(0*0,0k0O0J0k0g1v0k0p0;050X0S0g0B1q0)0+011u1w1y1w0p1E1G1C0p0N1f0p0k0$110z0f0i0E0,0K011I1s010P0Z0B0E0i0C0B1C1#1%1,1K1/1G1=1@0;0a0q0o0N0I0f0I0z0O140E0q0V1Z0N0N0B0l2c171`0E1f0w1X2p1U1W1V1D0G1|0,1y0E1;291C1n1p0%1J2z0O2B0E0I2F1C0f2i1f2n2p2T0@1$2d2H1-2M0N0{0g0;0q0L2m2X0=2W1{2Z1K2#2%2)0K2,1%2.2n2y012?0i2(040q0R2`2o0?2}2;0,30320q0n362|2X2~3c2)0b3g383i3a2 0I2$312)0m3n2/2Y1r2=3s2@330M3x393A3b3C3u330Q3G3p3I3r3t3d0T3O2:3Q3k040L0v3V3z2I3R3D0L2+182-3o3W3(3Y0L2_3-2{1i2R172F2s0G1W2x3q0l2N1^1f3}1g3{2V3^2o05430V2S3P3(0x0;2;3g3y2~0r2)4m3H3;0l0;0F0I0B0t0G4r4h1-0:040y3n0q4I0q4n3q4j040V0P4B3:1-4p334R3%1-0P0C0;0e0e2K2b4$4W2~4E0s4+3q0S4E0z0B0g4Q4b4g4S1K4E0d3g4K4s2!0;0H314y0N4/3Q4~504L3X0;0J0i0t0l0k0B593(0I0;0A5m1-0x4u044w2B5r4}0;4 4`514C2=0;0G262b5y0,5o045q4`5d4i5u5w5l5P525z040c4G4`064J5%5D4|0,4;0;4?4^5K015M0D5:0E54560t585C5Q1-5M5O2T5)4X5F04551G5{4H5(4I5~1K5,045.4_2V5W5L0;5?5V5E3b5f5h5j5U626d6l5N5c6k2 6r5i5k6a6b6w016f6h5:5=5@5G5I0p6z6p5;5p6R5*6B4O6P3n063/640,4N4P5:4U4K6o6W0E0P4k310l0t1G0N0e0X0Z1G5:4-6N042M4y4A6.6%014E5Z6F632~4N0O6i2-7c3q5^724x4z6V770I4U0O0z7o7d5S156u2-6H4E5!2T5$6b7i3Q4N2i0p5{165}6A0C0O0;3#5#5%6H4N4@4?6 0;7C3.7F7G4i0;7J7L7u3q7P0;3,6v6A5M0h7-5e040l6?6^0B6`6|0g6~764,0;4.847j0;737n883Q6M8d3;6C6t7Z5Y7_5n0;7^7N6S7k7|0g6@6_6{0Y827y3_6A708g537l746L6m715H0I5J8E5X0c3x0w4e0B2p2Q8U3|1o3~2s2v2q0i1F8X0w3}0?8+0W8y0z04.
+</div>
+<h3 id="exercice-2-recherche-dans-un-abr">Exercice 2 : Recherche dans un ABR</h3>
+<p>Écrire la méthode <code>chercher</code> pour un ABR.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Noeud</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valeur</span><span class="p">,</span> <span class="n">gauche</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">droit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valeur</span> <span class="o">=</span> <span class="n">valeur</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gauche</span> <span class="o">=</span> <span class="n">gauche</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">droit</span> <span class="o">=</span> <span class="n">droit</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">chercher</span><span class="p">(</span><span class="n">noeud</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">noeud</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">noeud</span><span class="o">.</span><span class="n">valeur</span> <span class="o">==</span> <span class="n">x</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="c1"># À compléter : effectuer l&#39;appel récursif à gauche ou à droite</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">noeud</span><span class="o">.</span><span class="n">valeur</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">...</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">...</span>
+
+<span class="c1"># Tests</span>
+<span class="c1"># Construction de l&#39;ABR :</span>
+<span class="c1">#        10</span>
+<span class="c1">#       /  \</span>
+<span class="c1">#      5    15</span>
+<span class="c1">#     / \</span>
+<span class="c1">#    2   7</span>
+<span class="n">abr</span> <span class="o">=</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">7</span><span class="p">)),</span> <span class="n">Noeud</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">chercher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># Doit afficher False</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">chercher</span><span class="p">(</span><span class="n">abr</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># Doit afficher True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">chercher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>  <span class="c1"># Doit afficher False</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">chercher</span><span class="p">(</span><span class="n">abr</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>  <span class="c1"># Doit afficher True</span>
+</code></pre></div>
+<div id="global_editor_da7d684d3b4ad02c07a034f115672665d8659382" class="py_mk_ide"><div class="py_mk_wrapper md-typeset"><div class="comment_py_mk_wrapper"><div is_v="false" mode="" id="editor_da7d684d3b4ad02c07a034f115672665d8659382"></div><span id="comment_editor_da7d684d3b4ad02c07a034f115672665d8659382" class="comment tooltip">###<span style="--tool_shift: 95%;width:17em;" class="tooltiptext bottom">(Dés-)Active le code après la ligne <code># Tests</code> (insensible à la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)</span></span><div class="ide-split-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19M13,19H21V21H13V19Z" /> </svg><span style="--tool_shift: 95%;width:23em;" class="tooltiptext bottom">Entrer ou sortir du mode "deux colonnes"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)</span></div><div class="ide-full-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M18 8H6V16H18V8Z" /> </svg><span style="--tool_shift: 95%;width:10em;" class="tooltiptext bottom">Entrer ou sortir du mode "plein écran"<br>(<kbd>Esc</kbd>)</span></div></div><div style="--n-buttons:2" class="term_wrapper"><div is_v="False" style="line-height:24px;--n-lines:10;" id="term_editor_da7d684d3b4ad02c07a034f115672665d8659382" class="term_editor py_mk_terminal"></div><div class="term_btns_wrapper"><div class="twemoji stdout-ctrl tooltip"><svg viewBox="0 0 24 24" fill="none"     stroke="var(--md-default-fg-color)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"     xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>   <path d="M 4,21.4 V 2.6 C 4,2.3 4.3,2 4.6,2 h 11.65 c 0.16,0 0.31,0.06 0.42,0.18 l 3.15,3.15 C 19.94,5.44 20,5.59 20,5.75 V 21.4 C 20,21.73 19.73,22 19.4,22 H 4.6 C 4.3,22 4,21.73 4,21.4 Z" ></path>   <path d="M 16,5.4 V 2.35 C 16,2.16 16.16,2 16.35,2 c 0.09,0 0.18,0.03 0.25,0.10 l 3.29,3.29 C 19.96,5.46 20,5.55 20,5.65 20,5.84 19.84,6 19.65,6 H 16.6 C 16.27,6 16,5.73 16,5.4 Z" ></path>   <path d="m 8,9.25 h 8" ></path>   <path d="M 7.9,13.25 H 15.9"></path>   <path d="M 7.9,11.25 H 14.4" ></path>   <path d="M 7.9,19.25 H 14.4" ></path>   <path d="m 7.9,15.25 h 8" ></path>   <path d="M 7.9,17.25 H 11.9" ></path>   <path d="m 8,5.25 h 4" ></path>   <path d="m 8,7.25 h 4" ></path> </g> <g><path class="stdout-x-ray-svg" d="M 3,11.4 v 6 L 21,13.8 V 7.7 Z" style="fill:var(--md-default-bg-color);stroke-width:0;" ></path></g> </svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)</span></div><div class="stdout-wraps-btn tooltip svg-switch-btn twemoji deactivated"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M7 21H5V3h2v18m7-18h-2v6h2V3m0 12h-2v6h2v-6m5-3-3-3v2H9v2h7v2l3-3Z"> </path></svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Si activé, le texte copié dans le terminal est joint sur une seule ligne avant d'être copié dans le presse-papier</span></div></div></div></div><div class="ide_buttons_div_wrapper"><div class="ide_buttons_div"><button btn_kind="play" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Exécuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)" data-tip-width="9"><img src="../../assets/images/icons8-play-64.png" class="skip_light_box" /></button><button btn_kind="check" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)" data-tip-width="9"><img src="../../assets/images/icons8-check-64.png" class="skip_light_box" /></button><button btn_kind="download" style="margin-left:1em; margin-right:0.2em;" class="tooltip " data-tip-txt="Télécharger"><img src="../../assets/images/icons8-download-64.png" class="skip_light_box" /></button><button btn_kind="upload" style="margin-left:0.2em; margin-right:1em;" class="tooltip " data-tip-txt="Téléverser"><img src="../../assets/images/icons8-upload-64.png" class="skip_light_box" /></button><button btn_kind="restart" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Réinitialiser l'éditeur"><img src="../../assets/images/icons8-restart-64.png" class="skip_light_box" /></button><button btn_kind="save" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Sauvegarder dans le navigateur"><img src="../../assets/images/icons8-save-64.png" class="skip_light_box" /></button></div><div class="compteur_wrapper"><div class="compteur"><span class="compteur_txt">Évaluations restantes : </span><span id="compteur_editor_da7d684d3b4ad02c07a034f115672665d8659382">5</span>/<span id="compteur_editor_da7d684d3b4ad02c07a034f115672665d8659382-low">5</span></div></div></div></div>
+
+<div class="py_mk_hidden" id="solution_editor_da7d684d3b4ad02c07a034f115672665d8659382">
+.1280135),x_plaShc64Pt w(uy0/k:s=em.n;Ndvog217rifT83b9F050H0B0p0i0P0h0z0q0l0h0i0z0z0A010p0P0g010406050z0t0C0C0i0O0u040j0J0h0t0;0J0E050w0{0}0 110_0g04051h1a1k0w1h0_0H0P0I0)0+0-0/0k0P0K0k0h1y0k0p0@050!0U0h0B1t0,0.011x1z1B1z0p1H1J1F0p0O1i0p0k0)140z0g0i0E0/0L011L1v010Q0$0B0E0i0C0B1F1(1*1/1N1=1J1^1`0@0a0q0o0O0J0g0J0z0P170E0q0Y1$0O0O0B0l2f1a1}0E1i0w1!2s1X1Z1Y1G0H1 0/1B0E1@2c1F1q1s0*1M2C0P2E0E0J2I1F0g2l1i2q2s2W0`1)2g2K1:2P0O0~0h0@0q0M2p2!0^2Z1~2$1N2(2*2,0L2/1*2;2q2B012_0i2+040q0T2}2r0_302@0/33350q0n392 2!313f2,0b3j3b3l3d320J2)342,0m3q2=2#1u2^3v2`360N3A3c3D3e3F3x360S3J3s3L3u3w3g0V3R2?3T3n040M0v3Y3C2L3U3G0M2.1b2:3r3Z3+3#0M2|3:2~3=3*2%3N350M383{3a3B3m400@0M3i443k3?3 3V493p4c3}474g3$3z4c1l2U1a2I2v0H1Z2A3t0l2Q1{1i4t1j4r2Y4p4z0Y2V3S3+0x0@2@3j463t0r2,4Q3K3@0l0@0G0J0B0t0H4V4L1:0?040y3q0q4:0q4R3T4N040Y0Q4)4e1N4T364|3~200C0@0f0f2N2e5651314,0s5b3t0U4,0z0B0h4{4p4W4+0@0d3j4=5o2^0@0I344$0O5f3T4,5r4c5t4*5v040K0i0t0l0k0B5B3+0J0@0A5Q1:0x4Y044!2E5V1N5D5s4?3@0@0H292e5$0/5S045U5n5H0/5X4Z185P5^4}0/4,0c4.4j4;665G60015h0@5j5l5:015=0D6f0E5w5y0t5A5F5*1:5=5@2W68523e6l1J6n4/674:6q1N6b046d5m2Y5u5;0@6i5 6w320@5K5M5O5)6L6g5T6W5_6R5J5L5N5~2W066C6D6X6G6I6f6h6j5,5.0p6!696s6{6Q6k4_6_3q064k3t4^4`6f4 4=6P3m0Q4O5O0O6)6o6K6#5d6@042P4$4(7c3t5(6p6X700e6f62646+666E5`0@0P6J2:6v3m0@7p4%6~310J4 0P0z7P765Y5!6*2:7E014,7B3;6-7K760@2l0p6n197v6#5{040W345j6B6.7?7G7I2~7+3!7M4#7O7s3T6?875+045x6z7j7J7#6s6t8g7w0@7y8a5p4-7|677#4^7.7:7V4@5Y0R0O0t7Z3|7D6X4^7H8x8b8n6u8h0@020h0p0F8J2%847q6=6N7n8d5z7z0@7(8E6-8t7-0Z8w7=69707i7i8$045e8o5I7N7r7k6|8Y8`6x6%6U8D2r7#7u8M8l048L7!6X628r8+045k7{917$8%8r8F7~048v0O7;996#8;7g8?9l7m9l708|8X046O8~6 6^0J5/9A5q8T5I9c2~970@0c3A0w4I0B2s2T9Z4s1r4u2v2y2t0i1I9$0w4t0_9:0Z0#0%04.
+</div>
+<h3 id="exercice-3-identifier-un-abr">Exercice 3 : Identifier un ABR</h3>
+<p>Parmi les deux suites de clés obtenues par parcours infixe, laquelle correspond à un ABR ?</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Deux parcours infixes observés :</span>
+<span class="n">parcours_A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+<span class="n">parcours_B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+
+<span class="c1"># 1. Quelle lettre (&quot;A&quot; ou &quot;B&quot;) correspond au parcours infixe d&#39;un ABR ?</span>
+<span class="n">reponse</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span>
+
+<span class="c1"># 2. Écrire la fonction est_triee(liste) permettant de vérifier si le parcours est croissant</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">est_triee</span><span class="p">(</span><span class="n">liste</span><span class="p">):</span>
+    <span class="c1"># Doit renvoyer True si la liste est strictement croissante, False sinon</span>
+    <span class="k">pass</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">est_triee</span><span class="p">(</span><span class="n">parcours_A</span><span class="p">))</span>  <span class="c1"># Doit afficher False</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">est_triee</span><span class="p">(</span><span class="n">parcours_B</span><span class="p">))</span>  <span class="c1"># Doit afficher True</span>
+</code></pre></div>
+<div id="global_editor_45549317ecf575fed7c92fd3db3a0e00cf4cb8b9" class="py_mk_ide"><div class="py_mk_wrapper md-typeset"><div class="comment_py_mk_wrapper"><div is_v="false" mode="" id="editor_45549317ecf575fed7c92fd3db3a0e00cf4cb8b9"></div><span id="comment_editor_45549317ecf575fed7c92fd3db3a0e00cf4cb8b9" class="comment tooltip">###<span style="--tool_shift: 95%;width:17em;" class="tooltiptext bottom">(Dés-)Active le code après la ligne <code># Tests</code> (insensible à la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)</span></span><div class="ide-split-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19M13,19H21V21H13V19Z" /> </svg><span style="--tool_shift: 95%;width:23em;" class="tooltiptext bottom">Entrer ou sortir du mode "deux colonnes"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)</span></div><div class="ide-full-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M18 8H6V16H18V8Z" /> </svg><span style="--tool_shift: 95%;width:10em;" class="tooltiptext bottom">Entrer ou sortir du mode "plein écran"<br>(<kbd>Esc</kbd>)</span></div></div><div style="--n-buttons:2" class="term_wrapper"><div is_v="False" style="line-height:24px;--n-lines:10;" id="term_editor_45549317ecf575fed7c92fd3db3a0e00cf4cb8b9" class="term_editor py_mk_terminal"></div><div class="term_btns_wrapper"><div class="twemoji stdout-ctrl tooltip"><svg viewBox="0 0 24 24" fill="none"     stroke="var(--md-default-fg-color)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"     xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>   <path d="M 4,21.4 V 2.6 C 4,2.3 4.3,2 4.6,2 h 11.65 c 0.16,0 0.31,0.06 0.42,0.18 l 3.15,3.15 C 19.94,5.44 20,5.59 20,5.75 V 21.4 C 20,21.73 19.73,22 19.4,22 H 4.6 C 4.3,22 4,21.73 4,21.4 Z" ></path>   <path d="M 16,5.4 V 2.35 C 16,2.16 16.16,2 16.35,2 c 0.09,0 0.18,0.03 0.25,0.10 l 3.29,3.29 C 19.96,5.46 20,5.55 20,5.65 20,5.84 19.84,6 19.65,6 H 16.6 C 16.27,6 16,5.73 16,5.4 Z" ></path>   <path d="m 8,9.25 h 8" ></path>   <path d="M 7.9,13.25 H 15.9"></path>   <path d="M 7.9,11.25 H 14.4" ></path>   <path d="M 7.9,19.25 H 14.4" ></path>   <path d="m 7.9,15.25 h 8" ></path>   <path d="M 7.9,17.25 H 11.9" ></path>   <path d="m 8,5.25 h 4" ></path>   <path d="m 8,7.25 h 4" ></path> </g> <g><path class="stdout-x-ray-svg" d="M 3,11.4 v 6 L 21,13.8 V 7.7 Z" style="fill:var(--md-default-bg-color);stroke-width:0;" ></path></g> </svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)</span></div><div class="stdout-wraps-btn tooltip svg-switch-btn twemoji deactivated"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M7 21H5V3h2v18m7-18h-2v6h2V3m0 12h-2v6h2v-6m5-3-3-3v2H9v2h7v2l3-3Z"> </path></svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Si activé, le texte copié dans le terminal est joint sur une seule ligne avant d'être copié dans le presse-papier</span></div></div></div></div><div class="ide_buttons_div_wrapper"><div class="ide_buttons_div"><button btn_kind="play" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Exécuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)" data-tip-width="9"><img src="../../assets/images/icons8-play-64.png" class="skip_light_box" /></button><button btn_kind="check" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)" data-tip-width="9"><img src="../../assets/images/icons8-check-64.png" class="skip_light_box" /></button><button btn_kind="download" style="margin-left:1em; margin-right:0.2em;" class="tooltip " data-tip-txt="Télécharger"><img src="../../assets/images/icons8-download-64.png" class="skip_light_box" /></button><button btn_kind="upload" style="margin-left:0.2em; margin-right:1em;" class="tooltip " data-tip-txt="Téléverser"><img src="../../assets/images/icons8-upload-64.png" class="skip_light_box" /></button><button btn_kind="restart" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Réinitialiser l'éditeur"><img src="../../assets/images/icons8-restart-64.png" class="skip_light_box" /></button><button btn_kind="save" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Sauvegarder dans le navigateur"><img src="../../assets/images/icons8-save-64.png" class="skip_light_box" /></button></div><div class="compteur_wrapper"><div class="compteur"><span class="compteur_txt">Évaluations restantes : </span><span id="compteur_editor_45549317ecf575fed7c92fd3db3a0e00cf4cb8b9">5</span>/<span id="compteur_editor_45549317ecf575fed7c92fd3db3a0e00cf4cb8b9-low">5</span></div></div></div></div>
+
+<div class="py_mk_hidden" id="solution_editor_45549317ecf575fed7c92fd3db3a0e00cf4cb8b9">
+.1280135),]q_pA-l+aShc6[B4Pt w(uy0/k:s=emn;dvog217rifT83b9F050L0H0v0m0T0k0F0w0p0k0m0F0F0G010v0T0h010406050F0z0I0I0m0S0A040n0N0k0z0^0N0J050C0 1113150}0h04051l1e1o0C1l0}0L0T0M0-0/0;0?0o0T0O0o0k1C0o0v0{050(0Y0k0H1x0:0=011B1D1F1D0v1L1N1J0v0S1m0v0o0-180F0h0m0J0?0P011P1z010U0*0H0J0m0I0H1J1,1.1?1R1_1N1|1~0{0a0w0u0S0N0h0N0F0T1b0J0w0$1*0S0S0H0p2j1e210J1m0C1(2w1#1%1$1K0L230?1F0J1{2g1J1u1w0.1Q2G0T2I0J0N2M1J0h2p1m2u2w2!0~1-2k2O1@2T0S120k0{0w0Q2t2(0|2%222*1R2,2.2:0P2?1.2^2u2F012}0m2/040w0X312v0}342{0?37390w0t3d332(353j2:0b3n3f3p3h360N2-382:0q3u2_2)1y2|3z2~3a0R3E3g3H3i3J3B3a0W3N3w3P3y3A3k0Z3V2`3X3r040Q0B3$3G2P3Y3K0Q2=1f2@1p2Y1e2M2z0L1%2E3x0p2U1 1m3|1n3`2$3@3205420$2Z3W3/0J0{1-0S420z0S0F0g0i3n0w3F350N0{0G4s4u3x0`040r3n4A3X0I0T0{3t4a2v4G3/4C0d4z3O3/4I0{304M4f3%4P0{4R4Y4t4T1@4V043U4Y4O1@4Q4S4g4+4J3*3,4/4*1R4=4(4:1R4,0Q4L2$4}0?4C0e3-3q4j134m4o0g0s4?4!1@4w044y5057014C4E4|4@524_4X565v584$5j3.4^4K4F5q4 2!4)5A014,4.5z5k4~5C5p5M534{5Q5E5S044%5K510?53553^5I0{5a4Y063v5R3i0{2p2f0J0F0H5D4v4x5~3x0F1;04020f0z0N0v0K0s66686a3u5;5(010D0{0$0U5H5M0x2:6o5?360U0{0H0F0v0g1#0T0H5}5u6t4C0y6s5Z5@041F6y6E5Y354C0c0E3u0w6W5L6t6k040U3z613(0{0T6(3/0N6q042R6,2+0Y5^1.0O6P5,5M6H6J3q6@6M1{6 4B0{6I6F6K360{6N0v6{4b5-040c6=1R5m0j7j5)4_3?6Q757h6U5:6X7w6Y796!0T6n5U6t4i6M0T6O743X5s7J4h6*7M4;5.7n015m020O6a5o5%5q7F7c7e4N7g5t7r6)6:7S5m0l7S537P5!0e7u2!067x7|7y356!2p0v4n1d7D7z0p0{0!385|6V6X6i800%837S0D87040V0S0z7%2^0C4d0H2w2X8t3{1v3}2z2C2x0m1M8w0C3|0}8G0%0)0+04.
+</div><script type="text/javascript">
+CONFIG.needMermaid = false;
+CONFIG.overlordClasses = ["Terminal", "Ide", "GlobalRunnersManager"];
+globalThis.PAGE_IDES_CONFIG = '.\x1e{E,q_p-l+hc6[tu0:kR/eNvo1grf?b9jF}5)]xQALaB4D w(ysm.=nd27UiTC83\x1e0a010u0$0*0n0x0A0e0E0R0(0k0I0B0y0%0D0-0I0u0I0 0-0(0%0k100E0P0E0y0P0k0l0-0D0$0y0u0B0I0$0E0E0B0$010q0T0/0f0W0e0#0P0Y0u1x0T010p0-0e0P0A0D0A0u0X0g0u0L0x0y0Z1B010c1J0u0#0w0e0k0x0#0n1(0n1I011#1%1)0e1/0A0Y1+1-1/1.1=1@010o0X0u0_1,1.1:1=0k0h0P0X0X0T0v0x0u0o0$0q090#0T2r0T0$1p0T0e0e0*0#0?2x0V260h0B1$0w0P0h2l0A1$0z0P0o0k0j0u0!2j0#0u1$0$0A0x0?2U1-0u0J2o2q2s2-2E0B0Z2I2K0o0A0T0!0T2=2L2p2-2.0u2F0Z2O2Q2S2_0T342R0u2~2 2r2/0Z2Z2#0n373h0?2p3n0#2u0B0T0k2J0k0o2K0_0n0P0*0h2K0V0#2k2m2*3c2r0*3r3F2l0$0T0*2h2V0u2+3d2r1R0n2@2q0p3J0T31263V3W030T090o0p0p0k0p3s0x0Y0f0h3/3;0u0E1{0T1y0y0T0i0T3z3B2K0T0X0x250g1O1Q0u382P3a45473A3C4i4c4e4g1R2t2!3m2,3d3Y3!0T0Z4D231,0A281 2b1y012d2f3S3G2n3%3q2w2y2A0n2C2/2H2J2L2N4k2S2%2W2Y4w0n4*2)3+3d3f2|2@374@0A3%303239362`4 3b4y2 3f3l3j2`573o2p4T3t0h3v3x1`4o3D3N3H4;3Q3M4Q3Q4P2W5n2-4A0A3#3%3)3U4|2s5w2q44465e5g275i490u3E4Q334(2)4m5I3w5K484p5O3O3g4-0J230f0o0D0h0*0k1`1S0n0X221$01260k3Y5/0X5;1=4O273j5U5h5X3D3T0J2_2`0p1$09010b4H2L420T0O0P4n5M2t000o2q4t4i0w0*2u0T0V672t3i3.3:0p0u0P0n4u0p0Z6d3o3-0s1i2z4q2l2K2p0A6P2W0e4c0h0x372j3O0V0y0p0J2p600A623u5V3y5j5N6V0k6Q6Y0x6!680!2`0y1$0V3%6d6f1R4^1y0)6r1P4u0P0w0u0k0T6q0*0d0o0u1G1.0T2e0T6_6Q6A0?0T7f2#2^6q4i654i6w1Y6L0#6,0#2p3-0N7d4i3}6E3@0.0T7L3:0y0I0.2m0X6-7P0e7U2`6%2m6)6b2i4Q0V0I0J1$7,0$6)7?7K6.6:5f6=5L5Y6s7)6 2`0.6c6e6g790T0,0u3j6s3^1.0*1:0T7U7W0p7Y7!0$0X6K016M0T7O4h2t7R3 7$6D3 7m3B0*1Q8B0E6C3~3@0R7V3}8q7#7%4h0e8P7+7;6*7^7;0I8#6(0%0J7@7:6(7Y8+6-2g613s6;646@0V840R860T0R89776h1y8e8g7P8i0n8k7q8P8o8S8s8u5(0x5}5/1|1~2a214L9h9j29201;9p5@1V2d2m0;1I0m0K9w0L9y2u0$0e1G0n0j0x8s9B9D1%9F0h9z9I0r0U5=1y9C5@1B9L1-0e5,0D9Y0T0m011B9)8I5=9Q9/0W0f0*0e0U0j0?1H1y0#3w0h5@1R5.5,0Y0?1I0g721J9}9 9;5}9P5@2P0@0e0A6q1I7/01ao0#0e0z2!0o0faq5@0^2u0_2zavaxaz435@260danap9v1JaL0e3{0P0W1I0B2J269#2!0B3Ba01J236G1/3`5;9)1p9u0T8%1Jal0x9)0x0z1N8=6/1I6H7n5@4G0_1R0Y0X9J2f0r1Iad010j2f1+2S0k0r0e0D0n0#b0ao2X1Jbfb8b4blbnaWaYbrbebg1R7g2Jbwbo1yaX0haZbsbg1,6q1{bpb21J3R0e7ga bIbz5@0Y0P0L2y2u9;2W9,0.ara9au6v0ub*1S1I881J2u5`6F261N0na,0fa.9(255K1,b)aX3B2@a(0:0=0@0A232u1i992I1/6Y0n0$4d4X0B0^6Y7h3Y9,b1bAb60x7ga}266/0*1-b85}1i0r6H1ia(bJbL5^9M0U0e1-0h1C7~cGau272!0Ab8cs0_5_cwbybKbA0X0A5.bt0j1=0-b-0y0k0.0l0 0k1sb-0E0k0u0l0P0R0Bd00R0y0R0.0(1q1e0k0R0-0%0-0P0y0l0$0|0I1e0Rc~d81a0Ddc0p1g0l1m0l0(235}9V0uaVaP010n0Ua_1,bKc-cQ1V0f0^a;cPc/cocq1+0o4X0x0B0B1I0%3;b3d%0e0B0u0;0DcKbR0u0H9wcect0$0P0(0$1k0R0$0.0D0R0P0$0p1b0p0(0P0p0.d80y7YdE0%0lc~0$0-c~0E0.dk1I1A1C1E1G1=1L1N7P1T1V0x0%1ZaV9w1_9s4Ka)eL1*1{1}eN9oeP1Jc54I9na;4M2e2g8-2m5n4T2x2z2B0e2D312G2{4#2@4%352T3T4,3i4/3I544}2:4`4_e^4{f22s3f5237525C3ee=5#6B594-5b3p2v3ac;2S0A5Z2m1$0Lf12-3L7V5q3R7:5tff7t8f4B0Gbz3%fz5l0$2;f7690T0L5u5DfH5x0T0+bq3o2-3-7R3?3^3`3|8E40276i1pd=0k3Zf/0h000P0f0f317t8K3vc%fz8B3@fc4d8M7S4v3i53fy3r0L0T05fA5!4`fU3XfW2q4D6K545AglfG3ZfXgp4F0^eZ9t2ce%4P3Oe+2ve-4W4Ye=4!2?2M4je{4/e~2$67gt4?fQ2`4`fFfb5Rfd5Rg!fh573kfl7Lg.5dfrfpft0$fvfx2sfMfB5s5Bf9gmgv2qfJc.fL5pgjgX2`fTfF5EfYf!54fzgfghfNfPgNgthcfpg=hj52g^5zc.hmgn3sg;frg?fi0?g^5(5*5,5.1/5}9,1?aKcv8f5|5~4L3-0,cHb1f?cZ2t4if_0N0Q0s427M3W0T6*h)3d0t2r09h;0#3-2 0I2-7Yh-2sh/h;h|0T0%2s0(6-1Q6$8Z7/7_7=8(7-8*ic7`0(8+if7{8:g.7~hx27g=e}h+6+5r0Th3bL768b2^1y0s7hhy7F0P0#2h6q7y976u6wcp7x1R1)0x0Wf/iw0u8u8;cE62iEfs0P1Q1$6*68fCfZbSiy78iA6j6l7u2Wis7w3j8B6G4u6H4d0w8KiW7Iinhohzi%gOihiui-bri/93i=3sf,3~8L0(3(5}0T0f4{f-262a2tiG2hh!h$iX1Ea~i!ipj7i(h+7?jbbq91iz6i6kjh8KjGjm3jjp8Kjs1/juiH7r00h#0sjzj5i#8{jF0.i+2hiVjKi:jM6l2djP8n001V3RjW0f2fjXjwj!jyj4jBiofq27j*gOd-j-ivbZ3.8aj;1yjNj@f-i13@0#j`0Lj|4ij~2he0jYjxj$6d9q4XeS9mgBdLdV9r4JeVhL9R9G9A9Z9@9x9T9H9J8f9M9OkO9EkM9V9Xaj1J9$9Mau9*9,9.9:k+019@1B9`9|9~1/1Ia23Ca57h9;a9a;ac5@afcm5,aikXa@d%a_ataA1JataG4daIh+aB0AaD4VlgaybchMaMlcdLaRaTdK0TdYa!d)a%5?a@c07oc2b82K0Ba;a?01a^a`a|7~d`b3gzan7ob8b#0XbbaJbMbubibkbmbH47jJl$1~4HbGdSbAbtlVbE0hl;bYc.5@l@bO2acg1ycy5@bUbWdXke01b#b%b;b?b,b.aFmd5,b+b^5@b{1R2fb=a+lGc3aueY1~c84ocb1=0;0?0^ch6FhWclb=dHd#c)cub|hQl,bSas7ocBmqjBcZcI3zbjcMd4l=aKcScU0#cWcD61cZ0ec#0^c(ctc+8f9,lzaQc;0ec?1=0E1a0p1i0p0D1v0R0u0(1ree7Z0%c}140$1je6dp160B0-d00-dq0D12nm0ynon23 0E1bded00;0l7hdGco0e0rdJlDdMdO1~dRl|dT0LdVbXlym9mJd:3vd(d*d,d.1JnXd;d?0$d^bjd`d|1%d~0_0R170Ret0y0(7h1qn9d=0$0}nx1v0.n*0.eg0u3;1c0R0k130D0Eew9^1D1FcceC6seF1W0.eJ231(1*eUe#oq1_kCotnJmvoyhR0T0S2lgfj~c;4dc%3Q0#a$0L1S0T0x9+27j1jrh(0#oHbOc%0e0N370ma?0%1$0-i)7/7Y0K2poYoJb80Qo%o*a=o+o-i)0Io:g.3-1Y0T0M7n4p7r8f6H4i74010N6doQ0okf0Q6d68b41SdV3p7ypho=2@2h2zoN7F6p2qj#0T0C6U0upo26376dgp7I8weIg80kd30A0*4u7scs0#hW1-jR1`pQd?0Vl61/68f}1|p9iG3j6woUjjpQa$f/0X0*p8jo1OoZ2h5:3s4w2gp-5c2v5:pZ8k5Np%4:3%3-0S6BiQ0wiSf/jc4bp_7sqajR4b6H5-a,8l5`2#q22a1$iVql3Fg.2-kt7$g.o;pQ1.0Vq6qrp#pso!0N8+2rqd6B0Pd*5-frkdh4oXqJ0nqL9jqN5NqPo@qS0TqU7xqWa$fphd7ngyl:oBk%p|o?o#o%o)o|iso~p0q-0eo^2`0mo`a?o,r5jGp0pDpF4i2`6dpj8vqHfn3rqMp!q9krg_2rc)3QoL7tiG0zq91(p$rw0T0gh+rx2 fzqa0m0*0K0T042`rPp_460y0Kgt5vhwiV3%hcjchE5+5-hPhKdGhNkB5:hKin1Rrk0Z5}pQ0f0V0J0Zayp*s0fRrn6d7375kg6h0M44kiksq ptoLpw6oiJpAcp0#i^0@0o0Fo?p82hkkjj2hqrj22hoHoQll4uqv3R0Xp-6x0s8Krk0T0Qs17I7KiY8?rtq80V0mado`b_0R0Kkcjcj:jfsZ1$s#1$s%qpsAf-j3rpinsWp#s-8ms.s:s(iuj/kf928cs}b_o`s;kop ktl,0*j2j%k5s{q,shqQkct3je8c0OsgoIsio$tbjntds?jjthiZpYq+0Vr8sQjIi.sbtqtsp}sPqp0D9ate8K9g9#9ir?9lq}kK9/tWkDeOt!kQ9Uk$0:9S9UkT9%kW9-kPt.kS9Wk,k;0W9%k*9=9Bogk/t|k?l4a(k{a4lek~a8aa1yl2aek^b=p%t,lOlt0Tarlfawlhd,lklmaFuqlpl#5^0ulsaOeWuzaMlwm$k%a#lCdLmra-lIa:1IlMlO6!lQjBlSn$lUb6lXbalql.3abjl{mPl?bNlUl*uHbBb8bD6Fl`u/nOu,bu4dm1uW01m661u:mbb(ui6Qmfb!mhb)mjb@1yb_01mnb}mqlFuNm)0eoA9Nb=c99T1RmAn:mEcj0*mHcncpd:mLm@mOm4ua0YmTm,cFcHcncKm!cOnUm(cVcXmV9(m:o!vDr=m_nUm|m~4L0Dd^ngobdE0u1h0unydq0k3?mF0EnB0l0B0%0B0.0%e9eb0p1v6F0$2u0.di0I0D17eun90E2u0-0BdAnEdIlxt!dNdP6}v#l}9RnRm8wt5^d!nWd:d)d+1yd-arn%d=d@d_m3bq0H0H.'
+</script><script src="../../js-per-pages/0-generic-python-snippets-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-error_logs-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-packagesInstaller-install-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-runtimeManager-runtime-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/2-0-runnersManager-runners.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/2-pyodideSectionsRunner-runner-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/3-terminalRunner-term.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-0-idesManager-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-ideLogistic-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-ideRunner-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/start-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div class="md-copyright_pyodide">
+    
+    
+  </div>
+  
+    <div class="md-copyright_pyodide">
+      <div>
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      <div id="pyodide-footer">
+        <a href="https://gitlab.com/frederic-zinelli/pyodide-mkdocs-theme" target="_blank" rel="noopener">
+          Pyodide MkDocs Theme
+        </a> v.5.5.6
+      </div>
+    </div>
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+
+
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+<script src="../../js-scripts/overlord.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-scripts/subscriptions.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+
+
+  </body>
+</html>

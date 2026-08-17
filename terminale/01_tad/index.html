@@ -1,0 +1,2489 @@
+<!--
+pyodide-mkdocs-theme
+Copyleft GNU GPLv3 🄯 2024 Frédéric Zinelli
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.
+If not, see <https://www.gnu.org/licenses/>.
+-->
+
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nxpat.github.io/nsi/terminale/01_tad/">
+      
+      
+        <link rel="prev" href="../../premiere/02_unix_history/">
+      
+      
+        <link rel="next" href="../02_poo/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/mdi--code-block-tags">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1. Structurer les données - Cours NSI</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+<script type="importmap">{"imports": {"functools": "../../js-libs/functools.js", "functoolsStorage": "../../js-libs/functoolsStorage.js", "functoolsTxt": "../../js-libs/functoolsTxt.js", "functoolsUi": "../../js-libs/functoolsUi.js", "functoolsUiBuilder": "../../js-libs/functoolsUiBuilder.js", "jsLogger": "../../js-libs/jsLogger.js", "process_and_gui": "../../js-libs/process_and_gui.js", "0-generic-python-snippets-pyodide": "../../js-per-pages/0-generic-python-snippets-pyodide.js", "1-error_logs-pyodide": "../../js-per-pages/1-error_logs-pyodide.js", "1-packagesInstaller-install-pyodide": "../../js-per-pages/1-packagesInstaller-install-pyodide.js", "1-runtimeManager-runtime-pyodide": "../../js-per-pages/1-runtimeManager-runtime-pyodide.js", "2-0-runnersManager-runners": "../../js-per-pages/2-0-runnersManager-runners.js", "2-pyodideSectionsRunner-runner-pyodide": "../../js-per-pages/2-pyodideSectionsRunner-runner-pyodide.js", "3-btnRunner-py_btn": "../../js-per-pages/3-btnRunner-py_btn.js", "3-terminalRunner-term": "../../js-per-pages/3-terminalRunner-term.js", "4-0-idesManager-ide": "../../js-per-pages/4-0-idesManager-ide.js", "4-ideLogistic-ide": "../../js-per-pages/4-ideLogistic-ide.js", "4-ideRunner-ide": "../../js-per-pages/4-ideRunner-ide.js", "5-ideTester-ides_test": "../../js-per-pages/5-ideTester-ides_test.js", "6-2-init-playground": "../../js-per-pages/6-2-init-playground.js", "6-idePlayground-playground": "../../js-per-pages/6-idePlayground-playground.js", "qcms-qcm": "../../js-per-pages/qcms-qcm.js", "start-pyodide": "../../js-per-pages/start-pyodide.js", "overlord": "../../js-scripts/overlord.js", "subscriptions": "../../js-scripts/subscriptions.js"}}</script>
+
+
+
+      
+    
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/jquery.terminal@2.43.1/css/jquery.terminal.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery.terminal@2.43.1/js/jquery.terminal.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ace.js" integrity="sha256-By0T5T0R4s7M//4aD6fxXPacVDXYl99T2YxxvhxKLn8=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ext-language_tools.js" integrity="sha256-eZ46N0b3QkDX+7GjjlJfoBuXGKIH86UKJVARHhGzpWA=" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/0-config.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script type="text/javascript">
+if(!window.CONFIG) window.CONFIG={}
+CONFIG.argsFigureDivId="figure1"
+CONFIG.baseUrl="../.."
+CONFIG.buttonIconsDirectory="../../assets/images"
+CONFIG.editorFontFamily="monospace"
+CONFIG.editorFontSize=15
+CONFIG.exportZipPrefix=""
+CONFIG.exportZipWithNames=false
+CONFIG.inServe=false
+CONFIG.keyStrokesAutoSave=30
+CONFIG.language="fr"
+CONFIG.pmtUrl="https://gitlab.com/frederic-zinelli/pyodide-mkdocs-theme"
+CONFIG.projectId="cours_nsi_terminale"
+CONFIG.projectMoveFromOldId=null
+CONFIG.projectNoJsWarning=false
+CONFIG.pythonLibs=[]
+CONFIG.siteUrl="https://nxpat.github.io/nsi/"
+CONFIG.version="5.5.6"
+CONFIG.lang={"allOthersTrash": {"msg": "1 entr\u00e9e non associ\u00e9e au projet en cours a \u00e9t\u00e9 trouv\u00e9e. Voulez-vous la supprimer ?\n(Vous risquez de perdre des donn\u00e9es d'un site voisin !)", "plural": "{N} entr\u00e9es non associ\u00e9es au projet en cours ont \u00e9t\u00e9 trouv\u00e9es. Voulez-vous toutes les supprimer ?\n(Vous risquez de perdre des donn\u00e9es d'un site voisin !)"}, "attemptsLeft": {"msg": "\u00c9valuations restantes"}, "check": {"msg": "Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)", "em": 9, "kbd": ""}, "comments": {"msg": "(D\u00e9s-)Active le code apr\u00e8s la ligne <code># Tests</code> (insensible \u00e0 la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)", "em": 17, "kbd": "Ctrl+I"}, "complementTrash": {"msg": "Nota : 1 entr\u00e9e non associ\u00e9e \u00e0 ce projet, qui ne sera pas supprim\u00e9e", "plural": "Nota : {N} entr\u00e9es non associ\u00e9es \u00e0 ce projet, qui ne seront pas supprim\u00e9es"}, "corr": {"msg": "\ud83d\udc0d Proposition de correction"}, "corrBtn": {"msg": "Tester la correction (serve)", "em": 0, "kbd": ""}, "delayedReveal": {"msg": "Solution affich\u00e9e dans {N} essai(s).", "format": "info"}, "download": {"msg": "T\u00e9l\u00e9charger", "em": 0, "kbd": ""}, "editorCode": {"msg": "\u00c9diteur", "format": "info"}, "failHead": {"msg": "Dommage !", "format": "warning"}, "failTail": {"msg": "est maintenant disponible", "plural": "sont maintenant disponibles"}, "feedback": {"msg": "Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)", "em": 19, "kbd": ""}, "figureAdmoTitle": {"msg": "Votre figure"}, "figureText": {"msg": "Votre trac\u00e9 sera ici"}, "fullScreen": {"msg": "Entrer ou sortir du mode \"plein \u00e9cran\"<br>(<kbd>Esc</kbd>)", "em": 10, "kbd": "Esc"}, "installDone": {"msg": "Installations termin\u00e9es !", "format": "info"}, "installStart": {"msg": "Installation de paquets python. Ceci peut prendre un certain temps...", "format": "info"}, "loadIde": {"msg": "Configure l'IDE avec ces donn\u00e9es", "em": 10, "kbd": ""}, "noCodesTrash": {"msg": "Pas de codes trouv\u00e9s pour le projet en cours sur ce navigateur."}, "p5Start": {"msg": "D\u00e9marre l'animation", "em": 0, "kbd": ""}, "p5Step": {"msg": "Avance d'une image", "em": 0, "kbd": ""}, "p5Stop": {"msg": "Arr\u00eate l'animation", "em": 0, "kbd": ""}, "pickerFailure": {"msg": "Veuillez cliquer sur la page entre deux utilisations des raccourcis clavier ou utiliser un bouton, afin de pouvoir t\u00e9l\u00e9verser un fichier."}, "play": {"msg": "Ex\u00e9cuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)", "em": 9, "kbd": "Ctrl+S"}, "publicTests": {"msg": "Tests publics", "format": "info"}, "pyBtn": {"msg": "Ex\u00e9cuter le code", "em": 9, "kbd": ""}, "qcmCheckTip": {"msg": "V\u00e9rifier les r\u00e9ponses", "em": 11, "kbd": ""}, "qcmMaskTip": {"msg": "Les r\u00e9ponses resteront cach\u00e9es...", "em": 11, "kbd": ""}, "qcmRedoTip": {"msg": "Recommencer", "em": 9, "kbd": ""}, "qcmTitle": {"msg": "Question", "plural": "Questions"}, "refresh": {"msg": "Une version plus r\u00e9cente du code existe.\nVeuillez copier vos \u00e9ventuelles modifications puis r\u00e9initialiser l'IDE.", "format": "warning"}, "rem": {"msg": "Remarques"}, "removeTrash": {"msg": "Il y a actuellement 1 r\u00e9f\u00e9rence enregistr\u00e9e sur ce navigateur.\nVoulez-vous l'effacer ?", "plural": "Il y a actuellement {N} r\u00e9f\u00e9rences enregistr\u00e9es sur ce navigateur.\nVoulez-vous toutes les effacer ?"}, "restart": {"msg": "R\u00e9initialiser l'\u00e9diteur", "em": 0, "kbd": ""}, "restartConfirm": {"msg": "ATTENTION: r\u00e9initialiser l'\u00e9diteur fera perdre les anciens codes, status de validation et historiques.", "em": 0, "kbd": ""}, "revealCorr": {"msg": "le corrig\u00e9"}, "revealJoin": {"msg": "et"}, "revealRem": {"msg": "les commentaires"}, "runScript": {"msg": "Script lanc\u00e9...", "format": "info"}, "save": {"msg": "Sauvegarder dans le navigateur", "em": 0, "kbd": ""}, "secretTests": {"msg": "Tests secrets", "format": "info"}, "show": {"msg": "Afficher corr & REMs", "em": 0, "kbd": ""}, "splitModePlaceholder": {"msg": "\u00c9diteur dans l'autre colonne"}, "splitScreen": {"msg": "Entrer ou sortir du mode \"deux colonnes\"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)", "em": 23, "kbd": ""}, "storageIdCollision": {"msg": "Contacter l'auteur du site web en lui fournissant ce message complet. Une collision potentielle d'ids entre plusieurs projets \u00e0 \u00e9t\u00e9 rencontr\u00e9e. Il faut ajouter ou modifier l'argument ID pour l'IDE suivant:"}, "successHead": {"msg": "Bravo !", "format": "success"}, "successHeadExtra": {"msg": "Vous avez r\u00e9ussi tous les tests !"}, "successMsg": {"msg": "OK", "format": "success"}, "successMsgNoTests": {"msg": "Termin\u00e9 sans erreur.", "format": "info"}, "successTail": {"msg": "Pensez \u00e0 lire"}, "test1Ide": {"msg": "Lance ce test", "em": 7, "kbd": ""}, "testIdes": {"msg": "Lance tous les tests...", "em": 7, "kbd": ""}, "testStop": {"msg": "Arr\u00eate les tests", "em": 6, "kbd": ""}, "tests": {"msg": "\n\n# Tests\n\n", "as_pattern": "^#\\s*Tests"}, "testsDone": {"msg": "Tests termin\u00e9s", "format": "info"}, "tipTrash": {"msg": "Supprimer du navigateur les codes enregistr\u00e9s pour Cours NSI", "em": 15, "kbd": ""}, "titleCorr": {"msg": "Solution"}, "titleRem": {"msg": "Remarques"}, "unforgettable": {"msg": "N'oubliez pas de faire une validation !", "format": "warning"}, "upload": {"msg": "T\u00e9l\u00e9verser", "em": 0, "kbd": ""}, "validation": {"msg": "Validation - ", "format": "info"}, "wrapTerm": {"msg": "Si activ\u00e9, le texte copi\u00e9 dans le terminal est joint sur une seule ligne avant d'\u00eatre copi\u00e9 dans le presse-papier", "em": 19, "kbd": ""}, "zip": {"msg": "Archiver les codes des IDEs exportables de la page", "em": 14, "kbd": ""}, "zipAskForNames": {"msg": "Veuillez pr\u00e9ciser votre/vos noms (cha\u00eene vide interdite) :"}}
+</script>
+<script src="../../js-libs/0-legacy-subscriber.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/functools.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsStorage.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsTxt.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsUi.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/functoolsUiBuilder.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/jsLogger.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-libs/mathjax-libs.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<script src="../../js-libs/process_and_gui.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<link href="../../pyodide-css/0-generic.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/btns-header.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/history.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/hourglass.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/ide.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/qcm.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/terminal.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<link href="../../pyodide-css/testing.css" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="text/javascript"></script>
+
+<input type="checkbox" id="ace_palette" autocomplete="off" class="md-toggle" data-ace-dark-mode="tomorrow_night_bright" data-ace-light-mode="crimson_editor">
+
+
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapitre-1-structurer-les-donnees" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Cours NSI" class="md-header__button md-logo" aria-label="Cours NSI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 3.41 7 4.82 3.82 8 7 11.18 5.59 12.6 1 8zm5.82 0L16 8l-4.59 4.6L10 11.18 13.18 8 10 4.82zM22 6v12c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2v-4h2v4h16V6h-2.97V4H20c1.11 0 2 .89 2 2"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cours NSI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Structurer les données
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue"  aria-label="Passer au mode nuit"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer au mode nuit" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="dark-blue" data-md-color-accent="dark-blue"  aria-label="Passer au mode jour"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer au mode jour" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../premiere/01_intro_python/" class="md-tabs__link">
+          
+  
+  
+  Première
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../sommaire.md" class="md-tabs__link">
+          
+  
+  
+  Terminale
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cours NSI" class="md-nav__button md-logo" aria-label="Cours NSI" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 3.41 7 4.82 3.82 8 7 11.18 5.59 12.6 1 8zm5.82 0L16 8l-4.59 4.6L10 11.18 13.18 8 10 4.82zM22 6v12c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2v-4h2v4h16V6h-2.97V4H20c1.11 0 2 .89 2 2"/></svg>
+
+    </a>
+    Cours NSI
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Première
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Première
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Commencer à programmer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. Commencer à programmer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/01_intro_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction au langage Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Systèmes et périphériques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Systèmes et périphériques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/02_unix_commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commandes Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../premiere/02_unix_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Historique d'Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terminale
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Terminale
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sommaire.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sommaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Structurer les données
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Structurer les données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-interface-et-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Interface et Implémentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-les-structures-lineaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Les Structures Linéaires
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Les Structures Linéaires">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-les-listes-simplement-chainees-linked-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Les Listes (simplement) chaînées (Linked Lists)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-les-piles-stacks-mode-lifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Les Piles (Stacks) - Mode LIFO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-les-files-queues-mode-fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Les Files (Queues) - Mode FIFO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-loutil-de-base-de-limplementation-objet-la-cellule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. L'outil de base de l'implémentation objet : la Cellule
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-exercices-dapplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Exercices d'application
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Exercices d&#39;application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercice-1-manipulation-de-pile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 1 : Manipulation de Pile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-2-fifo-vs-lifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 2 : FIFO vs LIFO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-3-interface-vs-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 3 : Interface vs Implémentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-4-parenthesage-defi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 4 : Parenthésage (Défi)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-complement-bableau-et-liste-chainee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Complément : bableau et liste chaînée
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Complément : bableau et liste chaînée">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-acces-aux-donnees-lecture-par-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Accès aux données (Lecture par index)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ajout-et-retrait-delements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Ajout et retrait d'éléments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-utilisation-de-la-memoire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Utilisation de la mémoire
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resume-des-performances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Résumé des performances
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-complement-les-dictionnaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Complément : les dictionnaires
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Complément : les dictionnaires">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-acces-semantique-par-cles-vs-index-numeriques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Accès sémantique par Clés (vs Index numériques)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-performance-de-recherche-complexite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Performance de recherche (Complexité)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-flexibilite-et-modelisation-complexe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Flexibilité et Modélisation complexe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_poo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Programmation Orientée Objet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_peg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Programmer en grand
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. SGBD Relationnels et SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Routage et réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_soc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Système sur puce - SoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Récursivité
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    7. Récursivité
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_rec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 7 : La Récursivité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__exp_rapide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L'exponentiation rapide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__arbre_dappel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arbre d'appels et complexité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07__tour_hanoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les Tours de Hanoï
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arbres
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    8. Arbres
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_arbres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Arbres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arbres binaires de recherche (ABR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr_insert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comment insérer une clé dans un ABR ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__abr_del/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comment supprimer un nœud dans un Arbre Binaire de Recherche (ABR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08__parcours_infixe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pparcours infixe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Graphes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    9. Graphes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_graphes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapitre 8 : Les Graphes - Notions Essentielles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__densite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Densité d'un graphe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__parcours_bfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implémentation d'un parcours en largeur (BFS) en Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__parcours_dfs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implémentation d'un parcours en profondeur (DFS) en Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__cycles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Détection de cycles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__dijkstra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme de Dijkstra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__best_first_search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme Best-First Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__algo_a/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithme A*
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09__heuristique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heuristique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-interface-et-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Interface et Implémentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-les-structures-lineaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Les Structures Linéaires
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Les Structures Linéaires">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-les-listes-simplement-chainees-linked-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Les Listes (simplement) chaînées (Linked Lists)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-les-piles-stacks-mode-lifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Les Piles (Stacks) - Mode LIFO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-les-files-queues-mode-fifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Les Files (Queues) - Mode FIFO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-loutil-de-base-de-limplementation-objet-la-cellule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. L'outil de base de l'implémentation objet : la Cellule
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-exercices-dapplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Exercices d'application
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Exercices d&#39;application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercice-1-manipulation-de-pile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 1 : Manipulation de Pile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-2-fifo-vs-lifo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 2 : FIFO vs LIFO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-3-interface-vs-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 3 : Interface vs Implémentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercice-4-parenthesage-defi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercice 4 : Parenthésage (Défi)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-complement-bableau-et-liste-chainee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Complément : bableau et liste chaînée
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Complément : bableau et liste chaînée">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-acces-aux-donnees-lecture-par-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Accès aux données (Lecture par index)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ajout-et-retrait-delements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Ajout et retrait d'éléments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-utilisation-de-la-memoire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Utilisation de la mémoire
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resume-des-performances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Résumé des performances
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-complement-les-dictionnaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Complément : les dictionnaires
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Complément : les dictionnaires">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-acces-semantique-par-cles-vs-index-numeriques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Accès sémantique par Clés (vs Index numériques)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-performance-de-recherche-complexite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Performance de recherche (Complexité)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-flexibilite-et-modelisation-complexe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Flexibilité et Modélisation complexe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+                  
+
+
+<h1 id="chapitre-1-structurer-les-donnees">Chapitre 1 : Structurer les données</h1>
+<p>Ce chapitre explore comment organiser les données pour les manipuler efficacement. Il introduit la notion fondamentale de <strong>Type Abstrait de Données (TAD)</strong> (<strong>Abstract Data Type - ADT</strong>) qui permet de séparer l'utilisation d'une structure de sa réalisation technique.</p>
+<h2 id="1-interface-et-implementation">1. Interface et Implémentation</h2>
+<p>Pour résoudre un problème informatique, on utilise des structures de données adaptées. Il est crucial de distinguer deux aspects :</p>
+<ul>
+<li><strong>L'interface</strong> (<strong>Interface</strong>) : C’est la « notice d’utilisation ». Elle définit l'ensemble des opérations (primitives) que l'on peut effectuer sur la structure (ex: ajouter, supprimer, tester si vide), sans dire comment elles sont codées.</li>
+<li><strong>L’implémentation</strong> (ou implantation) (<strong>Implementation</strong>) : C’est le code concret (en Python par exemple) qui réalise les opérations de l'interface. Une même interface peut avoir plusieurs implémentations différentes (ex: une pile faite avec une liste Python ou avec des objets).</li>
+</ul>
+<h2 id="2-les-structures-lineaires">2. Les Structures Linéaires</h2>
+<p>Les structures linéaires stockent les données les unes après les autres.</p>
+<h3 id="a-les-listes-simplement-chainees-linked-lists">A. Les Listes (simplement) chaînées (<strong>Linked Lists</strong>)</h3>
+<p>Une liste est une séquence ordonnée d'éléments. Sa définition est souvent récursive :</p>
+<ul>
+<li>Une liste est soit <strong>vide</strong> (<code>nil</code>).</li>
+<li>Soit composée d'une <strong>tête</strong> (<strong>Head</strong>) (le premier élément) et d'une <strong>queue</strong> (<strong>Tail</strong>) (qui est elle-même une liste contenant le reste des éléments).</li>
+</ul>
+<p><strong>Primitives essentielles :</strong> <code>creer_liste()</code>, <code>est_vide()</code>, <code>ajouter_en_tete(x)</code>, <code>tete()</code>, <code>queue()</code>.</p>
+<h3 id="b-les-piles-stacks-mode-lifo">B. Les Piles (<strong>Stacks</strong>) - Mode LIFO</h3>
+<p>Une pile suit le principe <strong>LIFO</strong> (<em>Last In, First Out</em>) : le dernier élément arrivé est le premier à sortir (comme une pile d'assiettes).</p>
+<ul>
+<li>On n'accède qu'à l'élément au <strong>sommet</strong> (<strong>Top</strong>).</li>
+<li><strong>Utilisations :</strong> Gestion de l'historique d'un navigateur, fonction "Annuler" (Ctrl+Z), parcours en profondeur d'un graphe.</li>
+</ul>
+<p><strong>Primitives :</strong> <code>creer_pile()</code>, <code>est_vide()</code>, <code>empiler(x)</code> (<strong>push</strong>), <code>depiler()</code> (<strong>pop</strong>), <code>sommet()</code> (<strong>peek</strong>).</p>
+<h3 id="c-les-files-queues-mode-fifo">C. Les Files (<strong>Queues</strong>) - Mode FIFO</h3>
+<p>Une file suit le principe <strong>FIFO</strong> (<em>First In, First Out</em>) : le premier élément arrivé est le premier à sortir (comme une file d'attente au cinéma).</p>
+<ul>
+<li>On ajoute à la <strong>queue</strong> (<strong>Rear</strong>) et on retire à la <strong>tête</strong> (<strong>Front</strong>).</li>
+<li><strong>Utilisations :</strong> File d'attente d'impression, gestion des processus, parcours en largeur d'un arbre/graphe.</li>
+</ul>
+<p><strong>Primitives :</strong> <code>creer_file()</code>, <code>est_vide()</code>, <code>enfiler(x)</code> (<strong>enqueue</strong>), <code>defiler()</code> (<strong>dequeue</strong>).</p>
+<h2 id="3-loutil-de-base-de-limplementation-objet-la-cellule">3. L'outil de base de l'implémentation objet : la Cellule</h2>
+<p>Pour construire ces structures en Programmation Orientée Objet, on utilise souvent une classe <strong>Cellule</strong> (<strong>Node</strong>) qui sert de maillon :</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Cellule</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valeur</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">suivant</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valeur</span> <span class="o">=</span> <span class="n">valeur</span>   <span class="c1"># La donnée stockée</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">suivant</span> <span class="o">=</span> <span class="n">suivant</span> <span class="c1"># Lien vers la cellule suivante</span>
+</code></pre></div>
+<h2 id="4-exercices-dapplication">4. Exercices d'application</h2>
+<h3 id="exercice-1-manipulation-de-pile">Exercice 1 : Manipulation de Pile</h3>
+<p>Soit une pile <code>P</code> initialement vide. On effectue les opérations suivantes :
+<code>empiler(P, 5)</code>, <code>empiler(P, 3)</code>, <code>x = depiler(P)</code>, <code>empiler(P, 8)</code>, <code>empiler(P, 2)</code>, <code>depiler(P)</code>.
+1. Quel est le contenu de la pile (du bas vers le haut) ?
+2. Quelle est la valeur de <code>x</code> ?
+3. Quel est l'élément au sommet de la pile à la fin ?</p>
+<div id="global_editor_7d99e278b4efd976f3667af3b4cbef09564a786e" class="py_mk_ide"><div class="py_mk_wrapper md-typeset"><div class="comment_py_mk_wrapper"><div is_v="false" mode="" id="editor_7d99e278b4efd976f3667af3b4cbef09564a786e"></div><span id="comment_editor_7d99e278b4efd976f3667af3b4cbef09564a786e" class="comment tooltip">###<span style="--tool_shift: 95%;width:17em;" class="tooltiptext bottom">(Dés-)Active le code après la ligne <code># Tests</code> (insensible à la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)</span></span><div class="ide-split-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19M13,19H21V21H13V19Z" /> </svg><span style="--tool_shift: 95%;width:23em;" class="tooltiptext bottom">Entrer ou sortir du mode "deux colonnes"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)</span></div><div class="ide-full-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M18 8H6V16H18V8Z" /> </svg><span style="--tool_shift: 95%;width:10em;" class="tooltiptext bottom">Entrer ou sortir du mode "plein écran"<br>(<kbd>Esc</kbd>)</span></div></div><div style="--n-buttons:2" class="term_wrapper"><div is_v="False" style="line-height:24px;--n-lines:10;" id="term_editor_7d99e278b4efd976f3667af3b4cbef09564a786e" class="term_editor py_mk_terminal"></div><div class="term_btns_wrapper"><div class="twemoji stdout-ctrl tooltip"><svg viewBox="0 0 24 24" fill="none"     stroke="var(--md-default-fg-color)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"     xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>   <path d="M 4,21.4 V 2.6 C 4,2.3 4.3,2 4.6,2 h 11.65 c 0.16,0 0.31,0.06 0.42,0.18 l 3.15,3.15 C 19.94,5.44 20,5.59 20,5.75 V 21.4 C 20,21.73 19.73,22 19.4,22 H 4.6 C 4.3,22 4,21.73 4,21.4 Z" ></path>   <path d="M 16,5.4 V 2.35 C 16,2.16 16.16,2 16.35,2 c 0.09,0 0.18,0.03 0.25,0.10 l 3.29,3.29 C 19.96,5.46 20,5.55 20,5.65 20,5.84 19.84,6 19.65,6 H 16.6 C 16.27,6 16,5.73 16,5.4 Z" ></path>   <path d="m 8,9.25 h 8" ></path>   <path d="M 7.9,13.25 H 15.9"></path>   <path d="M 7.9,11.25 H 14.4" ></path>   <path d="M 7.9,19.25 H 14.4" ></path>   <path d="m 7.9,15.25 h 8" ></path>   <path d="M 7.9,17.25 H 11.9" ></path>   <path d="m 8,5.25 h 4" ></path>   <path d="m 8,7.25 h 4" ></path> </g> <g><path class="stdout-x-ray-svg" d="M 3,11.4 v 6 L 21,13.8 V 7.7 Z" style="fill:var(--md-default-bg-color);stroke-width:0;" ></path></g> </svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)</span></div><div class="stdout-wraps-btn tooltip svg-switch-btn twemoji deactivated"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M7 21H5V3h2v18m7-18h-2v6h2V3m0 12h-2v6h2v-6m5-3-3-3v2H9v2h7v2l3-3Z"> </path></svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Si activé, le texte copié dans le terminal est joint sur une seule ligne avant d'être copié dans le presse-papier</span></div></div></div></div><div class="ide_buttons_div_wrapper"><div class="ide_buttons_div"><button btn_kind="play" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Exécuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)" data-tip-width="9"><img src="../../assets/images/icons8-play-64.png" class="skip_light_box" /></button><button btn_kind="check" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)" data-tip-width="9"><img src="../../assets/images/icons8-check-64.png" class="skip_light_box" /></button><button btn_kind="download" style="margin-left:1em; margin-right:0.2em;" class="tooltip " data-tip-txt="Télécharger"><img src="../../assets/images/icons8-download-64.png" class="skip_light_box" /></button><button btn_kind="upload" style="margin-left:0.2em; margin-right:1em;" class="tooltip " data-tip-txt="Téléverser"><img src="../../assets/images/icons8-upload-64.png" class="skip_light_box" /></button><button btn_kind="restart" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Réinitialiser l'éditeur"><img src="../../assets/images/icons8-restart-64.png" class="skip_light_box" /></button><button btn_kind="save" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Sauvegarder dans le navigateur"><img src="../../assets/images/icons8-save-64.png" class="skip_light_box" /></button></div><div class="compteur_wrapper"><div class="compteur"><span class="compteur_txt">Évaluations restantes : </span><span id="compteur_editor_7d99e278b4efd976f3667af3b4cbef09564a786e">5</span>/<span id="compteur_editor_7d99e278b4efd976f3667af3b4cbef09564a786e-low">5</span></div></div></div></div>
+
+<div class="py_mk_hidden" id="solution_editor_7d99e278b4efd976f3667af3b4cbef09564a786e">
+.1280135b],x_plaShc[Pt uy/s=mendvog21rif83050z0x0p0j0G0i0u0q0m0i0j0u0u0v010p0G0h010406050u0r0w0w0j0F0s040k0B0i0r0!0B0y050t0+0-0/0;0)0h0405140}170t140)0z0G0A0S0U0W0Y0l0G0C0l0i1l0l0p0%050N0c0i0x1g0V0X011k1m1o1m0p1u1w1s0p0F150p0l0S0@0u0h0j0y0Y0D011y1i010H0P0x0y0j0w0x1s1R1T1Y1A1#1w1(1*0%0a0q0o0F0B0h0B0u0G0`0y0q0L1P0F0F0x0m220}1-0y150t1N2f1K1M1L1t0z1/0Y1o0y1%1 1s1d1f0T1z2p0G2r0y0B2v1s0h28152d2f2J0*1S232x1Z2C0F0.0i0%0E2c2N0(2M1.2P1A2R2T0%0D2X1T2Z2d2o012(0j2U040J2,2e182H0}2v2i0z1M2n2$0Y0m2D1+152 162}2L0~2Y05360L2I2N2:0y0%360y0p1%0r0g0h1$2`040q2!2O1h1A0B0%0v3w3y2/34010$040n3w3z2:0w0G0%0b3O3I3B0Y3L0e3G3P3J3R0%0I3V3k3J3L0d3w0)3W2y2;0%0A2?0x0r0F0g0f3#3=1Z3D043F3e2-3H3,3X013(2^3:3$4a3m040u0B0-0M0g1#0|462e482#4a43452J4s3A3?4c3*4q2Z0t3h0x2f2G4H2~1e302i2l2g0j1v4K0t2 0)4U0M0O0Q04.
+</div>
+<h3 id="exercice-2-fifo-vs-lifo">Exercice 2 : FIFO vs LIFO</h3>
+<p>Vous gérez les dossiers de patients arrivant aux urgences.
+1. Quelle structure de données garantit que le patient arrivé en premier sera vu en premier ?
+2. Si vous utilisez l'autre structure à la place, quel problème cela pose-t-il ?</p>
+<h3 id="exercice-3-interface-vs-implementation">Exercice 3 : Interface vs Implémentation</h3>
+<p>Un collègue a écrit une fonction <code>calculer_distance(chemin)</code> qui utilise une structure de type <code>Pile</code> pour stocker les étapes.</p>
+<p>Si vous changez le code interne de la classe <code>Pile</code> (l'implémentation) pour le rendre plus rapide, mais que vous gardez les mêmes noms de méthodes (<code>empiler</code>, <code>depiler</code>), le code de votre collègue fonctionnera-t-il toujours ? Pourquoi ?</p>
+<h3 id="exercice-4-parenthesage-defi">Exercice 4 : Parenthésage (Défi)</h3>
+<p>Utilisez une pile pour écrire l'algorithme vérifiant si une expression est bien parenthésée (ex: <code>( ( ) )</code> est correct, <code>( ) ) (</code> ne l'est pas).
+*   <em>Indice : On empile quand on voit <code>(</code> et on dépile quand on voit <code>)</code>. L'expression est correcte si la pile est vide à la fin et qu'on n'a jamais essayé de dépiler une pile vide.</em></p>
+<div id="global_editor_52cd33c35a633c2715e87bf9ed3292f196e8f3fb" class="py_mk_ide"><div class="py_mk_wrapper md-typeset"><div class="comment_py_mk_wrapper"><div is_v="false" mode="" id="editor_52cd33c35a633c2715e87bf9ed3292f196e8f3fb"></div><span id="comment_editor_52cd33c35a633c2715e87bf9ed3292f196e8f3fb" class="comment tooltip">###<span style="--tool_shift: 95%;width:17em;" class="tooltiptext bottom">(Dés-)Active le code après la ligne <code># Tests</code> (insensible à la casse)<br>(<kbd>Ctrl</kbd>+<kbd>I</kbd>)</span></span><div class="ide-split-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19M13,19H21V21H13V19Z" /> </svg><span style="--tool_shift: 95%;width:23em;" class="tooltiptext bottom">Entrer ou sortir du mode "deux colonnes"<br>(<kbd>Alt+:</kbd> ; <kbd>Ctrl</kbd> pour inverser les colonnes)</span></div><div class="ide-full-screen tooltip svg-switch-btn twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">   <path d="M17 4H20C21.1 4 22 4.9 22 6V8H20V6H17V4M4 8V6H7V4H4C2.9 4 2 4.9 2 6V8H4M20 16V18H17V20H20C21.1 20 22 19.1 22 18V16H20M7 18H4V16H2V18C2 19.1 2.9 20 4 20H7V18M18 8H6V16H18V8Z" /> </svg><span style="--tool_shift: 95%;width:10em;" class="tooltiptext bottom">Entrer ou sortir du mode "plein écran"<br>(<kbd>Esc</kbd>)</span></div></div><div style="--n-buttons:2" class="term_wrapper"><div is_v="False" style="line-height:24px;--n-lines:10;" id="term_editor_52cd33c35a633c2715e87bf9ed3292f196e8f3fb" class="term_editor py_mk_terminal"></div><div class="term_btns_wrapper"><div class="twemoji stdout-ctrl tooltip"><svg viewBox="0 0 24 24" fill="none"     stroke="var(--md-default-fg-color)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"     xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>   <path d="M 4,21.4 V 2.6 C 4,2.3 4.3,2 4.6,2 h 11.65 c 0.16,0 0.31,0.06 0.42,0.18 l 3.15,3.15 C 19.94,5.44 20,5.59 20,5.75 V 21.4 C 20,21.73 19.73,22 19.4,22 H 4.6 C 4.3,22 4,21.73 4,21.4 Z" ></path>   <path d="M 16,5.4 V 2.35 C 16,2.16 16.16,2 16.35,2 c 0.09,0 0.18,0.03 0.25,0.10 l 3.29,3.29 C 19.96,5.46 20,5.55 20,5.65 20,5.84 19.84,6 19.65,6 H 16.6 C 16.27,6 16,5.73 16,5.4 Z" ></path>   <path d="m 8,9.25 h 8" ></path>   <path d="M 7.9,13.25 H 15.9"></path>   <path d="M 7.9,11.25 H 14.4" ></path>   <path d="M 7.9,19.25 H 14.4" ></path>   <path d="m 7.9,15.25 h 8" ></path>   <path d="M 7.9,17.25 H 11.9" ></path>   <path d="m 8,5.25 h 4" ></path>   <path d="m 8,7.25 h 4" ></path> </g> <g><path class="stdout-x-ray-svg" d="M 3,11.4 v 6 L 21,13.8 V 7.7 Z" style="fill:var(--md-default-bg-color);stroke-width:0;" ></path></g> </svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Tronquer ou non le feedback dans les terminaux (sortie standard & stacktrace / relancer le code pour appliquer)</span></div><div class="stdout-wraps-btn tooltip svg-switch-btn twemoji deactivated"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path d="M7 21H5V3h2v18m7-18h-2v6h2V3m0 12h-2v6h2v-6m5-3-3-3v2H9v2h7v2l3-3Z"> </path></svg><span style="--tool_shift: 97%;width:19em;" class="tooltiptext bottom">Si activé, le texte copié dans le terminal est joint sur une seule ligne avant d'être copié dans le presse-papier</span></div></div></div></div><div class="ide_buttons_div_wrapper"><div class="ide_buttons_div"><button btn_kind="play" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Exécuter le code<br>(<kbd>Ctrl</kbd>+<kbd>S</kbd>)" data-tip-width="9"><img src="../../assets/images/icons8-play-64.png" class="skip_light_box" /></button><button btn_kind="check" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Valider<br><kbd>Ctrl</kbd>+<kbd>Enter</kbd><br>(Clic droit pour l'historique)" data-tip-width="9"><img src="../../assets/images/icons8-check-64.png" class="skip_light_box" /></button><button btn_kind="download" style="margin-left:1em; margin-right:0.2em;" class="tooltip " data-tip-txt="Télécharger"><img src="../../assets/images/icons8-download-64.png" class="skip_light_box" /></button><button btn_kind="upload" style="margin-left:0.2em; margin-right:1em;" class="tooltip " data-tip-txt="Téléverser"><img src="../../assets/images/icons8-upload-64.png" class="skip_light_box" /></button><button btn_kind="restart" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Réinitialiser l'éditeur"><img src="../../assets/images/icons8-restart-64.png" class="skip_light_box" /></button><button btn_kind="save" style="margin-left:0.2em; margin-right:0.2em;" class="tooltip " data-tip-txt="Sauvegarder dans le navigateur"><img src="../../assets/images/icons8-save-64.png" class="skip_light_box" /></button></div><div class="compteur_wrapper"><div class="compteur"><span class="compteur_txt">Évaluations restantes : </span><span id="compteur_editor_52cd33c35a633c2715e87bf9ed3292f196e8f3fb">5</span>/<span id="compteur_editor_52cd33c35a633c2715e87bf9ed3292f196e8f3fb-low">5</span></div></div></div></div>
+
+<div class="py_mk_hidden" id="solution_editor_52cd33c35a633c2715e87bf9ed3292f196e8f3fb">
+.1280135)è],x_pqlLaShc6[4POt w(uy0/k:s=em.n;dvog217rifé83b9jF050M0H0v0m0U0k0F0w0p0k0m0F0F0G010v0U0i010406050F0z0I0I0m0T0A040n0O0k0z0`0O0K050C111315170 0i04051n1g1q0C1n0 0M0U0N0/0;0?0^0o0U0P0o0k1E0o0v0}050*0Z0k0H1z0=0@011D1F1H1F0v1N1P1L0v0T1o0v0o0/1a0F0i0m0K0^0Q011R1B010V0,0H0K0m0I0H1L1.1:1^1T1{1P1~200}0a0w0t0T0O0i0O0F0U1d0K0w0(1,0T0T0H0p2l1g230K1o0C1*2y1%1)1(1M0M250^1H0K1}2i1L1w1y0:1S2I0U2K0K0O2O1L0i2r1o2w2y2$101/2m2Q1_2V0T140k0}0w0R2v2*0~2)242,1T2.2:2=0Q2^1:2`2w2H012 0m2;040w0Y332x0 362}0^393b0w0s3f352*373l2=0b3p3h3r3j380O2/3a2=0q3w2{2+1A2~3B303c0S3G3i3J3k3L3D3c0X3P3y3R3A3C3m0!3X2|3Z3t040R0B3(3I2R3!3M0R2@1h2_3x3)3;3+0R323_343{3:2-3T3b0R3e413g3H3s460}0R3o4a3q3|453#4f3v4i434d4m3,3F4p4c3z3~3O4v3Q3}4e3,3W4A3Y4C4s0R3%4G4k3K4s0Q3.4M444O3M0Q3^2$4q4x4D0Q404Y4w3*4#494(4B4l4V4h4-4H4/3U0Q4o4=4N3S4P4u4{4T4}4V4z2(1t2!1g2O2B0M1)2G3z0p2W211o591p57552(5f0(2#4?1T0D0}2}3p4)3;0x2=5w4.2~0p0}0t1|5B5r0^0|040E3w0w5P0w5x1_5t040(0V5I4|015z3c5Y511`0I0}0h0h2T2k5,5%375L0y5;3z0Z5L0F0H0k5X4i5S1T5L0c5N4p5Q675R5C0^5`0}5|5~5^3Z0O0}0J6g3}0}5}0H200K0v0F3p695J016i040G6u615K0}0r0e3w06676C015U5W6l1_5#5R606a380V6n0I0i1|0T6O620}5@6S6w6c046e5 2(6T5L0f6B6T0K6n1P6q0v6#6D04645O685P6K6+6-6}6x6j776^046o6{6t6)5Z6y6k7g5(7b0m0i0i1}0M775?7a6_6p1}6|7k5=0}0c6H6J6T6M0H6.2_6K6Q7a6V5V0H6Y1P6!7z3z7t7T3Z755}7I346K63654Y72737F0}2r0v0z0T1f4i6v5Z7Y6f7W3;7i7u7c6`7x7f6/6w7}7{2-0}2h0i7s6%7C4p6I5Q6K7G7!2x7K5A862~7N0H0F0v0h0N0U0(8b046(837^5{7Z8x70667*8h7-0)7:7=2$7@7l0Z0}288x8z7J6T7_8j5q7h798n3k7v7e8E6?840}0G6A7?6K0I0U0}4R4Y064Z3Z8i777L8$6U0}0N0H0T0U1{940h1/2r6r0o8q8q8T7~0H0g2Z8q2j1e8E7(3`7E6w7b8a8:6T6y8/8N6K7b5G1P8T8d7)8g7,040V3B8+5Z7b0p0o159M5(0O5#2T9S3s6n9j2r0?0U9n905L9p427*8O375U969X4x5u9Q7S9z9w8-9y2_9.3z0F1?04020j0z0O0v0L0ya4a6a88x9+3g9-9r9N8877858A7l6W7Q949g909O9^8*8G728I7 9;9v9s9@9RaC8!6z9}349 3Za10}aba70L0caPad9)0}af0~ah9H6w9:8YaL6m049uan37am8VaD7c8r8t8v0H9EaX8faZai5(5U7.8L9=8|5E040$3a5|6ua(1_0p0R0}030w0u2m9l0+1Q2o0V94200T0w0z2K0w9a7x0o0d5|0w0#1 0+0.0O0z930T0va^axah9Aak90a.7#6@0}0(aq9_a/5Z5?9F3`a{ba1Tbcbe0w0l02030Y0!0L9i9k9$1e0w8q0v2p2r2t1Q5|0z806r0w0Fb-b/0L0,0wbt9#bJ717+6wb)04bf0i1b0.2obv9cby8q0wbFbHbJ0.2V2mbn2/0W9fbLazb07;b2a)a+bX9T8#a,9?a;8s8u8waV8yb!421g5o0H2y9k2y5j2z5b1g2Cc*0m1OcZ581x2`0C0(0*0,0F04.
+</div>
+<h2 id="5-complement-bableau-et-liste-chainee">5. Complément : bableau et liste chaînée</h2>
+<p>La distinction entre le <strong>tableau</strong> (souvent implémenté comme un tableau dynamique en Python via le type <code>list</code>) et la <strong>liste chaînée</strong> est fondamentale en informatique, car leurs performances diffèrent selon l'opération effectuée.</p>
+<h3 id="51-acces-aux-donnees-lecture-par-index">5.1. Accès aux données (Lecture par index)</h3>
+<ul>
+<li>
+<p><strong>Tableau</strong> : Il permet un <strong>accès direct</strong> à n'importe quel élément grâce à son index. La complexité est en <strong>temps constant <span class="arithmatex">\(O(1)\)</span></strong>, car l'adresse mémoire de l'élément se calcule instantanément.</p>
+</li>
+<li>
+<p><strong>Liste chaînée</strong> : On n'a accès directement qu'au premier élément (la tête). Pour atteindre le <span class="arithmatex">\(i\)</span>-ème élément, il faut parcourir tous les maillons un par un. La complexité est donc <strong>linéaire <span class="arithmatex">\(O(n)\)</span></strong>.</p>
+</li>
+</ul>
+<h3 id="52-ajout-et-retrait-delements">5.2. Ajout et retrait d'éléments</h3>
+<p>Les performances varient radicalement selon l'endroit où l'on modifie la structure :</p>
+<ul>
+<li>
+<p><strong>En fin de structure</strong> :</p>
+<ul>
+<li><strong>Tableau</strong> : L'ajout (<code>append</code>) ou le retrait (<code>pop</code>) en fin de tableau est très efficace, s'effectuant en <strong>temps constant <span class="arithmatex">\(O(1)\)</span></strong>.</li>
+<li><strong>Liste chaînée</strong> : Sans pointeur vers la fin, il faut parcourir toute la liste pour ajouter un élément, ce qui est en <span class="arithmatex">\(O(n)\)</span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>En début de structure</strong> :</p>
+<ul>
+<li><strong>Tableau</strong> : C'est son point faible. Retirer le premier élément (<code>pop(0)</code>) oblige à décaler tous les autres éléments d'une case vers la gauche. Cette opération est donc en <strong>temps linéaire <span class="arithmatex">\(O(n)\)</span></strong>.</li>
+<li><strong>Liste chaînée</strong> : C'est sa force. L'ajout ou la suppression en tête de liste ne demande que de modifier quelques liens (pointeurs) entre les cellules. L'opération est en <strong>temps constant <span class="arithmatex">\(O(1)\)</span></strong>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="53-utilisation-de-la-memoire">5.3. Utilisation de la mémoire</h3>
+<ul>
+<li>
+<p><strong>Tableau</strong> : Les données sont stockées de manière contiguë. Cependant, en tant que "tableau dynamique", Python réserve parfois plus de place que nécessaire pour anticiper les futurs ajouts.</p>
+</li>
+<li>
+<p><strong>Liste chaînée</strong> : Chaque élément est encapsulé dans une <strong>cellule</strong> qui contient non seulement la valeur, mais aussi l'<strong>adresse</strong> de la cellule suivante. Cela consomme plus de mémoire par élément à cause du stockage de ces liens (pointeurs).</p>
+</li>
+</ul>
+<h3 id="resume-des-performances">Résumé des performances</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Opération</th>
+<th style="text-align: left;">Tableau (Python <code>list</code>)</th>
+<th style="text-align: left;">Liste chaînée (Objet <code>Cellule</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Accès par index</strong></td>
+<td style="text-align: left;"><strong><span class="arithmatex">\(O(1)\)</span> (très rapide)</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(O(n)\)</span> (lent)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ajout/Retrait en tête</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(O(n)\)</span> (lent)</td>
+<td style="text-align: left;"><strong><span class="arithmatex">\(O(1)\)</span> (très rapide)</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ajout/Retrait en queue</strong></td>
+<td style="text-align: left;"><strong><span class="arithmatex">\(O(1)\)</span> (très rapide)</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(O(n)\)</span> (ou <span class="arithmatex">\(O(1)\)</span> si optimisé)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Recherche de valeur</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(O(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(O(n)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>En conclusion</strong>, le choix dépend de l'usage : si on a besoin besoin d'accéder souvent à des éléments au milieu, le <strong>tableau</strong> est préférable. Si on doit fréquemment ajouter ou retirer des éléments au début (comme pour une file d'attente), la <strong>liste chaînée</strong> est plus performante.</p>
+<h2 id="6-complement-les-dictionnaires">6. Complément : les dictionnaires</h2>
+<p>Les dictionnaires (<strong>Dictionaries</strong>) offrent plusieurs avantages significatifs par rapport aux listes, principalement en termes de structure de données et de rapidité d'accès aux informations.</p>
+<p>Voici les principaux points de différenciation.</p>
+<h3 id="61-acces-semantique-par-cles-vs-index-numeriques">6.1. Accès sémantique par Clés (vs Index numériques)</h3>
+<p>Contrairement aux listes qui sont des structures <strong>ordonnées</strong> accédées par un index entier (0, 1, 2...), un dictionnaire associe des <strong>clés</strong> à des <strong>valeurs</strong>. </p>
+<ul>
+<li>
+<p>Cette structure est plus intuitive pour modéliser des situations du monde réel, comme un dictionnaire de traduction (français-anglais) ou une base de données où l'on cherche une information par un nom plutôt que par sa position.</p>
+</li>
+<li>
+<p>Les opérations de base incluent l'ajout d'un couple clé-valeur, la suppression d'une clé et la modification de la valeur associée.</p>
+</li>
+</ul>
+<h3 id="62-performance-de-recherche-complexite">6.2. Performance de recherche (Complexité)</h3>
+<p>C'est l'avantage technique majeur. La performance d'un dictionnaire dépend de son <strong>implantation</strong> :</p>
+<ul>
+<li>
+<p><strong>Recherche dans une liste</strong> : Pour trouver si une valeur existe dans une liste, il faut généralement la parcourir entièrement. La complexité est donc <strong>linéaire <span class="arithmatex">\(O(n)\)</span></strong>.</p>
+</li>
+<li>
+<p><strong>Recherche dans un dictionnaire (Table de hachage)</strong> : En Python, les dictionnaires utilisent une <strong>fonction de hachage</strong> qui transforme la clé en un indice directement. Cela permet d'accéder à la valeur associée sans avoir à parcourir toute la structure. L'accès est donc extrêmement rapide, se faisant en <strong>temps constant <span class="arithmatex">\(O(1)\)</span></strong>, peu importe la taille du dictionnaire.</p>
+</li>
+</ul>
+<h3 id="63-flexibilite-et-modelisation-complexe">6.3. Flexibilité et Modélisation complexe</h3>
+<p>Les dictionnaires sont particulièrement adaptés pour représenter des structures de données non linéaires ou volumineuses :</p>
+<ul>
+<li>
+<p><strong>Représentation de Graphes</strong> : On utilise souvent des dictionnaires pour implémenter des <strong>listes d'adjacences</strong>. Chaque sommet est une clé, et la valeur associée est la liste de ses voisins. C'est une méthode compacte qui ne code que les relations existantes.</p>
+</li>
+<li>
+<p><strong>Prétraitement algorithmique</strong> : Dans l'algorithme de recherche textuelle de <strong>Boyer-Moore</strong>, un dictionnaire est utilisé pour stocker la position la plus à droite de chaque caractère du motif recherché. Cela permet de calculer instantanément le décalage nécessaire lors d'une recherche, améliorant grandement l'efficacité.</p>
+</li>
+<li>
+<p><strong>Manipulation de données API</strong> : Les réponses des API (souvent au format JSON) sont naturellement converties en dictionnaires Python, ce qui facilite leur manipulation et le filtrage des données.</p>
+</li>
+</ul>
+<p><strong>En résumé</strong>, si la liste est idéale pour stocker une suite ordonnée d'éléments, le dictionnaire est indispensable pour <strong>rechercher et modifier rapidement des données</strong> grâce à un système d'association clé-valeur performant.</p>
+<hr /><script type="text/javascript">
+CONFIG.needMermaid = false;
+CONFIG.overlordClasses = ["Terminal", "Ide", "GlobalRunnersManager"];
+globalThis.PAGE_IDES_CONFIG = '.\x1e{E,q_p-lhc6[OPtu0:kReNvo1grf?b9jF}5)]xQLa4 w(ysm.=nd27UiT83z\x1e0a010u0Z0%0o0x0A0e0#0Z0E0E0u0!0#0)0D0P0u0B0_0#0k0B0*0k0k0#0O17100j0D120q0E0I0k0P0O0~0k0u010r0Q0,0f0T0e0Y0O0V1q1s010q0y0e0o0O0Z0g0u0L0x0y0W1v010c0Q0-0Y0w0e0j0x0Y0o0u1!1r1T1R1T1$1W1#0A0V1X1Z1#1%1C1*010p0U0u0?1Y1!1$0o1(01030Q1O0Q0M0p0u0h0Q0u0U0o0Q0h0u0Q1 1?0p0Q0Z2j0h0O0Q0f0%2i0Q090p0q0q0u0q2h2s0B0%0Y0Q0S0Z2n0D0O0U0Q0w1}2P2w0i0O0p0o0J0Q0C090Y250t0u0V0f2r0j0u0+2h2e0Q0l0W2^0K2t0O0A2;2P0D1Z0Y2=0w0O2i0p0A0U0W0Q0b0L2*2,2j1s0l0y1S0!1S0*0K2$2l1$0p0e2u2w0X2?2^0W3o0Y2$250!3a292b2w2e2g2r2Q350u372o2j0L2!2$34360?3S3w0v1Z0u2$3C0Q0*3F2a2c3J2h002y2A0u0E0h3;2B0E1A1!0Q2W0Q0U0x0V1A2g2p2E2t2v2j3_2C472G2I2#0Y41430u0o0e4e0Q3Z3#1_1Y0A1~1=21233q0Y3s3u2j3w0l0I1S0)3A3V3O3X4o3)2$4i444m2H4M0)1_0f0p0D0h0%0j1G3J0U231_1|0j0A4k4$2f4(1C2O1|0A2g4y4A494o4D4F0Q4H1S0S2$0Q552x010b4t4K2x2z2B2D3L0d2a2f0%1Z260Q1s2)0w0x0T2/2Q0x2P4b0E1H0f2=0Z003e493|2g4k3Q2o5x4B5G0W09012$0J2$4?1}2g4J370e3Y3w0*5254565P594-3P4b5f2s5h3J5k2I0!5n283,2w5X2}2s5x0o5x0Q4-1V5r5x2j0f2|2;2t4-0V0%1}5K5d3?4B0A0S2Z2#5Q0Y5S1y0U4@2g4P4.4n0X3w0)5%2I5)585a5-6i5/0Q5;5j5l0*5_3G3-2f6b2p0A0Y6f2}5x3^6i3{21633J0O3}1$0Q2V2X5J3L4B3T6p0J4V5v4l1.1:4y221^1S010f6`1;201@1)711L0j0h0p2p0Z1(0l0K790L7b7d0.0e440i0x0Z4;2?7i1+7k7c7e0e0s0R7t7h711v0o7q0Y0e4Z0D7D721w7L4(7v7O2u0e0R0i0:1B0Q4z0h0h714-4#4Z6e6 0Q0g3j1T7W7Y7K0%2f7g7S2W0;0e0A0p0Y1(0q7(800e0z0A0x0p0f82710=6U0e2H86888a1(7:011|0d7~804)718o3t2r0T1(0B351|7F882G2i8s1T0O0o1#2+0o0U7K127-4 017|0x7K0x0z0e5U4^1(0o7 0u714s0?6d8N0V2O0s8l712V8N0j0i0u0j0s0e0D0o811s8$2a8=2O1;4t8}8 8y8A8(1T8?7~0u2R3598900Q8z0h8B9d951Y801.8#8%717^0e2R8!1s9m9o018.0L8g2p7@327t0*831T6e7J0%9I4Z9K1(5$1T2p4,0u2O0u8Y8J3e8M0e1Z0e1{1}1;9I8z2v377Z0-0/0;0A1_2p0O0j0o0%341#0e2f0Z894l0B0=a58`4-8M9u931T6d0x2R8Y6t5V5?8N2f9 0s8$9 7Z9C9c8n7q0R9+0Y0h1w8Za19,1}88384mab4+ae7tax8t0A4#8?0i232A151p0j0B0q0D0I0*0P0*9 0`0~0^0{0y1E0P0E0y0y0Z101n0O0P0k0Ea%0y0E0k0)0O0D0*0#1j0!0)0!0u0k0q0I0Bbg1a4*0o0Z7A0u8x701T0o0R8U1Y9n9a9nay1L739A9l9b8tbna81X2X9+0B0B1(0!2A8)bL0B0u0.2N8{ag0u0H799`ab0I0!0j0Z0*0*0j0*0I0O0kb-0j0}0y0I0u0)0#0D0B0{b,0!0E0!0Bb31p0)170B0D1(1u1w1y1AaX1F1H1J1L0x0P1P8x791V751?7-011_1,4$1/ct4wbs1`4@cB77017b4?0Q0n490r5(552p0B0Q0e8g6W4l0e0S1|0h0B0JcO6D5656c!0B0W2b2*212P4D3AcP3QcS5E2i6lc,1Sc/5Gc%c^c*c,c.2i5G390O0f5A0Y0Z0Sd0216rc^cR3Q6kcZ2bc$c(c*c*ae372Id5dg1!39730f6m3%c)c_2d2f9y9R0udnc#d2dEds4kdu2;0YdLc-dx8M2Z6z0Q0qdD2$dk9z0%2G9/69647H2e2edf0L0f4-6t5?dNc*0f4McM2idCdE253_0j2D1Y2+6!3=5y1}0W4r0=4u76cvcJ6tcLcNdj12cTcV0:cUdUd{dr55dwd7c;4M7hdDc*dkc{1}dUc ey1!euevexc:dy0WdadcdedWdidEdk2pdmc,eLdrdt6V40dod6eO8M1P0xdBeVeDeo3JdI2petdqev6(0odR2idTeNd8dY3wd#3Bf7d(1}d*6X3t2|218_1|0Ud=d@2e0Ud`e{55d}3wd dK6rc*aa2}8^6a4SbCd^fm1Zfodrd*2k2V2}dZ5P531rd3e|0fc.2+496lfy0Afue|2bfHfW4}575SfOdOe|fHfRe@0wdJ6mfFe|e$dQe(0G9b55250m2Ifl0O6f5JbU1/6g8068fe1!0i4b0)1|0Q0F1zg22P899z1#fPevfReYfUe1c^250N5Dd?fC5?dG4_ef8`1#e)0peJ6v002v7!2jd^gne22t7c2P46d-ffgdfh0Qgl5V2=0Y5lg50V670Uc^e%2If.dHf:e_6^7F4X4Z4#1#4:8G8nad4.g|af4=an4^2Qfad+0?gVgbd:fifM6mf)2Z7^0Q0(9v57e40E8^8`5_gwfBflgA000Shg00gB2kgDa00u5O6paGh70Afbd,gad/fhfN6mdC01hi2Phlah5Phohq0jhsgxfkd_5lhx0J6mhA3.8*gEhFhY6s6uhJhLhahNfgd;fM0Jh,5PhU0Qf{bA6Cc*hY5d0jhp8_h#1shtgyhvh*hg0Sh.6S2Hh:hE2Jhb7HgX2jg)6*gF6,8$e/3~2n0Z5x0D2X0JhG5R5Th55Wh8fcish}he01hyhSi3i59o53dEi92Aibh!h$huh)2Ihxhy0Jim2giohDgF0SgL8.0Y5;0Qg82{d.gc6igeiv1}i`1#iIh?6rhId)h9fdj0hdhQi20QhjiX9ci#0qi%idi)ihi+0Qhxi:jj0Yip1#iJh@5Vh_jdiQjghYhTjjhVhmiZi85Qiaichr1s0$32fI0O4b1$2jg=2jh/1ZfmiE6#0A67hC4j0Q0D6fg/h|5xg,6#h=6@6_dH6|cGcvj}4l6~g~7a7y0.7`7j7l7z7p7r7D7Sk67mbo7Bkf7F0T7H9,7Q7g7O7@7M017S1v7U7=1#1(7#7%ai8`7@7,1(7/71kz9$4Z7_3h7{2X8U7 9k9N01kT8i898b1s8m8e9/8h87kZ8;1T8ukTg~8u2,0ObrbFi61Td@0x8E9^1_8I8K0f9*2i0B8Q718T8V8XaGbZ8)ef9f0V8-8/k,019eh!8|8~9k92aylllelobz9D9e4-9h0h9jlvlr9q89209|91hm019xgmlC719F9HkM2H2e9VkV9PlQ9JlT1s9W019Y4-9#9%l19*9,9.4u9;g27c4-230.0:0=9}9!a0a28I9$a6bJfwac9Zh30Qlq7(2*ak9$aGapa51H8{au2.lNk-aAaCaEam6u5?0eaJ0=8Nm3aO4kaQbGk-aT0eaV230Eb,0E0O1ja+0q0)bg2N0O0!0Zc0a*bd0)0Pbcbda%0O0y0 0km$0^b70k0j0P0y8z0P0B0P0qbamW0!180Bc3bObHkjbqg~bubw0xby9BmA0-d?0=7-aRk-bIbL0jbLk|bO1sbQkVnha9bVa{asbZ0H0H.'
+</script><script src="../../js-per-pages/0-generic-python-snippets-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-error_logs-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-packagesInstaller-install-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/1-runtimeManager-runtime-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/2-0-runnersManager-runners.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/2-pyodideSectionsRunner-runner-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/3-terminalRunner-term.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-0-idesManager-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-ideLogistic-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/4-ideRunner-ide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-per-pages/start-pyodide.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div class="md-copyright_pyodide">
+    
+    
+  </div>
+  
+    <div class="md-copyright_pyodide">
+      <div>
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      <div id="pyodide-footer">
+        <a href="https://gitlab.com/frederic-zinelli/pyodide-mkdocs-theme" target="_blank" rel="noopener">
+          Pyodide MkDocs Theme
+        </a> v.5.5.6
+      </div>
+    </div>
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+
+
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+<script src="../../js-scripts/overlord.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+<script src="../../js-scripts/subscriptions.js" crossorigin="anonymous" referrerpolicy="no-referrer" charset="utf-8" type="module"></script>
+
+
+
+  </body>
+</html>
