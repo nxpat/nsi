@@ -40,7 +40,7 @@ def supprimer_noeud_courant(self):
 
 ### Complexité et points d'attention
 
-*   **Complexité :** Comme la recherche et l'insertion, la suppression s'effectue en un temps proportionnel à la hauteur de l'arbre, soit **\\(O(h)\\)**. Si l'arbre est équilibré, la complexité est logarithmique, soit **\\(O(\log n)\\)**.
+*   **Complexité :** Comme la recherche et l'insertion, la suppression s'effectue en un temps proportionnel à la hauteur de l'arbre, soit **$O(h)$**. Si l'arbre est équilibré, la complexité est logarithmique, soit **$O(\log n)$**.
 
 *   **Éléments absents :** Si la clé à supprimer n'est pas trouvée après avoir parcouru une branche jusqu'à une feuille, l'algorithme ne fait rien.
 
